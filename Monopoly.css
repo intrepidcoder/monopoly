@@ -1,0 +1,795 @@
+body {
+	background: #FFFFFF;
+	margin: 0px;
+	min-width: 1075px;
+}
+
+td {
+	font-size: 12px;
+	font-family: arial, sans-serif;
+	border: 1px solid black;
+	text-align: center;
+}
+
+#setup {
+	display: none;
+	margin: 15px;
+}
+
+#moneybar {
+	float: right;
+	border: 0px solid black;
+	background-color: white;
+	margin: 15px;
+	border-radius: 5px;
+	display: none;
+	z-index: 14;
+	position: relative;
+	cursor: default;
+	-webkit-user-select: none;
+}
+
+#moneybar table {
+	font-weight: bold;
+	border-spacing: 1px;
+}
+
+#moneybarwrap {
+	position: absolute;
+	min-width: 135px;
+	top: 0px;
+	left: 970px;
+	right: 0px;
+	-webkit-user-select: none;
+}
+
+#propertystats {
+	margin-right: 110px;
+}
+
+#refresh {
+	display: none;
+	margin: 15px;
+}
+
+#noF5 {
+	display: none;
+}
+
+#board {
+	display: none;
+	border: 2px solid black;
+	border-spacing: 3px;
+	margin: 25px;
+	float: left;
+}
+
+#jail {
+	border: 1px solid black;
+	height: 65px;
+	width: 65px;
+	position: relative;
+	top: 73px;
+	left: -73px;
+	z-index: 2;
+}
+
+
+#control {
+	position: absolute;
+	z-index: 9;
+	top: 250px;
+	left: 250px;
+	border: 2px solid black;
+	padding: 10px;
+	display: none;
+	background-color: white;
+}
+
+#control td {
+	vertical-align: middle;
+}
+
+#quickstats {
+	font-size: 12px;
+	font-weight: bold;
+	font-family: arial, sans-serif;
+	border: 2px solid blue;
+	margin: 5px;
+	padding: 3px;
+	width: 80px;
+}
+
+#pname {
+	background-color: white;
+}
+
+#landed {
+	padding: 3px;
+	border: 1px solid gray;
+	border-top: none;
+	width: 302px;
+	margin: 0px;
+	text-align: center;
+}
+
+#alert {
+	width: 307px;
+	height: 92px;
+	margin: 0px;
+	padding-left: 1px;
+	border: 1px solid gray;
+	font-family: Consolas, Courier New, monospace;
+	font-size: 13px;
+	background-color: #FFFFFF;
+	overflow-y: scroll;
+}
+
+#manage {
+	width: 308px;
+	border: 1px solid gray;
+	display: none;
+}
+
+#option {
+	border-bottom: 1px solid gray;
+	background-color: white;
+	display: none;
+	background: white;
+	vertical-align: middle;
+	padding: 3px;
+	text-align: center;
+	min-height: 26px;
+}
+
+#buildings {
+	margin: auto;
+	height: 21px;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+#buildings .house {
+	width: 25px;
+	height: 19px;
+	vertical-align: top;
+	float: none;
+}
+
+#buildings .hotel {
+	width: 26px;
+	height: 19px;
+	vertical-align: top;
+	float: none;
+}
+
+#owned {
+	padding: 3px;
+	background-color: white;
+	text-align: center;
+	max-height: 390px;
+	overflow-y: auto;
+}
+
+#owned .propertycellname {
+	vertical-align: top;
+}
+
+#property {
+	margin-right: 1px;
+	background: white;
+}
+
+#trade {
+	border: 2px solid black;
+	display: none;
+	width: 630px;
+	margin: 15px auto;
+	background-color: white;
+	border-radius: 8px;
+	padding: 2px;
+	z-index: 14;
+}
+
+#trade td {
+	vertical-align: middle;
+}
+
+#trade-leftp-name {
+	font-size: 13px;
+	font-weight: bold;
+}
+
+#trade-leftp-name option {
+	font-size: 13px;
+	font-weight: normal;
+}
+
+#trade-rightp-name {
+	font-size: 13px;
+	font-weight: bold;
+}
+
+#trade-rightp-name option {
+	font-size: 13px;
+	font-weight: normal;
+}
+
+#trade-leftp-money {
+	width: 90%;
+}
+
+#trade-rightp-money {
+	width: 90%;
+}
+
+#deedcolor {
+	background: white;
+	width: 100%;
+	height: 48px;
+}
+
+#deedname {
+	margin-top: 10px;
+	font-weight: bold;
+	font-size: 20px;
+	background-color: white;
+}
+
+#menu {
+	width: 290px;
+	height: 32px;
+	margin: 0px 10px;
+}
+
+#menutable {
+	padding: none;
+	text-align: left;
+	font-family: arial, sans-serif;
+	color: white;
+	font-weight: bold;
+	font-size: 16px;
+	border: 1px solid blue;
+	border-radius: 5px 5px 0px 0px;
+	height: 30px;
+	width: 99%;
+	margin: 0px;
+	background-color: #305BC9;
+	background-image: -webkit-linear-gradient(bottom,#213EB2,#4787ED);
+	background-image: -moz-linear-gradient(bottom,#213EB2,#4787ED);
+}
+
+#menu a {
+	color: #FFFFFF;
+	text-decoration: none;
+	display: block;
+	height: 100%;
+	width: 100%;
+	padding-top: 8px;
+}
+
+#menuitem1 {
+	color: #FFFFFF;
+	margin-left: 2px;
+	border-left: none;
+}
+
+#menuitem3 {
+	color: #AAAAAA;
+	border-right: none;
+	margin-right: 2px;
+}
+
+#die1 {
+	margin: 3px;
+	float: left;
+}
+
+#die2 {
+	margin: 3px;
+	float: right;
+}
+
+#popup {
+	width: 300px;
+	min-width: 300px;
+	font-family: Arial, sans-serif;
+	font-size: 14px;
+	padding: 10px;
+	text-align: center;
+	word-wrap: break-word;
+	line-height: 1.5;
+	border: 2px solid black;
+	border-radius: 10px;
+	background-color: white;
+	display: block;
+	z-index: 13;
+	margin: auto;
+	-webkit-user-select: none;
+}
+
+#popupwrap {
+	position: absolute;
+	top: 255px;
+	left: 0px;
+	width: 100%;
+	display: none;
+	background-color: transparent;
+	z-index: 13;
+	-webkit-user-select: none;
+}
+
+#popuptext {
+	overflow-x: auto;
+}
+
+#popupclose {
+	display: block;
+	position: absolute;
+	top: -24px;
+	right: -25px;
+	width: 30px;
+	height: 30px;
+	border: none;
+	cursor: pointer;
+	overflow: visible;
+	z-index: 12;
+}
+
+#popupclose input {
+	margin: 0px;
+	background-color: red;
+	height: 18px;
+	width: 18px;
+	padding: 0px;
+}
+
+#popupbackground {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	background-color: #000000;
+	opacity: .5;
+	display: none;
+	z-index: 10;
+}
+
+#popupdrag {
+	width: 100%;
+	height: 16px;
+	position: absolute;
+	top: -16px;
+	cursor: move;
+}
+
+#viewstats {
+	margin: 0px 5px;
+	width: 77px;
+}
+
+#stats {
+	max-width: 906px;
+	min-width: 454px;
+	font-family: Arial, sans-serif;
+	font-size: 14px;
+	padding: 10px;
+	text-align: center;
+	word-wrap: break-word;
+	line-height: 1.5;
+	border: 2px solid black;
+	border-radius: 10px;
+	background-color: white;
+	display: block;
+	z-index: 17;
+	margin: auto;
+	position: relative;
+	top: 0px;
+	left: 0px;
+	-webkit-user-select: none;
+}
+
+#statswrap {
+	position: absolute;
+	top: 250px;
+	left: 0px;
+	width: 100%;
+	display: none;
+	background-color: transparent;
+	z-index: 16;
+	-webkit-user-select: none;
+}
+
+#statstext {
+	overflow: hidden;
+	min-height: 70px;
+}
+
+#statsclose {
+	display: block;
+	position: absolute;
+	top: -24px;
+	right: -25px;
+	width: 30px;
+	height: 30px;
+	border: none;
+	cursor: pointer;
+	overflow: visible;
+	z-index: 17;
+}
+
+#statsbackground {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	background-color: #000000;
+	opacity: .5;
+	display: none;
+	z-index: 16;
+}
+
+#statsdrag {
+	width: 100%;
+	height: 16px;
+	position: absolute;
+	top: -16px;
+	cursor: move;
+}
+
+#deed {
+	display: none;
+	position: fixed;
+	border: 2px solid black;
+	width: 235px;
+	height: 275px;
+	background-color: white;
+	z-index: 18;
+	-webkit-user-select: none;
+}
+
+#deed td{
+	border: none;
+}
+
+#deed-header {
+	width: 215px;
+	height: 48px;
+	border: 1px solid black;
+	margin: 9px;
+	background-color: yellow;
+	text-align: center;
+	text-transform: uppercase;
+	font-family: Calibri, Arial;
+}
+
+#deed-name {
+	font-size: 15px;
+	font-weight: bold;
+
+}
+
+#deed-table {
+	margin: 9px;
+	width: 217px;
+	border-spacing: 1px;
+}
+
+#deed-mortgaged {
+	font-family: Calibri, Arial;
+	font-size: 16px;
+	text-align: center;
+}
+
+#deed-mortgaged-name {
+	font-size: 18px;
+	font-weight: bold;
+	text-transform: uppercase;
+	margin: 30px 20px 20px;
+}
+
+#deed-special {
+	font-family: Calibri, Arial;
+	text-align: justify;
+}
+
+#deed-special-name {
+	text-align: center;
+	font-size: 18px;
+	font-weight: bold;
+	border-style: solid;
+	border-width: 2px 0px;
+	text-transform: uppercase;
+	margin: 50px 20px 20px;
+}
+
+#deed-special-text {
+	margin: 20px;
+	font-size: 15px;
+}
+
+#deed-special-footer {
+	margin: 0px 20px;
+	width: 195px;
+	position: absolute;
+	bottom: 20px;
+	font-size: 16px;
+}
+
+#enlarge-wrap {
+	width: 150px;
+	height: 200px;
+	border: none;
+	display: none;
+	position: fixed;
+	z-index: 15;
+}
+
+.menuitem_hover {
+	background-image: -webkit-linear-gradient(bottom,#000080,#4787ED);
+	background-image: -moz-linear-gradient(bottom,#000080,#4787ED);
+}
+
+.menuitem {
+	border-collapse: collapse;
+	text-align: center;
+	display: table-cell;
+	background-color: transparent;
+	border: none;
+	border-right: 2px solid white;
+	height: 30px;
+	min-width: 90px;
+	width: 90px;
+	max-width: 90px;
+	overflow: hidden;
+}
+
+.die {
+	padding: 5px 10px;
+	border: 2px solid black;
+	border-radius: 6px;
+	font-weight: bold;
+}
+
+.house {
+	width: 25px;
+	height: 19px;
+	vertical-align: middle;
+	float: right;
+}
+
+.hotel {
+	width: 26px;
+	height: 19px;
+	vertical-align: middle;
+	float: right;
+}
+
+.cell {
+	position: relative;
+	top: 0px;
+	left: 0px;
+	padding: 0px;
+	vertical-align: bottom;
+	background-repeat: no-repeat;
+	background-size: auto 40px;
+}
+
+.board-center {
+	width: 675px;
+	border: none;
+	vertical-align: bottom;
+	background-repeat: no-repeat;
+	background-size: auto 40px;
+}
+
+.board-corner {
+	width: 102px;
+	height: 102px;
+}
+
+.board-top {
+	width: 72px;
+	height: 102px;
+}
+
+.board-bottom {
+	width: 72px;
+	height: 102px;
+}
+
+.board-left {
+	width: 102px;
+	height: 72px;
+}
+
+.board-right {
+	width: 102px;
+	height: 72px;
+}
+
+.enlarge {
+	width: 150px;
+	height: 200px;
+	display: none;
+	background-color: white;
+	border: 2px solid black;
+	text-align: center;
+	font-size: 12px;
+	font-family: arial, sans-serif;
+	position: fixed;
+	z-index: 15;
+}
+
+.enlarge-color {
+	background: white;
+	width: 100%;
+	height: 40px;
+}
+
+.enlarge-name {
+	font-weight: bold;
+	font-size: 20px;
+	background-color: white;
+	height: 45px;
+}
+
+.enlarge-price {
+	background-color: white;
+	vertical-align: bottom;
+	height: 25px;
+}
+
+.enlarge-token {
+	height: 45px;
+	width: 150px;
+}
+
+.moneybarcell {
+	width: 83px;
+	min-width: 83px;
+}
+
+.moneybararrowcell {
+	background: white;
+	width: 30px;
+	border: none;
+	text-align: right;
+	padding: 0px;
+}
+
+.propertycellcheckbox {
+	width: 20px;
+	height: 20px;
+	border: none;
+}
+
+.propertycellcolor {
+	width: 20px;
+	height: 20px;
+	border: none;
+}
+
+.propertycellname {
+	height: 20px;
+	width: 250px;
+	border: none;
+	cursor: default;
+	text-align: left;
+}
+
+.propertycelldeed {
+	width: 18px;
+	height: 20px;
+	border: 1px solid grey;
+	cursor: pointer;
+	display: none;
+}
+
+.statscellcolor {
+	width: 18px;
+	height: 20px;
+	border: none;
+}
+
+.statscellname {
+	height: 20px;
+	border: none;
+	cursor: default;
+	text-align: left;
+	min-width: 172px;
+}
+
+.statsplayername {
+	font-weight: bold;
+	font-size: 24px;
+}
+
+.statscell {
+	border: 2px solid black;
+	padding: 8px;
+	vertical-align: top;
+	width: 200px;
+	min-width: 115px;
+}
+
+.trade-cell {
+	border: none;
+	border-radius: 3px;
+	width: 308px;
+	height: 26px;
+}
+
+.cell-anchor {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	bottom: 0px;
+	left: 0px;
+}
+
+.cell-name {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	text-align: center;
+	width: 100%;
+}
+
+.cell-position-holder {
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	position: relative;
+}
+
+.cell-position {
+	height: 12px;
+	width: 12px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
+.board-top .cell-owner {
+	width: 72px;
+	height: 15px;
+	background-image: url("Images/hori-bar.png");
+	background-size: cover;
+	position: absolute;
+	top: -25px;
+	left: 0px;
+}
+
+.board-bottom .cell-owner {
+	width: 72px;
+	height: 15px;
+	background-image: url("Images/hori-bar.png");
+	background-size: cover;
+	position: absolute;
+	bottom: -25px;
+	left: 0px;
+}
+
+.board-left .cell-owner {
+	width: 15px;
+	height: 68px;
+	background-image: url("Images/vert-bar.png");
+	background-size: cover;
+	position: absolute;
+	top: 0px;
+	left: -25px;
+}
+
+.board-right .cell-owner {
+	width: 15px;
+	height: 68px;
+	background-image: url("Images/vert-bar.png");
+	background-size: cover;
+	position: absolute;
+	top: 0px;
+	right: -25px;
+}
+

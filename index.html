@@ -1,0 +1,530 @@
+<html>
+<head>
+	<title>Monopoly</title>
+	<script type="text/javascript" src="Classic%20Edition.js"></script>
+	<!-- Comment out the previous line and uncomment the next one to enable the New York City Edition -->
+	<!-- <script type="text/javascript" src="New%20York%20City%20Edition.js"></script> -->
+	<script type="text/javascript" src="Monopoly.js"></script>
+	<link rel="stylesheet" type="text/css" href="Monopoly.css" />
+</head>
+
+<body>
+
+	<div id="popupbackground">
+	</div>
+
+	<div id="statsbackground" onclick="hide('statsbackground'); hide('statswrap');">
+	</div>
+
+	<div id="popupwrap">
+		<div id="popup">
+			<div style="position: relative;">
+				<img id="popupclose" src="Images/close.png" title="Close" alt="x" onclick="hide('popupbackground'); hide('popupwrap');" />
+				<div id="popuptext"></div>
+				<div id="popupdrag"></div>
+			</div>
+		</div>
+	</div>
+
+	<div id="statswrap">
+		<div id="stats">
+			<div style="position: relative;">
+				<img id="statsclose" src="Images/close.png" title="Close" alt="x" onclick="hide('statsbackground'); hide('statswrap');" />
+				<div id="statstext"></div>
+				<div id="statsdrag"></div>
+			</div>
+		</div>
+	</div>
+
+	<noscript>
+		Note: This page will not function without JavaScript.
+	</noscript>
+
+	<div id="refresh">
+		Refresh this page to start a new game.
+	</div>
+
+	<div id="enlarge">
+	</div>
+	
+	<div id="deed">
+		<div id="deed-normal" style="display: none;">
+			<div id="deed-header">
+				<div style="margin: 5px; font-size: 11px;">T I T L E&nbsp;&nbsp;D E E D</div>
+				<div id="deed-name"></div>
+			</div>
+			<table id="deed-table">
+				<tr>
+					<td cols="2" colspan="2">
+						RENT&nbsp;$<span id="deed-baserent">12</span>.
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: left;">With 1 House</td>
+					<td style="text-align: right;">$&nbsp;&nbsp;&nbsp;<span id="deed-rent1">60</span>.</td>
+				</tr>
+				<tr>
+					<td style="text-align: left;">With 2 Houses</td>
+					<td style="text-align: right;"><span id="deed-rent2">180</span>.</td>
+				</tr>
+				<tr>
+					<td style="text-align: left;">With 3 Houses</td>
+					<td style="text-align: right;"><span id="deed-rent3">500</span>.</td>
+				</tr>
+				<tr>
+					<td style="text-align: left;">With 4 Houses</td>
+					<td style="text-align: right;"><span id="deed-rent4">700</span>.</td>
+				</tr>
+				<tr>
+					<td cols="2" colspan="2">
+						<div style="margin-bottom: 8px;">With HOTEL $<span id="deed-rent5">900</span>.</div>
+						<div>Mortgage Value $<span id="deed-mortgage">80</span>.</div>
+						<div>Houses cost $<span id="deed-houseprice">100</span>. each</div>
+						<div>Hotels, $<span id="deed-hotelprice">100</span>. plus 4 houses</div>
+						<div style="font-size: 9px; font-style: italic; margin-top: 5px;">If a player owns ALL the Lots of any Color-Group, the rent is Doubled on Unimproved Lots in that group.</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		
+		<div id="deed-mortgaged">
+			<div id="deed-mortgaged-name"></div>
+			<p>&bull;</p>
+			<div>MORTGAGED</div>
+			<div> for $<span id="deed-mortgaged-mortgage">80</span></div>
+			<p>&bull;</p>
+			<div style="font-style: italic; font-size: 13px; margin: 10px;">Card must be turned this side up if property is mortgaged</div>
+		</div>
+		
+		<div id="deed-special">
+			<div id="deed-special-name"></div>
+			<div id="deed-special-text"></div>
+			<div id="deed-special-footer">
+				Mortgage Value
+				<span style="float: right;">$<span id="deed-special-mortgage">100</span>.</span>
+			</div>
+		</div>
+	</div>
+	
+	<table id="board">
+		<tr>
+			<td class="cell board-corner" id="cell20"></td>
+			<td class="cell board-top" id="cell21"></td>
+			<td class="cell board-top" id="cell22"></td>
+			<td class="cell board-top" id="cell23"></td>
+			<td class="cell board-top" id="cell24"></td>
+			<td class="cell board-top" id="cell25"></td>
+			<td class="cell board-top" id="cell26"></td>
+			<td class="cell board-top" id="cell27"></td>
+			<td class="cell board-top" id="cell28"></td>
+			<td class="cell board-top" id="cell29"></td>
+			<td class="cell board-corner" id="cell30"></td>
+		</tr><tr>
+			<td class="cell board-left" id="cell19"></td>
+			<td colspan="9" class="board-center"></td>
+			<td class="cell board-right" id="cell31"></td>
+		</tr><tr>
+			<td class="cell board-left" id="cell18"></td>
+			<td colspan="9" class="board-center"></td>
+			<td class="cell board-right" id="cell32"></td>
+		</tr><tr>
+			<td class="cell board-left" id="cell17"></td>
+			<td colspan="9" class="board-center"></td>
+			<td class="cell board-right" id="cell33"></td>
+		</tr><tr>
+			<td class="cell board-left" id="cell16"></td>
+			<td colspan="9" class="board-center"></td>
+			<td class="cell board-right" id="cell34"></td>
+		</tr><tr>
+			<td class="cell board-left" id="cell15"></td>
+			<td colspan="9" class="board-center"></td>
+			<td class="cell board-right" id="cell35"></td>
+		</tr><tr>
+			<td class="cell board-left" id="cell14"></td>
+			<td colspan="9" class="board-center"></td>
+			<td class="cell board-right" id="cell36"></td>
+		</tr><tr>
+			<td class="cell board-left" id="cell13"></td>
+			<td colspan="9" class="board-center"></td>
+			<td class="cell board-right" id="cell37"></td>
+		</tr><tr>
+			<td class="cell board-left" id="cell12"></td>
+			<td colspan="9" class="board-center"></td>
+			<td class="cell board-right" id="cell38"></td>
+		</tr><tr>
+			<td class="cell board-left" id="cell11"></td>
+			<td colspan="9" class="board-center">
+				<div id="jail" onmouseover="show('enlarge-wrap'); show('enlarge40');" onmouseout="hide('enlarge-wrap'); hide('enlarge40');"></div>
+			</td>
+			<td class="cell board-right" id="cell39"></td>
+		</tr><tr>
+			<td class="cell board-corner" id="cell10"></td>
+			<td class="cell board-bottom" id="cell9"></td>
+			<td class="cell board-bottom" id="cell8"></td>
+			<td class="cell board-bottom" id="cell7"></td>
+			<td class="cell board-bottom" id="cell6"></td>
+			<td class="cell board-bottom" id="cell5"></td>
+			<td class="cell board-bottom" id="cell4"></td>
+			<td class="cell board-bottom" id="cell3"></td>
+			<td class="cell board-bottom" id="cell2"></td>
+			<td class="cell board-bottom" id="cell1"></td>
+			<td class="cell board-corner" id="cell0"></td>
+		</tr>
+	</table>
+
+	<div id="moneybarwrap">
+		<div id="moneybar">
+			<table>
+				<tr id="moneybarrow1">
+					<td class="moneybararrowcell"><img src="Images/arrow.png" id="p1arrow" width="30" height="30" /></td>
+					<td id="p1moneybar" class="moneybarcell">
+						<div><span id="p1moneyname" >Player 1</span>:</div>
+						<div>$<span id="p1money">1500</span></div>
+					</td>
+				</tr>
+				<tr id="moneybarrow2">
+					<td class="moneybararrowcell"><img src="Images/arrow.png" id="p2arrow" width="30" height="30" /></td>
+					<td id="p2moneybar" class="moneybarcell">
+						<div><span id="p2moneyname" >Player 2</span>:</div>
+						<div>$<span id="p2money">1500</span></div>
+					</td>
+				</tr>
+				<tr id="moneybarrow3">
+					<td class="moneybararrowcell"><img src="Images/arrow.png" id="p3arrow" width="30" height="30" /></td>
+					<td id="p3moneybar" class="moneybarcell">
+						<div><span id="p3moneyname" >Player 3</span>:</div>
+						<div>$<span id="p3money">1500</span></div>
+					</td>
+				</tr>
+				<tr id="moneybarrow4">
+					<td class="moneybararrowcell"><img src="Images/arrow.png" id="p4arrow" width="30" height="30" /></td>
+					<td id="p4moneybar" class="moneybarcell">
+						<div><span id="p4moneyname" >Player 4</span>:</div>
+						<div>$<span id="p4money">1500</span></div>
+					</td>
+				</tr>
+				<tr id="moneybarrow5">
+					<td class="moneybararrowcell"><img src="Images/arrow.png" id="p5arrow" width="30" height="30" /></td>
+					<td id="p5moneybar" class="moneybarcell">
+						<div><span id="p5moneyname" >Player 5</span>:</div>
+						<div>$<span id="p5money">1500</span></div>
+					</td>
+				</tr>
+				<tr id="moneybarrow6">
+					<td class="moneybararrowcell"><img src="Images/arrow.png" id="p6arrow" width="30" height="30" /></td>
+					<td id="p6moneybar" class="moneybarcell">
+						<div><span id="p6moneyname" >Player 6</span>:</div>
+						<div>$<span id="p6money">1500</span></div>
+					</td>
+				</tr>
+				<tr id="moneybarrow7">
+					<td class="moneybararrowcell"><img src="Images/arrow.png" id="p7arrow" width="30" height="30" /></td>
+					<td id="p7moneybar" class="moneybarcell">
+						<div><span id="p7moneyname" >Player 7</span>:</div>
+						<div>$<span id="p7money">1500</span></div>
+					</td>
+				</tr>
+				<tr id="moneybarrow8">
+					<td class="moneybararrowcell"><img src="Images/arrow.png" id="p8arrow" width="30" height="30" /></td>
+					<td id="p8moneybar" class="moneybarcell">
+						<div><span id="p8moneyname" >Player 8</span>:</div>
+						<div>$<span id="p8money">1500</span></div>
+					</td>
+				</tr>
+				<tr id="moneybarrow9">
+					<td style="border: none;" class="moneybararrowcell">&nbsp;</td>
+					<td style="border: none;">
+						<input type="button" id="viewstats" value="View stats" onclick="showstats();"/>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<div id="setup">
+		<div style="margin-bottom: 20px;">
+			Enter number of players.
+			<select id="playernumber">
+				<option>2</option>
+				<option>3</option>
+				<option selected="selected">4</option>
+				<option>5</option>
+				<option>6</option>
+				<option>7</option>
+				<option>8</option>
+			</select>
+		</div>
+
+		<div id="player1input">
+			Player 1: <input type="text" id="player1name" title="Player name" maxlength="16" value="Player 1" />
+			<select id="player1color" title="Player color">
+				<option style="color: aqua;">Aqua</option>
+				<option style="color: black;">Black</option>
+				<option style="color: blue;">Blue</option>
+				<option style="color: fuchsia;">Fuchsia</option>
+				<option style="color: gray;">Gray</option>
+				<option style="color: green;">Green</option>
+				<option style="color: lime;">Lime</option>
+				<option style="color: maroon;">Maroon</option>
+				<option style="color: navy;">Navy</option>
+				<option style="color: olive;">Olive</option>
+				<option style="color: orange;">Orange</option>
+				<option style="color: purple;">Purple</option>
+				<option style="color: red;">Red</option>
+				<option style="color: silver;">Silver</option>
+				<option style="color: teal;">Teal</option>
+				<option selected="selected" style="color: yellow;">Yellow</option>
+       
+			</select>
+		</div>
+
+		<div id="player2input">
+			Player 2: <input type="text" id="player2name" title="Player name" maxlength="16" value="Player 2" />
+			<select id="player2color" title="Player color">
+				<option style="color: aqua;">Aqua</option>
+				<option style="color: black;">Black</option>
+				<option selected="selected" style="color: blue;">Blue</option>
+				<option style="color: fuchsia;">Fuchsia</option>
+				<option style="color: gray;">Gray</option>
+				<option style="color: green;">Green</option>
+				<option style="color: lime;">Lime</option>
+				<option style="color: maroon;">Maroon</option>
+				<option style="color: navy;">Navy</option>
+				<option style="color: olive;">Olive</option>
+				<option style="color: orange;">Orange</option>
+				<option style="color: purple;">Purple</option>
+				<option style="color: red;">Red</option>
+				<option style="color: silver;">Silver</option>
+				<option style="color: teal;">Teal</option>
+				<option style="color: yellow;">Yellow</option>
+			</select>
+		</div>
+
+		<div id="player3input">
+			Player 3: <input type="text" id="player3name" title="Player name" maxlength="16" value="Player 3" />
+			<select id="player3color" title="Player color">
+				<option style="color: aqua;">Aqua</option>
+				<option style="color: black;">Black</option>
+				<option style="color: blue;">Blue</option>
+				<option style="color: fuchsia;">Fuchsia</option>
+				<option style="color: gray;">Gray</option>
+				<option style="color: green;">Green</option>
+				<option style="color: lime;">Lime</option>
+				<option style="color: maroon;">Maroon</option>
+				<option style="color: navy;">Navy</option>
+				<option style="color: olive;">Olive</option>
+				<option style="color: orange;">Orange</option>
+				<option style="color: purple;">Purple</option>
+				<option selected="selected" style="color: red;">Red</option>
+				<option style="color: silver;">Silver</option>
+				<option style="color: teal;">Teal</option>
+				<option style="color: yellow;">Yellow</option>
+			</select>
+		</div>
+
+		<div id="player4input">
+			Player 4: <input type="text" id="player4name" title="Player name" maxlength="16" value="Player 4" />
+			<select id="player4color" title="Player color">
+				<option style="color: aqua;">Aqua</option>
+				<option style="color: black;">Black</option>
+				<option style="color: blue;">Blue</option>
+				<option style="color: fuchsia;">Fuchsia</option>
+				<option style="color: gray;">Gray</option>
+				<option style="color: green;">Green</option>
+				<option selected="selected" style="color: lime;">Lime</option>
+				<option style="color: maroon;">Maroon</option>
+				<option style="color: navy;">Navy</option>
+				<option style="color: olive;">Olive</option>
+				<option style="color: orange;">Orange</option>
+				<option style="color: purple;">Purple</option>
+				<option style="color: red;">Red</option>
+				<option style="color: silver;">Silver</option>
+				<option style="color: teal;">Teal</option>
+				<option style="color: yellow;">Yellow</option>
+			</select>
+		</div>
+
+		<div id="player5input">
+			Player 5: <input type="text" id="player5name" title="Player name" maxlength="16" value="Player 5" />
+			<select id="player5color" title="Player color">
+				<option style="color: aqua;">Aqua</option>
+				<option style="color: black;">Black</option>
+				<option style="color: blue;">Blue</option>
+				<option style="color: fuchsia;">Fuchsia</option>
+				<option style="color: gray;">Gray</option>
+				<option selected="selected" style="color: green;">Green</option>
+				<option style="color: lime;">Lime</option>
+				<option style="color: maroon;">Maroon</option>
+				<option style="color: navy;">Navy</option>
+				<option style="color: olive;">Olive</option>
+				<option style="color: orange;">Orange</option>
+				<option style="color: purple;">Purple</option>
+				<option style="color: red;">Red</option>
+				<option style="color: silver;">Silver</option>
+				<option style="color: teal;">Teal</option>
+				<option style="color: yellow;">Yellow</option>
+			</select>
+		</div>
+
+		<div id="player6input">
+			Player 6: <input type="text" id="player6name" title="Player name" maxlength="16" value="Player 6" />
+			<select id="player6color" title="Player color">
+				<option selected="selected" style="color: aqua;">Aqua</option>
+				<option style="color: black;">Black</option>
+				<option style="color: blue;">Blue</option>
+				<option style="color: fuchsia;">Fuchsia</option>
+				<option style="color: gray;">Gray</option>
+				<option style="color: green;">Green</option>
+				<option style="color: lime;">Lime</option>
+				<option style="color: maroon;">Maroon</option>
+				<option style="color: navy;">Navy</option>
+				<option style="color: olive;">Olive</option>
+				<option style="color: orange;">Orange</option>
+				<option style="color: purple;">Purple</option>
+				<option style="color: red;">Red</option>
+				<option style="color: silver;">Silver</option>
+				<option style="color: teal;">Teal</option>
+				<option style="color: yellow;">Yellow</option>
+			</select>
+		</div>
+
+		<div id="player7input">
+			Player 7: <input type="text" id="player7name" title="Player name" maxlength="16" value="Player 7" />
+			<select id="player7color" title="Player color">
+				<option style="color: aqua;">Aqua</option>
+				<option style="color: black;">Black</option>
+				<option style="color: blue;">Blue</option>
+				<option style="color: fuchsia;">Fuchsia</option>
+				<option style="color: gray;">Gray</option>
+				<option style="color: green;">Green</option>
+				<option style="color: lime;">Lime</option>
+				<option style="color: maroon;">Maroon</option>
+				<option style="color: navy;">Navy</option>
+				<option style="color: olive;">Olive</option>
+				<option selected="selected" style="color: orange;">Orange</option>
+				<option style="color: purple;">Purple</option>
+				<option style="color: red;">Red</option>
+				<option style="color: silver;">Silver</option>
+				<option style="color: teal;">Teal</option>
+				<option style="color: yellow;">Yellow</option>
+			</select>
+		</div>
+
+		<div id="player8input">
+			Player 8: <input type="text" id="player8name" title="Player name" maxlength="16" value="Player 8" />
+			<select id="player8color" title="Player color">
+				<option style="color: aqua;">Aqua</option>
+				<option style="color: black;">Black</option>
+				<option style="color: blue;">Blue</option>
+				<option style="color: fuchsia;">Fuchsia</option>
+				<option style="color: gray;">Gray</option>
+				<option style="color: green;">Green</option>
+				<option style="color: lime;">Lime</option>
+				<option style="color: maroon;">Maroon</option>
+				<option style="color: navy;">Navy</option>
+				<option style="color: olive;">Olive</option>
+				<option style="color: orange;">Orange</option>
+				<option selected="selected" style="color: purple;">Purple</option>
+				<option style="color: red;">Red</option>
+				<option style="color: silver;">Silver</option>
+				<option style="color: teal;">Teal</option>
+				<option style="color: yellow;">Yellow</option>
+			</select>
+		</div>
+
+		<div style="margin: 20px 0px;">
+			<input type="button" value="Start Game" onclick="setup();" />
+		</div>
+
+		<div id="noF5">Note: Refreshing this page or navigating away from it may end your game without warning.</div>
+	</div>
+
+	<div id="control">
+		<table>
+			<tr>
+				<td style="text-align: left; vertical-align: top; border: none;">
+					<div id="menu">
+						<table id="menutable" cellspacing="0">
+							<td class="menuitem" id="menuitem1" onmouseover="menuitem_onmouseover(this);" onmouseout="menuitem_onmouseout(this);">
+								<a href="javascript:void(0);" title="View alerts and buy the property you landed on." onclick="show('buy'); hide('manage');">Buy</a>
+							</td>
+							<td class="menuitem" id="menuitem2" onmouseover="menuitem_onmouseover(this);" onmouseout="menuitem_onmouseout(this);">
+								<a href="javascript:void(0);" title="View, mortgage, and improve your property. " onclick="hide('buy'); show('manage');">Manage</a>
+							</td>
+							<td class="menuitem" id="menuitem3" onmouseover="menuitem_onmouseover(this);" onmouseout="menuitem_onmouseout(this);">
+								<a href="javascript:void(0);" title="Exchange property with other players." onclick="trade();">Trade</a>
+							</td>
+						</table>
+					</div>
+
+					<div id="buy">
+						<div id="alert"></div>
+						<div id="landed"></div>
+					</div>
+
+					<div id="manage">
+						<div id="option">
+							<div id="buildings" title="Available buildings"></div>
+							<input type="button" value="Buy house" id="buyhousebutton" onclick="buyhouse();" />
+							<input type="button" value="Mortgage" id="mortgagebutton" onclick="if (!square[getcheckedproperty()].mortgage) {mortgage();} else unmortgage();" />
+							<input type="button" value="Sell house" id="sellhousebutton" onclick="sellhouse();" />
+						</div>
+						<div id="owned"></div>
+					</div>
+				</td>
+				<td style="vertical-align: top; border: none;">
+					<div id="quickstats" style="">
+							<div><span id="pname" >Player 1</span>:</div>
+							<div><span id="pmoney">$1500</span></div>
+					</div>
+					<div style="width: 74px; height: 33px;">
+						<div id="die1" title="Die" class="die">&nbsp;&nbsp;</div>
+						<div id="die2" title="Die" class="die">&nbsp;&nbsp;</div>
+					</div>
+
+				</td>
+			</tr><tr>
+				<td cols="2" colspan="2" style="border: none">
+					<div style="padding-top: 8px;">
+						<input type="button" id="nextbutton" title="End turn and advance to the next player." value="End turn"/>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	<div id="trade">
+		<table style="border-spacing: 3px;">
+			<tr>
+				<td class="trade-cell">
+					<select id="trade-leftp-name" onchange="tradepname_onchange(this);" title="Select a player to trade with.">
+					</select>
+				</td>
+				<td class="trade-cell">
+					<select id="trade-rightp-name" onchange="tradepname_onchange(this);" title="Select a player to trade with.">
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td class="trade-cell">
+					$&nbsp;<input id="trade-leftp-money" value="0" onfocus="bid_onfocus(this);" onkeydown="return bid_onkeydown(this);" onchange="tradepmoney_onchange(this);" title="Enter amount to exchange with the other player." />
+				</td>
+				<td class="trade-cell">
+					$&nbsp;<input id="trade-rightp-money" value="0" onfocus="bid_onfocus(this);" onkeydown="return bid_onkeydown(this);" onchange="tradepmoney_onchange(this);" title="Enter amount to exchange with the other player." />
+				</td>
+			</tr>
+			<tr>
+				<td id="trade-leftp-property" class="trade-cell"></td>
+				<td id="trade-rightp-property" class="trade-cell"></td>
+			</tr>
+			<tr>
+				<td cols="2" colspan="2" class="trade-cell">
+					<input type="button" value="Propose Trade" onclick="finishtrade();" title="Exchange the money and properties that are checked above." />
+					<input type="button" value="Cancel Trade" onclick='show("board"); show("control"); hide("trade");' title="Cancel the trade." />
+				</td>
+			</tr>
+		</table>
+	</div>
+
+</body>
+</html>
