@@ -1,10 +1,13 @@
+Todo:
+- Issue: after AI lands on property, doesn't buy, property goes to auction, human wins bid, human won property alert shows in AI's alert text popup next turn.
 - Play vs computer.
-- Fix/improve bankruptcy unmortgages. Only use one popup. Don't offer unmortgage option if only one player is remaining.
-- Improve buying houses.
+- Improve buying houses. (Buy/sell as many houses as desired, then confirm all at once).
 - Be able to save a game. (???)
 
 
 Completed:
+x Add group neighbor property to square object.
+x Fix/improve bankruptcy unmortgages. Only use one popup. Don't offer unmortgage option if only one player is remaining.
 x Make square array (and cell and enlarge ids) zero based!
 x Get Out of Jail free card creates bug causing Chance to fail.
 x Show owner of properties around the board.

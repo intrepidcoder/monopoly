@@ -27,6 +27,7 @@ td {
 	position: relative;
 	cursor: default;
 	-webkit-user-select: none;
+	user-select: none;
 }
 
 #moneybar table {
@@ -41,6 +42,7 @@ td {
 	left: 970px;
 	right: 0px;
 	-webkit-user-select: none;
+	user-select: none;
 }
 
 #propertystats {
@@ -109,6 +111,7 @@ td {
 	border: 1px solid gray;
 	border-top: none;
 	width: 302px;
+
 	margin: 0px;
 	text-align: center;
 }
@@ -164,7 +167,7 @@ td {
 }
 
 #owned {
-	padding: 3px;
+	padding: 3px 0px;
 	background-color: white;
 	text-align: center;
 	max-height: 390px;
@@ -189,10 +192,6 @@ td {
 	border-radius: 8px;
 	padding: 2px;
 	z-index: 14;
-}
-
-#trade td {
-	vertical-align: middle;
 }
 
 #trade-leftp-name {
@@ -243,7 +242,7 @@ td {
 }
 
 #menutable {
-	padding: none;
+	padding: 0px;
 	text-align: left;
 	font-family: arial, sans-serif;
 	color: white;
@@ -306,6 +305,7 @@ td {
 	z-index: 13;
 	margin: auto;
 	-webkit-user-select: none;
+	user-select: none;
 }
 
 #popupwrap {
@@ -317,6 +317,7 @@ td {
 	background-color: transparent;
 	z-index: 13;
 	-webkit-user-select: none;
+	user-select: none;
 }
 
 #popuptext {
@@ -370,7 +371,7 @@ td {
 }
 
 #stats {
-	max-width: 906px;
+	max-width: 914px;
 	min-width: 454px;
 	font-family: Arial, sans-serif;
 	font-size: 14px;
@@ -388,6 +389,7 @@ td {
 	top: 0px;
 	left: 0px;
 	-webkit-user-select: none;
+	user-select: none;
 }
 
 #statswrap {
@@ -397,8 +399,8 @@ td {
 	width: 100%;
 	display: none;
 	background-color: transparent;
-	z-index: 16;
 	-webkit-user-select: none;
+	user-select: none;
 }
 
 #statstext {
@@ -416,6 +418,7 @@ td {
 	border: none;
 	cursor: pointer;
 	overflow: visible;
+
 	z-index: 17;
 }
 
@@ -448,6 +451,7 @@ td {
 	background-color: white;
 	z-index: 18;
 	-webkit-user-select: none;
+	user-select: none;
 }
 
 #deed td{
@@ -481,6 +485,7 @@ td {
 	font-family: Calibri, Arial;
 	font-size: 16px;
 	text-align: center;
+
 }
 
 #deed-mortgaged-name {
@@ -664,12 +669,16 @@ td {
 	width: 20px;
 	height: 20px;
 	border: none;
+	vertical-align: middle;
 }
 
 .propertycellcolor {
+	padding: 0px;
 	width: 20px;
 	height: 20px;
-	border: none;
+	border-width: 1px;
+	border-style: solid;
+	border-color: white;
 }
 
 .propertycellname {
@@ -678,6 +687,7 @@ td {
 	border: none;
 	cursor: default;
 	text-align: left;
+	vertical-align: middle;
 }
 
 .propertycelldeed {
@@ -689,7 +699,8 @@ td {
 }
 
 .statscellcolor {
-	width: 18px;
+	padding: 0px;
+	width: 22px;
 	height: 20px;
 	border: none;
 }
@@ -711,7 +722,7 @@ td {
 	border: 2px solid black;
 	padding: 8px;
 	vertical-align: top;
-	width: 200px;
+	width: 202px;
 	min-width: 115px;
 }
 
@@ -720,6 +731,7 @@ td {
 	border-radius: 3px;
 	width: 308px;
 	height: 26px;
+	vertical-align: middle;
 }
 
 .cell-anchor {

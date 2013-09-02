@@ -1,4 +1,4 @@
-function Square(name, pricetext, color, price, group, baserent, rent1, rent2, rent3, rent4, rent5) {
+function Square(name, pricetext, color, price, groupNumber, baserent, rent1, rent2, rent3, rent4, rent5) {
 	this.name = name;
 	this.pricetext = pricetext;
 	this.color = color;
@@ -6,7 +6,7 @@ function Square(name, pricetext, color, price, group, baserent, rent1, rent2, re
 	this.mortgage = false;
 	this.house = 0;
 	this.hotel = 0;
-	this.group = (group || 0);
+	this.groupNumber = groupNumber || 0;
 	this.price = (price || 0);
 	this.baserent = (baserent || 0);
 	this.rent1 = (rent1 || 0);
@@ -16,13 +16,13 @@ function Square(name, pricetext, color, price, group, baserent, rent1, rent2, re
 	this.rent5 = (rent5 || 0);
 	this.landcount = 0;
 	
-	if (group == 3 || group == 4) {
+	if (groupNumber === 3 || groupNumber === 4) {
 		this.houseprice = 50;
-	} else if (group == 5 || group == 6) {
+	} else if (groupNumber === 5 || groupNumber === 6) {
 		this.houseprice = 100;
-	} else if (group == 7 || group == 8) {
+	} else if (groupNumber === 7 || groupNumber === 8) {
 		this.houseprice = 150;
-	} else if (group == 9 || group == 10) {
+	} else if (groupNumber === 9 || groupNumber === 10) {
 		this.houseprice = 200;
 	} else {
 		this.houseprice = 0;
@@ -38,7 +38,7 @@ function corrections() {
 	document.getElementById("cell1name").textContent = "Mediter-ranean Avenue";
 	
 	// Add images to enlarges.
-	document.getElementById("enlarge5token").innerHTML += '<img src="Images/train_icon.png" height="60" width="65" alt="" style="position: relative; top: -20px;" />'
+	document.getElementById("enlarge5token").innerHTML += '<img src="Images/train_icon.png" height="60" width="65" alt="" style="position: relative; bottom: 20px;" />'
 	document.getElementById("enlarge15token").innerHTML += '<img src="Images/train_icon.png" height="60" width="65" alt="" style="position: relative; top: -20px;" />'
 	document.getElementById("enlarge25token").innerHTML += '<img src="Images/train_icon.png" height="60" width="65" alt="" style="position: relative; top: -20px;" />'
 	document.getElementById("enlarge35token").innerHTML += '<img src="Images/train_icon.png" height="60" width="65" alt="" style="position: relative; top: -20px;" />'
@@ -116,7 +116,7 @@ square[39] = new Square("Boardwalk", "$400", "#0000FF", 400, 10, 50, 200, 600, 1
 var communityChestCards = [];
 var chanceCards = [];
 
-communityChestCards[0] = new Card("Get out of Jail, Free. This card may be kept until needed or sold.", function() { p.communityChestJailCard = true; updateowned();});
+communityChestCards[0] = new Card("Get out of Jail, Free. This card may be kept until needed or sold.", function() { p.communityChestJailCard = true; updateOwned();});
 communityChestCards[1] = new Card("You have won second prize in a beauty contest. Collect $10.", function() { addamount(10, 'Community Chest');});
 communityChestCards[2] = new Card("From sale of stock, you get $50.", function() { addamount(50, 'Community Chest');});
 communityChestCards[3] = new Card("Life insurance matures. Collect $100.", function() { addamount(100, 'Community Chest');});
@@ -133,22 +133,8 @@ communityChestCards[13] = new Card("Advance to \"GO\" (Collect $200).", function
 communityChestCards[14] = new Card("You are assessed for street repairs. $40 per house. $115 per hotel.", function() { streetrepairs(40, 115);});
 communityChestCards[15] = new Card("Go to Jail. Go directly to Jail. Do not pass \"GO\". Do not collect $200.", function() { gotojail();});
 
-// x Bank pays you dividend of $50.
-// x ADVANCE TO THE NEAREST RAILROAD. If UNOWNED, you may buy it from the Bank. If OWNED, pay owner twice the rental to which they are otherwise entitled.
-// x ADVANCE TO THE NEAREST RAILROAD. If UNOWNED, you may buy it from the Bank. If OWNED, pay owner twice the rental to which they are otherwise entitled.
-// x ADVANCE TO BOARDWALK.
-// x ADVANCE TO ST. CHARLES PLACE. IF YOU PASS "GO" COLLECT $200.
-// x Make General Repairs on All Your Property. For each house pay $25. For each hotel $100.
-// x Speeding fine $15.
-// x Take a trip to Reading Rail Road. If you pass "GO" collect $200.
-// x ADVANCE TO THE NEAREST Utility. IF UNOWNED, you may buy it from the Bank. IF OWNED, throw dice and pay owner a total ten times the amount thrown.
-// x Go back three spaces.
-// x Your building loan matures. Collect $150.
-// x Advance to Illinois Avenue. If you pass GO collect $200.
-// x GET OUT OF JAIL FREE. This card may be kept until needed or traded.
-// x Go to Jail. Go Directly to Jail. Do not pass "GO". Do not collect $200.
 
-chanceCards[0] = new Card("GET OUT OF JAIL FREE. This card may be kept until needed or traded.", function() { p.chanceJailCard=true; updateowned();});
+chanceCards[0] = new Card("GET OUT OF JAIL FREE. This card may be kept until needed or traded.", function() { p.chanceJailCard=true; updateOwned();});
 chanceCards[1] = new Card("Make General Repairs on All Your Property. For each house pay $25. For each hotel $100.", function() { streetrepairs(25, 100);});
 chanceCards[2] = new Card("Speeding fine $15.", function() { subtractamount(15, 'Chance');});
 chanceCards[3] = new Card("You have been elected chairman of the board. Pay each player $50.", function() { payeachplayer(50, 'Chance');});

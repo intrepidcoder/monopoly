@@ -1,4 +1,4 @@
-function Square(name, pricetext, color, price, group, baserent, rent1, rent2, rent3, rent4, rent5) {
+function Square(name, pricetext, color, price, groupNumber, baserent, rent1, rent2, rent3, rent4, rent5) {
 	this.name = name;
 	this.pricetext = pricetext;
 	this.color = color;
@@ -6,7 +6,7 @@ function Square(name, pricetext, color, price, group, baserent, rent1, rent2, re
 	this.mortgage = false;
 	this.house = 0;
 	this.hotel = 0;
-	this.group = (group || 0);
+	this.groupNumber = groupNumber || 0;
 	this.price = (price || 0);
 	this.baserent = (baserent || 0);
 	this.rent1 = (rent1 || 0);
@@ -16,13 +16,13 @@ function Square(name, pricetext, color, price, group, baserent, rent1, rent2, re
 	this.rent5 = (rent5 || 0);
 	this.landcount = 0;
 	
-	if (group == 3 || group == 4) {
+	if (groupNumber === 3 || groupNumber === 4) {
 		this.houseprice = 50;
-	} else if (group == 5 || group == 6) {
+	} else if (groupNumber === 5 || groupNumber === 6) {
 		this.houseprice = 100;
-	} else if (group == 7 || group == 8) {
+	} else if (groupNumber === 7 || groupNumber === 8) {
 		this.houseprice = 150;
-	} else if (group == 9 || group == 10) {
+	} else if (groupNumber === 9 || groupNumber === 10) {
 		this.houseprice = 200;
 	} else {
 		this.houseprice = 0;
@@ -115,7 +115,7 @@ square[39] = new Square("TRUMP TOWER", "$400", "blue", 400, 10, 50, 200, 600, 14
 var communityChestCards = [];
 var chanceCards = [];
 
-communityChestCards[0] = new Card("Get out of Jail, Free. This card may be kept until needed or sold.", function() { p.communityChestJailCard = true; updateowned();});
+communityChestCards[0] = new Card("Get out of Jail, Free. This card may be kept until needed or sold.", function() { p.communityChestJailCard = true; updateOwned();});
 communityChestCards[1] = new Card("You have won lifetime home delivery of the New York Times. Collect $10", function() { addamount(10, 'Community Chest');});
 communityChestCards[2] = new Card("From sale of Macy's stock, you get $45", function() { addamount(45, 'Community Chest');});
 communityChestCards[3] = new Card("Life insurance matures. Collect $100", function() { addamount(100, 'Community Chest');});
@@ -133,7 +133,7 @@ communityChestCards[14] = new Card("You are assessed for street repairs. $40 per
 communityChestCards[15] = new Card("Go to Jail. Go directly to Jail. Do not pass GO. Do not collect $200.", function() { gotojail();});
 
 
-chanceCards[0] = new Card("Get out of Jail free. This card may be kept until needed or sold.", function() { p.chanceJailCard=true; updateowned();});
+chanceCards[0] = new Card("Get out of Jail free. This card may be kept until needed or sold.", function() { p.chanceJailCard=true; updateOwned();});
 chanceCards[1] = new Card("Make general repairs on all your property. For each house pay $25. For each hotel $100.", function() { streetrepairs(25, 100);});
 chanceCards[2] = new Card("Pay poor tax of $15.", function() { subtractamount(15, 'Chance');});
 chanceCards[3] = new Card("You have been elected chairman of Con Edison. Pay each player $50.", function() { payeachplayer(50, 'Chance');});

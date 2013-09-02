@@ -1,6 +1,9 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>Monopoly</title>
+	<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+	
 	<script type="text/javascript" src="Classic%20Edition.js"></script>
 	<!-- Comment out the previous line and uncomment the next one to enable the New York City Edition -->
 	<!-- <script type="text/javascript" src="New%20York%20City%20Edition.js"></script> -->
@@ -9,13 +12,7 @@
 </head>
 
 <body>
-
-	<div id="popupbackground">
-	</div>
-
-	<div id="statsbackground" onclick="hide('statsbackground'); hide('statswrap');">
-	</div>
-
+	<div id="popupbackground"></div>
 	<div id="popupwrap">
 		<div id="popup">
 			<div style="position: relative;">
@@ -26,6 +23,7 @@
 		</div>
 	</div>
 
+	<div id="statsbackground" onclick="hide('statsbackground'); hide('statswrap');"></div>
 	<div id="statswrap">
 		<div id="stats">
 			<div style="position: relative;">
@@ -55,7 +53,7 @@
 			</div>
 			<table id="deed-table">
 				<tr>
-					<td cols="2" colspan="2">
+					<td colspan="2">
 						RENT&nbsp;$<span id="deed-baserent">12</span>.
 					</td>
 				</tr>
@@ -76,7 +74,7 @@
 					<td style="text-align: right;"><span id="deed-rent4">700</span>.</td>
 				</tr>
 				<tr>
-					<td cols="2" colspan="2">
+					<td colspan="2">
 						<div style="margin-bottom: 8px;">With HOTEL $<span id="deed-rent5">900</span>.</div>
 						<div>Mortgage Value $<span id="deed-mortgage">80</span>.</div>
 						<div>Houses cost $<span id="deed-houseprice">100</span>. each</div>
@@ -104,9 +102,7 @@
 				<span style="float: right;">$<span id="deed-special-mortgage">100</span>.</span>
 			</div>
 		</div>
-	</div>
-	
-	<table id="board">
+	</div><table id="board">
 		<tr>
 			<td class="cell board-corner" id="cell20"></td>
 			<td class="cell board-top" id="cell21"></td>
@@ -176,56 +172,56 @@
 		<div id="moneybar">
 			<table>
 				<tr id="moneybarrow1">
-					<td class="moneybararrowcell"><img src="Images/arrow.png" id="p1arrow" width="30" height="30" /></td>
+					<td class="moneybararrowcell"><img src="Images/arrow.png" id="p1arrow" width="30" height="30" alt=">"/></td>
 					<td id="p1moneybar" class="moneybarcell">
 						<div><span id="p1moneyname" >Player 1</span>:</div>
 						<div>$<span id="p1money">1500</span></div>
 					</td>
 				</tr>
 				<tr id="moneybarrow2">
-					<td class="moneybararrowcell"><img src="Images/arrow.png" id="p2arrow" width="30" height="30" /></td>
+					<td class="moneybararrowcell"><img src="Images/arrow.png" id="p2arrow" width="30" height="30" alt=">" /></td>
 					<td id="p2moneybar" class="moneybarcell">
 						<div><span id="p2moneyname" >Player 2</span>:</div>
 						<div>$<span id="p2money">1500</span></div>
 					</td>
 				</tr>
 				<tr id="moneybarrow3">
-					<td class="moneybararrowcell"><img src="Images/arrow.png" id="p3arrow" width="30" height="30" /></td>
+					<td class="moneybararrowcell"><img src="Images/arrow.png" id="p3arrow" width="30" height="30" alt=">" /></td>
 					<td id="p3moneybar" class="moneybarcell">
 						<div><span id="p3moneyname" >Player 3</span>:</div>
 						<div>$<span id="p3money">1500</span></div>
 					</td>
 				</tr>
 				<tr id="moneybarrow4">
-					<td class="moneybararrowcell"><img src="Images/arrow.png" id="p4arrow" width="30" height="30" /></td>
+					<td class="moneybararrowcell"><img src="Images/arrow.png" id="p4arrow" width="30" height="30" alt=">" /></td>
 					<td id="p4moneybar" class="moneybarcell">
 						<div><span id="p4moneyname" >Player 4</span>:</div>
 						<div>$<span id="p4money">1500</span></div>
 					</td>
 				</tr>
 				<tr id="moneybarrow5">
-					<td class="moneybararrowcell"><img src="Images/arrow.png" id="p5arrow" width="30" height="30" /></td>
+					<td class="moneybararrowcell"><img src="Images/arrow.png" id="p5arrow" width="30" height="30" alt=">" /></td>
 					<td id="p5moneybar" class="moneybarcell">
 						<div><span id="p5moneyname" >Player 5</span>:</div>
 						<div>$<span id="p5money">1500</span></div>
 					</td>
 				</tr>
 				<tr id="moneybarrow6">
-					<td class="moneybararrowcell"><img src="Images/arrow.png" id="p6arrow" width="30" height="30" /></td>
+					<td class="moneybararrowcell"><img src="Images/arrow.png" id="p6arrow" width="30" height="30" alt=">" /></td>
 					<td id="p6moneybar" class="moneybarcell">
 						<div><span id="p6moneyname" >Player 6</span>:</div>
 						<div>$<span id="p6money">1500</span></div>
 					</td>
 				</tr>
 				<tr id="moneybarrow7">
-					<td class="moneybararrowcell"><img src="Images/arrow.png" id="p7arrow" width="30" height="30" /></td>
+					<td class="moneybararrowcell"><img src="Images/arrow.png" id="p7arrow" width="30" height="30" alt=">" /></td>
 					<td id="p7moneybar" class="moneybarcell">
 						<div><span id="p7moneyname" >Player 7</span>:</div>
 						<div>$<span id="p7money">1500</span></div>
 					</td>
 				</tr>
 				<tr id="moneybarrow8">
-					<td class="moneybararrowcell"><img src="Images/arrow.png" id="p8arrow" width="30" height="30" /></td>
+					<td class="moneybararrowcell"><img src="Images/arrow.png" id="p8arrow" width="30" height="30" alt=">" /></td>
 					<td id="p8moneybar" class="moneybarcell">
 						<div><span id="p8moneyname" >Player 8</span>:</div>
 						<div>$<span id="p8money">1500</span></div>
@@ -274,7 +270,10 @@
 				<option style="color: silver;">Silver</option>
 				<option style="color: teal;">Teal</option>
 				<option selected="selected" style="color: yellow;">Yellow</option>
-       
+			</select>
+			<select id="player1ai">
+				<option value="0" selected="selected">Human</option>
+				<option value="1">AI (Test)</option>
 			</select>
 		</div>
 
@@ -298,6 +297,10 @@
 				<option style="color: teal;">Teal</option>
 				<option style="color: yellow;">Yellow</option>
 			</select>
+			<select id="player2ai">
+				<option value="0" selected="selected">Human</option>
+				<option value="1">AI (Test)</option>
+			</select>
 		</div>
 
 		<div id="player3input">
@@ -319,6 +322,10 @@
 				<option style="color: silver;">Silver</option>
 				<option style="color: teal;">Teal</option>
 				<option style="color: yellow;">Yellow</option>
+			</select>
+			<select id="player3ai">
+				<option value="0" selected="selected">Human</option>
+				<option value="1">AI (Test)</option>
 			</select>
 		</div>
 
@@ -342,6 +349,10 @@
 				<option style="color: teal;">Teal</option>
 				<option style="color: yellow;">Yellow</option>
 			</select>
+			<select id="player4ai">
+				<option value="0" selected="selected">Human</option>
+				<option value="1">AI (Test)</option>
+			</select>
 		</div>
 
 		<div id="player5input">
@@ -363,6 +374,10 @@
 				<option style="color: silver;">Silver</option>
 				<option style="color: teal;">Teal</option>
 				<option style="color: yellow;">Yellow</option>
+			</select>
+			<select id="player5ai">
+				<option value="0" selected="selected">Human</option>
+				<option value="1">AI (Test)</option>
 			</select>
 		</div>
 
@@ -386,6 +401,10 @@
 				<option style="color: teal;">Teal</option>
 				<option style="color: yellow;">Yellow</option>
 			</select>
+			<select id="player6ai">
+				<option value="0" selected="selected">Human</option>
+				<option value="1">AI (Test)</option>
+			</select>
 		</div>
 
 		<div id="player7input">
@@ -407,6 +426,10 @@
 				<option style="color: silver;">Silver</option>
 				<option style="color: teal;">Teal</option>
 				<option style="color: yellow;">Yellow</option>
+			</select>
+			<select id="player7ai">
+				<option value="0" selected="selected">Human</option>
+				<option value="1">AI (Test)</option>
 			</select>
 		</div>
 
@@ -430,6 +453,10 @@
 				<option style="color: teal;">Teal</option>
 				<option style="color: yellow;">Yellow</option>
 			</select>
+			<select id="player8ai">
+				<option value="0" selected="selected">Human</option>
+				<option value="1">AI (Test)</option>
+			</select>
 		</div>
 
 		<div style="margin: 20px 0px;">
@@ -445,15 +472,17 @@
 				<td style="text-align: left; vertical-align: top; border: none;">
 					<div id="menu">
 						<table id="menutable" cellspacing="0">
-							<td class="menuitem" id="menuitem1" onmouseover="menuitem_onmouseover(this);" onmouseout="menuitem_onmouseout(this);">
-								<a href="javascript:void(0);" title="View alerts and buy the property you landed on." onclick="show('buy'); hide('manage');">Buy</a>
-							</td>
-							<td class="menuitem" id="menuitem2" onmouseover="menuitem_onmouseover(this);" onmouseout="menuitem_onmouseout(this);">
-								<a href="javascript:void(0);" title="View, mortgage, and improve your property. " onclick="hide('buy'); show('manage');">Manage</a>
-							</td>
-							<td class="menuitem" id="menuitem3" onmouseover="menuitem_onmouseover(this);" onmouseout="menuitem_onmouseout(this);">
-								<a href="javascript:void(0);" title="Exchange property with other players." onclick="trade();">Trade</a>
-							</td>
+							<tr>
+								<td class="menuitem" id="menuitem1" onmouseover="menuitem_onmouseover(this);" onmouseout="menuitem_onmouseout(this);">
+									<a href="javascript:void(0);" title="View alerts and buy the property you landed on." onclick="show('buy'); hide('manage');">Buy</a>
+								</td>
+								<td class="menuitem" id="menuitem2" onmouseover="menuitem_onmouseover(this);" onmouseout="menuitem_onmouseout(this);">
+									<a href="javascript:void(0);" title="View, mortgage, and improve your property. " onclick="hide('buy'); show('manage');">Manage</a>
+								</td>
+								<td class="menuitem" id="menuitem3" onmouseover="menuitem_onmouseover(this);" onmouseout="menuitem_onmouseout(this);">
+									<a href="javascript:void(0);" title="Exchange property with other players." onclick="game.trade();">Trade</a>
+								</td>
+							</tr>
 						</table>
 					</div>
 
@@ -465,9 +494,9 @@
 					<div id="manage">
 						<div id="option">
 							<div id="buildings" title="Available buildings"></div>
-							<input type="button" value="Buy house" id="buyhousebutton" onclick="buyhouse();" />
-							<input type="button" value="Mortgage" id="mortgagebutton" onclick="if (!square[getcheckedproperty()].mortgage) {mortgage();} else unmortgage();" />
-							<input type="button" value="Sell house" id="sellhousebutton" onclick="sellhouse();" />
+							<input type="button" value="Buy house" id="buyhousebutton"/>
+							<input type="button" value="Mortgage" id="mortgagebutton" />
+							<input type="button" value="Sell house" id="sellhousebutton"/>
 						</div>
 						<div id="owned"></div>
 					</div>
@@ -484,33 +513,32 @@
 
 				</td>
 			</tr><tr>
-				<td cols="2" colspan="2" style="border: none">
+				<td colspan="2" style="border: none">
 					<div style="padding-top: 8px;">
 						<input type="button" id="nextbutton" title="End turn and advance to the next player." value="End turn"/>
+						<input type="button" id="resignbutton" title="If you cannot pay your debt then you must resign from the game." value="Resign" onclick="game.resign();" />
 					</div>
 				</td>
 			</tr>
 		</table>
 	</div>
-	
+
 	<div id="trade">
 		<table style="border-spacing: 3px;">
 			<tr>
 				<td class="trade-cell">
-					<select id="trade-leftp-name" onchange="tradepname_onchange(this);" title="Select a player to trade with.">
-					</select>
+					<div id="trade-leftp-name"></div>
 				</td>
 				<td class="trade-cell">
-					<select id="trade-rightp-name" onchange="tradepname_onchange(this);" title="Select a player to trade with.">
-					</select>
+					<div id="trade-rightp-name"></div>
 				</td>
 			</tr>
 			<tr>
 				<td class="trade-cell">
-					$&nbsp;<input id="trade-leftp-money" value="0" onfocus="bid_onfocus(this);" onkeydown="return bid_onkeydown(this);" onchange="tradepmoney_onchange(this);" title="Enter amount to exchange with the other player." />
+					$&nbsp;<input id="trade-leftp-money" value="0" title="Enter amount to exchange with the other player." />
 				</td>
 				<td class="trade-cell">
-					$&nbsp;<input id="trade-rightp-money" value="0" onfocus="bid_onfocus(this);" onkeydown="return bid_onkeydown(this);" onchange="tradepmoney_onchange(this);" title="Enter amount to exchange with the other player." />
+					$&nbsp;<input id="trade-rightp-money" value="0" title="Enter amount to exchange with the other player." />
 				</td>
 			</tr>
 			<tr>
@@ -518,9 +546,11 @@
 				<td id="trade-rightp-property" class="trade-cell"></td>
 			</tr>
 			<tr>
-				<td cols="2" colspan="2" class="trade-cell">
-					<input type="button" value="Propose Trade" onclick="finishtrade();" title="Exchange the money and properties that are checked above." />
-					<input type="button" value="Cancel Trade" onclick='show("board"); show("control"); hide("trade");' title="Cancel the trade." />
+				<td colspan="2" class="trade-cell">
+					<input type="button" id="proposetradebutton" value="Propose Trade" onclick="game.proposeTrade();" title="Exchange the money and properties that are checked above." />
+					<input type="button" id="canceltradebutton" value="Cancel Trade" onclick='game.cancelTrade();' title="Cancel the trade." />
+					<input type="button" id="accepttradebutton" value="Accept Trade" onclick="game.acceptTrade();" title="Accept the proposed trade." />
+					<input type="button" id="rejecttradebutton" value="Reject Trade" onclick='game.cancelTrade();' title="Reject the proposed trade." />
 				</td>
 			</tr>
 		</table>
