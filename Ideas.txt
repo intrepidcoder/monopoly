@@ -1,0 +1,41 @@
+Todo:
+- Issue: after AI lands on property, doesn't buy, property goes to auction, human wins bid, human won property alert shows in AI's alert text popup next turn.
+- Play vs computer.
+- Improve buying houses. (Buy/sell as many houses as desired, then confirm all at once).
+- Be able to save a game. (???)
+
+
+Completed:
+x Add group neighbor property to square object.
+x Fix/improve bankruptcy unmortgages. Only use one popup. Don't offer unmortgage option if only one player is remaining.
+x Make square array (and cell and enlarge ids) zero based!
+x Get Out of Jail free card creates bug causing Chance to fail.
+x Show owner of properties around the board.
+x Update stats to show buildings.
+x Add images to the enlarges.
+x Add alerts for buying houses.
+x Display # of houses left in the bank.
+x Create player tokens and move them automatically.
+x Enable unmortgages during elimination of player.
+x Improve Trade. Add alerts after trade. Don't show a property unless all other properties in its group are unimproved.
+x Make stats display properties like in manage.
+x Make the popups dragable.
+x Update Jail handling. Add alerts and change msgboxes to popups.
+x Combine buying and selling property to other players. Call it "trade".
+x Fix bug: onkeydown number enforcement blocks backspace, arrow keys, etc.
+x Update chance actions. Include alerts.
+x Display house and hotels left of #propertycellname.
+x Don't let player bid more money then they have.
+x Add amount to buy/sell/(un)mortgage buttons.
+x Put auction form and stats in popup boxes.
+x Don't perform chance or community chest action until chance popup is dismissed.
+x Find and set max character limit for player names.
+x Resize Chance and Community Chest images on popup alerts.
+x Create an event area.
+x Tell the user when you get $200 for passing GO.
+x Tell where you landed each time you have a turn, even if there is no action for the user.
+x Make house and hotels images.
+x Make Chance alerts say "Chance:".
+x Fix bug: ENTER submits forms, reloading page.
+x Change die to images.
+x Change the "Next" button to say "End turn".
