@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>Monopoly</title>
@@ -35,7 +35,7 @@
 	</div>
 
 	<noscript>
-		Note: This page will not function without JavaScript.
+		<p>Note: This page will not function without JavaScript.</p>
 	</noscript>
 
 	<div id="refresh">
@@ -230,7 +230,7 @@
 				<tr id="moneybarrow9">
 					<td style="border: none;" class="moneybararrowcell">&nbsp;</td>
 					<td style="border: none;">
-						<input type="button" id="viewstats" value="View stats" onclick="showstats();"/>
+						<input type="button" id="viewstats" value="View stats" onclick="showstats();" title="View a pop-up window that shows a list of each player's properties." />
 					</td>
 				</tr>
 			</table>
@@ -239,8 +239,8 @@
 
 	<div id="setup">
 		<div style="margin-bottom: 20px;">
-			Enter number of players.
-			<select id="playernumber">
+			Select number of players.
+			<select id="playernumber" title="Select the number of players for the game.">
 				<option>2</option>
 				<option>3</option>
 				<option selected="selected">4</option>
@@ -271,7 +271,7 @@
 				<option style="color: teal;">Teal</option>
 				<option selected="selected" style="color: yellow;">Yellow</option>
 			</select>
-			<select id="player1ai">
+			<select id="player1ai" title="Choose whether this player is controled by a human or by the computer." onclick="document.getElementById('player1name').disabled = this.value !== '0';">
 				<option value="0" selected="selected">Human</option>
 				<option value="1">AI (Test)</option>
 			</select>
@@ -297,7 +297,7 @@
 				<option style="color: teal;">Teal</option>
 				<option style="color: yellow;">Yellow</option>
 			</select>
-			<select id="player2ai">
+			<select id="player2ai" title="Choose whether this player is controled by a human or by the computer." onclick="document.getElementById('player2name').disabled = this.value !== '0';">
 				<option value="0" selected="selected">Human</option>
 				<option value="1">AI (Test)</option>
 			</select>
@@ -323,7 +323,7 @@
 				<option style="color: teal;">Teal</option>
 				<option style="color: yellow;">Yellow</option>
 			</select>
-			<select id="player3ai">
+			<select id="player3ai" title="Choose whether this player is controled by a human or by the computer." onclick="document.getElementById('player3name').disabled = this.value !== '0';">
 				<option value="0" selected="selected">Human</option>
 				<option value="1">AI (Test)</option>
 			</select>
@@ -349,7 +349,7 @@
 				<option style="color: teal;">Teal</option>
 				<option style="color: yellow;">Yellow</option>
 			</select>
-			<select id="player4ai">
+			<select id="player4ai" title="Choose whether this player is controled by a human or by the computer." onclick="document.getElementById('player4name').disabled = this.value !== '0';">
 				<option value="0" selected="selected">Human</option>
 				<option value="1">AI (Test)</option>
 			</select>
@@ -375,7 +375,7 @@
 				<option style="color: teal;">Teal</option>
 				<option style="color: yellow;">Yellow</option>
 			</select>
-			<select id="player5ai">
+			<select id="player5ai" title="Choose whether this player is controled by a human or by the computer." onclick="document.getElementById('player5name').disabled = this.value !== '0';">
 				<option value="0" selected="selected">Human</option>
 				<option value="1">AI (Test)</option>
 			</select>
@@ -401,7 +401,7 @@
 				<option style="color: teal;">Teal</option>
 				<option style="color: yellow;">Yellow</option>
 			</select>
-			<select id="player6ai">
+			<select id="player6ai" title="Choose whether this player is controled by a human or by the computer." onclick="document.getElementById('player6name').disabled = this.value !== '0';">
 				<option value="0" selected="selected">Human</option>
 				<option value="1">AI (Test)</option>
 			</select>
@@ -427,7 +427,7 @@
 				<option style="color: teal;">Teal</option>
 				<option style="color: yellow;">Yellow</option>
 			</select>
-			<select id="player7ai">
+			<select id="player7ai" title="Choose whether this player is controled by a human or by the computer." onclick="document.getElementById('player7name').disabled = this.value !== '0';">
 				<option value="0" selected="selected">Human</option>
 				<option value="1">AI (Test)</option>
 			</select>
@@ -453,14 +453,14 @@
 				<option style="color: teal;">Teal</option>
 				<option style="color: yellow;">Yellow</option>
 			</select>
-			<select id="player8ai">
+			<select id="player8ai" title="Choose whether this player is controled by a human or by the computer." onclick="document.getElementById('player8name').disabled = this.value !== '0';">
 				<option value="0" selected="selected">Human</option>
 				<option value="1">AI (Test)</option>
 			</select>
 		</div>
 
 		<div style="margin: 20px 0px;">
-			<input type="button" value="Start Game" onclick="setup();" />
+			<input type="button" value="Start Game" onclick="setup();" title="Begin playing." />
 		</div>
 
 		<div id="noF5">Note: Refreshing this page or navigating away from it may end your game without warning.</div>
