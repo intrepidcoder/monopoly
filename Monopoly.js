@@ -100,7 +100,7 @@ function Game() {
 			currentbidder -= pcount;
 		}
 
-		popup("<div style='font-weight: bold; font-size: 16px;'>Auction <span id='propertyname'></span></div><div>Bid = $<span id='highestbid'></span> (<span id='highestbidder'></span>)</div><div><span id='currentbidder'></span>, it is your turn to bid.<br />$<input id='bid' style='width: 291px;' /></div><div><input type='button' value='Bid' onclick='game.auctionBid();' title='Bid' /><input type='button' value='Pass' title='Skip bidding this time.' onclick='game.auctionPass();' /><input type='button' value='Exit Auction' title='Stop bidding on this property altogether.' onclick='if (confirm(\"Are you sure you want to stop bidding on this property altogether?\")) game.auctionExit();' /></div>", false);
+		popup("<div style='font-weight: bold; font-size: 16px; margin-bottom: 10px;'>Auction <span id='propertyname'></span></div><div>Highest Bid = $<span id='highestbid'></span> (<span id='highestbidder'></span>)</div><div><span id='currentbidder'></span>, it is your turn to bid.</div<div><input id='bid' title='Enter an amount to bid on " + s.name + ".' style='width: 291px;' /></div><div><input type='button' value='Bid' onclick='game.auctionBid();' title='Place your bid.' /><input type='button' value='Pass' title='Skip bidding this time.' onclick='game.auctionPass();' /><input type='button' value='Exit Auction' title='Stop bidding on " + s.name + " altogether.' onclick='if (confirm(\"Are you sure you want to stop bidding on this property altogether?\")) game.auctionExit();' /></div>", false);
 
 		document.getElementById("propertyname").innerHTML = "<a href='javascript:void(0);' onmouseover='showdeed(" + auctionproperty + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>";
 		document.getElementById("highestbid").innerHTML = "0";
@@ -406,6 +406,7 @@ function Game() {
 				currentTableCellCheckbox = currentTableCell.appendChild(document.createElement("input"));
 				currentTableCellCheckbox.type = "checkbox";
 				currentTableCellCheckbox.id = "tradeleftcheckbox" + i;
+				currentTableCellCheckbox.title = "Check this box to include " + currentSquare.name + " in the trade.";
 
 				currentTableCell = currentTableRow.appendChild(document.createElement("td"));
 				currentTableCell.className = "propertycellcolor";
@@ -439,6 +440,7 @@ function Game() {
 				currentTableCellCheckbox = currentTableCell.appendChild(document.createElement("input"));
 				currentTableCellCheckbox.type = "checkbox";
 				currentTableCellCheckbox.id = "traderightcheckbox" + i;
+				currentTableCellCheckbox.title = "Check this box to include " + currentSquare.name + " in the trade.";
 
 				currentTableCell = currentTableRow.appendChild(document.createElement("td"));
 				currentTableCell.className = "propertycellcolor";
@@ -473,6 +475,7 @@ function Game() {
 			currentTableCellCheckbox = currentTableCell.appendChild(document.createElement("input"));
 			currentTableCellCheckbox.type = "checkbox";
 			currentTableCellCheckbox.id = "tradeleftcheckbox40";
+			currentTableCellCheckbox.title = "Check this box to include this Get Out of Jail Free Card in the trade.";
 
 			currentTableCell = currentTableRow.appendChild(document.createElement("td"));
 			currentTableCell.className = "propertycellcolor";
@@ -492,6 +495,7 @@ function Game() {
 			currentTableCellCheckbox = currentTableCell.appendChild(document.createElement("input"));
 			currentTableCellCheckbox.type = "checkbox";
 			currentTableCellCheckbox.id = "traderightcheckbox40";
+			currentTableCellCheckbox.title = "Check this box to include this Get Out of Jail Free Card in the trade.";
 
 			currentTableCell = currentTableRow.appendChild(document.createElement("td"));
 			currentTableCell.className = "propertycellcolor";
@@ -513,6 +517,7 @@ function Game() {
 			currentTableCellCheckbox = currentTableCell.appendChild(document.createElement("input"));
 			currentTableCellCheckbox.type = "checkbox";
 			currentTableCellCheckbox.id = "tradeleftcheckbox41";
+			currentTableCellCheckbox.title = "Check this box to include this Get Out of Jail Free Card in the trade.";
 
 			currentTableCell = currentTableRow.appendChild(document.createElement("td"));
 			currentTableCell.className = "propertycellcolor";
@@ -532,6 +537,7 @@ function Game() {
 			currentTableCellCheckbox = currentTableCell.appendChild(document.createElement("input"));
 			currentTableCellCheckbox.type = "checkbox";
 			currentTableCellCheckbox.id = "traderightcheckbox41";
+			currentTableCellCheckbox.title = "Check this box to include this Get Out of Jail Free Card in the trade.";
 
 			currentTableCell = currentTableRow.appendChild(document.createElement("td"));
 			currentTableCell.className = "propertycellcolor";
@@ -585,6 +591,8 @@ function Game() {
 			nameSelect.onchange = function() {
 				resetTrade(currentInitiator, player[parseInt(this.value)], true);
 			};
+			
+			nameSelect.title = "Select a player to trade with.";
 		} else {
 			currentName.textContent = recipient.name;
 		}
