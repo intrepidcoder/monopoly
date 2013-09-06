@@ -58,6 +58,10 @@ td {
 	display: none;
 }
 
+#noscript {
+	margin-left: 10px;
+}
+
 #board {
 	display: none;
 	border: 2px solid black;
@@ -86,10 +90,6 @@ td {
 	padding: 10px;
 	display: none;
 	background-color: white;
-}
-
-#control td {
-	vertical-align: middle;
 }
 
 #quickstats {
@@ -254,8 +254,15 @@ td {
 	width: 99%;
 	margin: 0px;
 	background-color: #305BC9;
-	background-image: -webkit-linear-gradient(bottom,#213EB2,#4787ED);
-	background-image: -moz-linear-gradient(bottom,#213EB2,#4787ED);
+	/* background-image: -webkit-linear-gradient(bottom,#213EB2,#4787ED);
+	background-image: -moz-linear-gradient(bottom,#213EB2,#4787ED); */
+	background-image: url(Images/menu_background.png);
+	/* background-repeat: repeat-x; */
+	overflow: hidden;
+}
+
+#menutable td {
+	vertical-align: top;
 }
 
 #menu a {
@@ -533,11 +540,14 @@ td {
 }
 
 .menuitem_hover {
-	background-image: -webkit-linear-gradient(bottom,#000080,#4787ED);
-	background-image: -moz-linear-gradient(bottom,#000080,#4787ED);
+	/* background-image: -webkit-linear-gradient(bottom,#000080,#4787ED);
+	background-image: -moz-linear-gradient(bottom,#000080,#4787ED); */
+	
+	background-image: url(Images/menu_background_hover.png);
 }
 
 .menuitem {
+	padding: 0px;
 	border-collapse: collapse;
 	text-align: center;
 	display: table-cell;
