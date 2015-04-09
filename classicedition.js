@@ -55,7 +55,7 @@ function transtext() {
 }
 
 function luxurytax() {
-	addalert(player[turn].name + " paid $100 for landing on Luxury Tax.");
+	addAlert(player[turn].name + " paid $100 for landing on Luxury Tax.");
 	player[turn].pay(100, 0);
 	
 	show("landed");
@@ -63,7 +63,7 @@ function luxurytax() {
 }
 
 function citytax() {
-	addalert(player[turn].name + " paid $200 for landing on City Tax.");
+	addAlert(player[turn].name + " paid $200 for landing on City Tax.");
 	player[turn].pay(200, 0);
 
 	show("landed");
@@ -116,7 +116,7 @@ square[39] = new Square("Boardwalk", "$400", "#0000FF", 400, 10, 50, 200, 600, 1
 var communityChestCards = [];
 var chanceCards = [];
 
-communityChestCards[0] = new Card("Get out of Jail, Free. This card may be kept until needed or sold.", function() { p.communityChestJailCard = true; updateOwned();});
+communityChestCards[0] = new Card("Get out of Jail, Free. This card may be kept until needed or sold.", function(p) { p.communityChestJailCard = true; updateOwned();});
 communityChestCards[1] = new Card("You have won second prize in a beauty contest. Collect $10.", function() { addamount(10, 'Community Chest');});
 communityChestCards[2] = new Card("From sale of stock, you get $50.", function() { addamount(50, 'Community Chest');});
 communityChestCards[3] = new Card("Life insurance matures. Collect $100.", function() { addamount(100, 'Community Chest');});
@@ -134,7 +134,7 @@ communityChestCards[14] = new Card("You are assessed for street repairs. $40 per
 communityChestCards[15] = new Card("Go to Jail. Go directly to Jail. Do not pass \"GO\". Do not collect $200.", function() { gotojail();});
 
 
-chanceCards[0] = new Card("GET OUT OF JAIL FREE. This card may be kept until needed or traded.", function() { p.chanceJailCard=true; updateOwned();});
+chanceCards[0] = new Card("GET OUT OF JAIL FREE. This card may be kept until needed or traded.", function(p) { p.chanceJailCard=true; updateOwned();});
 chanceCards[1] = new Card("Make General Repairs on All Your Property. For each house pay $25. For each hotel $100.", function() { streetrepairs(25, 100);});
 chanceCards[2] = new Card("Speeding fine $15.", function() { subtractamount(15, 'Chance');});
 chanceCards[3] = new Card("You have been elected chairman of the board. Pay each player $50.", function() { payeachplayer(50, 'Chance');});

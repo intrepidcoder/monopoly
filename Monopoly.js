@@ -24,7 +24,7 @@ function Game() {
 			p.AI.payDebt();
 
 			if (p.money < 0) {
-				popup("<p>" + p.name + " is bankrupt. All of its assets will be turned over to " + player[p.creditor].name + ".</p><div><input type='button' value='OK' onclick='hide(\"popupbackground\"); hide(\"popupwrap\"); game.bankruptcy();' /></div>", false);
+				popup("<p>" + p.name + " is bankrupt. All of its assets will be turned over to " + player[p.creditor].name + ".</p>", game.bankruptcy);
 			} else {
 				roll();
 			}
@@ -59,15 +59,15 @@ function Game() {
 		if (highestbid > 0) {
 			p.pay(highestbid, 0);
 			sq.owner = highestbidder;
-			addalert(p.name + " bought " + sq.name + " for $" + highestbid + ".");
+			addAlert(p.name + " bought " + sq.name + " for $" + highestbid + ".");
 		}
 
 		for (var i = 1; i <= pcount; i++) {
 			player[i].bidding = true;
 		}
 
-		hide('popupbackground');
-		hide('popupwrap');
+		$("#popupbackground").hide();
+		$("#popupwrap").hide();
 
 		if (!game.auction()) {
 			play();
@@ -100,7 +100,7 @@ function Game() {
 			currentbidder -= pcount;
 		}
 
-		popup("<div style='font-weight: bold; font-size: 16px; margin-bottom: 10px;'>Auction <span id='propertyname'></span></div><div>Highest Bid = $<span id='highestbid'></span> (<span id='highestbidder'></span>)</div><div><span id='currentbidder'></span>, it is your turn to bid.</div<div><input id='bid' title='Enter an amount to bid on " + s.name + ".' style='width: 291px;' /></div><div><input type='button' value='Bid' onclick='game.auctionBid();' title='Place your bid.' /><input type='button' value='Pass' title='Skip bidding this time.' onclick='game.auctionPass();' /><input type='button' value='Exit Auction' title='Stop bidding on " + s.name + " altogether.' onclick='if (confirm(\"Are you sure you want to stop bidding on this property altogether?\")) game.auctionExit();' /></div>", false);
+		popup("<div style='font-weight: bold; font-size: 16px; margin-bottom: 10px;'>Auction <span id='propertyname'></span></div><div>Highest Bid = $<span id='highestbid'></span> (<span id='highestbidder'></span>)</div><div><span id='currentbidder'></span>, it is your turn to bid.</div<div><input id='bid' title='Enter an amount to bid on " + s.name + ".' style='width: 291px;' /></div><div><input type='button' value='Bid' onclick='game.auctionBid();' title='Place your bid.' /><input type='button' value='Pass' title='Skip bidding this time.' onclick='game.auctionPass();' /><input type='button' value='Exit Auction' title='Stop bidding on " + s.name + " altogether.' onclick='if (confirm(\"Are you sure you want to stop bidding on this property altogether?\")) game.auctionExit();' /></div>", void 0, "blank");
 
 		document.getElementById("propertyname").innerHTML = "<a href='javascript:void(0);' onmouseover='showdeed(" + auctionproperty + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>";
 		document.getElementById("highestbid").innerHTML = "0";
@@ -300,10 +300,10 @@ function Game() {
 	}
 
 	var tradeMoneyOnChange = function(e) {
-		show("proposetradebutton");
-		show("canceltradebutton");
-		hide("accepttradebutton");
-		hide("rejecttradebutton");
+		$("#proposetradebutton").show();
+		$("#canceltradebutton").show();
+		$("#accepttradebutton").hide();
+		$("#rejecttradebutton").hide();
 
 		var amount = this.value;
 
@@ -349,10 +349,10 @@ function Game() {
 				checkboxElement.checked = !checkboxElement.checked;
 			}
 
-			show("proposetradebutton");
-			show("canceltradebutton");
-			hide("accepttradebutton");
-			hide("rejecttradebutton");
+			$("#proposetradebutton").show();
+			$("#canceltradebutton").show();
+			$("#accepttradebutton").hide();
+			$("#rejecttradebutton").hide();
 		};
 
 		var initiatorProperty = document.getElementById("trade-leftp-property");
@@ -591,7 +591,7 @@ function Game() {
 			nameSelect.onchange = function() {
 				resetTrade(currentInitiator, player[parseInt(this.value)], true);
 			};
-			
+
 			nameSelect.title = "Select a player to trade with.";
 		} else {
 			currentName.textContent = recipient.name;
@@ -642,7 +642,6 @@ function Game() {
 
 		var trade = new Trade(initiator, recipient, money, property, communityChestJailCard, chanceJailCard);
 
-		// console.dir(trade);
 		return trade;
 	};
 
@@ -707,15 +706,15 @@ function Game() {
 	};
 
 	this.trade = function(tradeObj) {
-		hide("board");
-		hide("control");
-		show("trade");
-		show("proposetradebutton");
-		show("canceltradebutton");
-		hide("accepttradebutton");
-		hide("rejecttradebutton");
+		$("#board").hide();
+		$("#control").hide();
+		$("#trade").show();
+		$("#proposetradebutton").show();
+		$("#canceltradebutton").show();
+		$("#accepttradebutton").hide();
+		$("#rejecttradebutton").hide();
 
-		if (tradeObj) {
+		if (tradeObj instanceof Trade) {
 			writeTrade(tradeObj);
 			this.proposeTrade();
 		} else {
@@ -725,16 +724,16 @@ function Game() {
 			currentInitiator = initiator;
 			currentRecipient = recipient;
 
-
 			resetTrade(initiator, recipient, true);
 		}
 	};
 
 
 	this.cancelTrade = function() {
-		show("board");
-		show("control");
-		hide("trade");
+		$("#board").show();
+		$("#control").show();
+		$("#trade").hide();
+
 
 		if (!player[turn].human) {
 			player[turn].AI.alertList = "";
@@ -793,7 +792,7 @@ function Game() {
 		isAPropertySelected |= tradeObj.getChanceJailCard();
 
 		if (isAPropertySelected === 0) {
-			popup("<p>One or more properties must be selected in order to trade.</p><div><input type='button' value='OK' onclick='hide(\"popupbackground\"); hide(\"popupwrap\");' /></div>", false);
+			popup("<p>One or more properties must be selected in order to trade.</p>");
 
 			return false;
 		}
@@ -807,10 +806,10 @@ function Game() {
 
 			if (tradeObj.getProperty(i) === 1) {
 				square[i].owner = recipient.index;
-				addalert(recipient.name + " received " + square[i].name + " from " + initiator.name + ".");
+				addAlert(recipient.name + " received " + square[i].name + " from " + initiator.name + ".");
 			} else if (tradeObj.getProperty(i) === -1) {
 				square[i].owner = initiator.index;
-				addalert(initiator.name + " received " + square[i].name + " from " + recipient.name + ".");
+				addAlert(initiator.name + " received " + square[i].name + " from " + recipient.name + ".");
 			}
 
 		}
@@ -818,21 +817,21 @@ function Game() {
 		if (tradeObj.getCommunityChestJailCard() === 1) {
 			initiator.communityChestJailCard = false;
 			recipient.communityChestJailCard = true;
-			addalert(recipient.name + ' received a "Get Out of Jail Free" card from ' + initiator.name + ".");
+			addAlert(recipient.name + ' received a "Get Out of Jail Free" card from ' + initiator.name + ".");
 		} else if (tradeObj.getCommunityChestJailCard() === -1) {
 			initiator.communityChestJailCard = true;
 			recipient.communityChestJailCard = false;
-			addalert(initiator.name + ' received a "Get Out of Jail Free" card from ' + recipient.name + ".");
+			addAlert(initiator.name + ' received a "Get Out of Jail Free" card from ' + recipient.name + ".");
 		}
 
 		if (tradeObj.getChanceJailCard() === 1) {
 			initiator.chanceJailCard = false;
 			recipient.chanceJailCard = true;
-			addalert(recipient.name + ' received a "Get Out of Jail Free" card from ' + initiator.name + ".");
+			addAlert(recipient.name + ' received a "Get Out of Jail Free" card from ' + initiator.name + ".");
 		} else if (tradeObj.getChanceJailCard() === -1) {
 			initiator.chanceJailCard = true;
 			recipient.chanceJailCard = false;
-			addalert(initiator.name + ' received a "Get Out of Jail Free" card from ' + recipient.name + ".");
+			addAlert(initiator.name + ' received a "Get Out of Jail Free" card from ' + recipient.name + ".");
 		}
 
 		// Exchange money.
@@ -840,22 +839,22 @@ function Game() {
 			initiator.pay(money, recipient.index);
 			recipient.money += money;
 
-			addalert(recipient.name + " received $" + money + " from " + initiator.name + ".");
+			addAlert(recipient.name + " received $" + money + " from " + initiator.name + ".");
 		} else if (money < 0) {
 			money = -money;
 
 			recipient.pay(money, initiator.index);
 			initiator.money += money;
 
-			addalert(initiator.name + " received $" + money + " from " + recipient.name + ".");
+			addAlert(initiator.name + " received $" + money + " from " + recipient.name + ".");
 		}
 
 		updateOwned();
 		updateMoney();
 
-		show("board");
-		show("control");
-		hide("trade");
+		$("#board").show();
+		$("#control").show();
+		$("#trade").hide();
 
 		if (!player[turn].human) {
 			player[turn].AI.alertList = "";
@@ -904,7 +903,7 @@ function Game() {
 		isAPropertySelected |= tradeObj.getChanceJailCard();
 
 		if (isAPropertySelected === 0) {
-			popup("<p>One or more properties must be selected in order to trade.</p><div><input type='button' value='OK' onclick='hide(\"popupbackground\"); hide(\"popupwrap\");' /></div>", false);
+			popup("<p>One or more properties must be selected in order to trade.</p>");
 
 			return false;
 		}
@@ -919,32 +918,30 @@ function Game() {
 
 			writeTrade(reversedTrade);
 
-			hide("proposetradebutton");
-			hide("canceltradebutton");
-			show("accepttradebutton");
-			show("rejecttradebutton");
+			$("#proposetradebutton").hide();
+			$("#canceltradebutton").hide();
+			$("#accepttradebutton").show();
+			$("#rejecttradebutton").show();
 
-			addalert(initiator.name + " initiated a trade with " + recipient.name + ".");
-			popup("<p>" + initiator.name + " has proposed a trade with you, " + recipient.name + ". You may accept, reject, or modify the offer.</p><div><input type='button' value='OK' onclick='hide(\"popupbackground\"); hide(\"popupwrap\");' /></div>", false);
+			addAlert(initiator.name + " initiated a trade with " + recipient.name + ".");
+			popup("<p>" + initiator.name + " has proposed a trade with you, " + recipient.name + ". You may accept, reject, or modify the offer.</p>");
 		} else {
 			var tradeResponse = recipient.AI.acceptTrade(tradeObj);
 
 			if (tradeResponse === true) {
-				popup("<p>" + recipient.name + " has accepted your offer.</p><div><input type='button' value='OK' onclick='hide(\"popupbackground\"); hide(\"popupwrap\");' /></div>", false);
+				popup("<p>" + recipient.name + " has accepted your offer.</p>");
 				this.acceptTrade(reversedTrade);
 			} else if (tradeResponse === false) {
-				popup("<p>" + recipient.name + " has declined your offer.</p><div><input type='button' value='OK' onclick='hide(\"popupbackground\"); hide(\"popupwrap\");' /></div>", false);
+				popup("<p>" + recipient.name + " has declined your offer.</p>");
 				return;
 			} else if (tradeResponse instanceof Trade) {
-				popup("<p>" + recipient.name + " has proposed a counteroffer.</p><div><input type='button' value='OK' onclick='hide(\"popupbackground\"); hide(\"popupwrap\");' /></div>", false);
+				popup("<p>" + recipient.name + " has proposed a counteroffer.</p>");
 				writeTrade(tradeResponse);
-				hide("proposetradebutton");
-				hide("canceltradebutton");
-				show("accepttradebutton");
-				show("rejecttradebutton");
+				
+				$("#proposetradebutton, #canceltradebutton").hide();
+				$("#accepttradebutton").show();
+				$("#rejecttradebutton").show();
 			}
-
-
 		}
 	};
 
@@ -981,9 +978,9 @@ function Game() {
 
 		if (pcount === 1) {
 			updateMoney();
-			hide("control");
-			hide("board");
-			show("refresh");
+			$("#control").hide();
+			$("#board").hide();
+			$("#refresh").show();
 
 			// // Display land counts for survey purposes.
 			// var text;
@@ -995,7 +992,7 @@ function Game() {
 			// }
 			// document.getElementById("refresh").innerHTML += "<br><br><div><textarea type='text' style='width: 980px;' onclick='javascript:select();' />" + text + "</textarea></div>";
 
-			popup("<p>Congratulations, " + player[1].name + ", you have won the game.</p><div><input type='button' value='OK' onclick='hide(\"popupbackground\"); hide(\"popupwrap\");' /></div>", false);
+			popup("<p>Congratulations, " + player[1].name + ", you have won the game.</p><div>");
 
 		} else {
 			play();
@@ -1027,20 +1024,20 @@ function Game() {
 				}
 
 				// Player already paid interest, so they can unmortgage for the mortgage price.
-				HTML += "' onmouseover='showdeed(" + i + ");' onmouseout='hidedeed();'></td><td class='propertycellname'><a href='javascript:void(0);' title='Unmortgage " + sq.name + " for $" + price + ".' onclick='if (" + price + " <= player[" + p.creditor + "].money) {player[" + p.creditor + "].pay(" + price + ", 0); square[" + i + "].mortgage = false; addalert(\"" + player[p.creditor].name + " unmortgaged " + sq.name + " for $" + price + ".\");} this.parentElement.parentElement.style.display = \"none\";'>Unmortgage " + sq.name + " ($" + price + ")</a></td></tr>";
+				HTML += "' onmouseover='showdeed(" + i + ");' onmouseout='hidedeed();'></td><td class='propertycellname'><a href='javascript:void(0);' title='Unmortgage " + sq.name + " for $" + price + ".' onclick='if (" + price + " <= player[" + p.creditor + "].money) {player[" + p.creditor + "].pay(" + price + ", 0); square[" + i + "].mortgage = false; addAlert(\"" + player[p.creditor].name + " unmortgaged " + sq.name + " for $" + price + ".\");} this.parentElement.parentElement.style.display = \"none\";'>Unmortgage " + sq.name + " ($" + price + ")</a></td></tr>";
 
 				sq.owner = p.creditor;
 
 			}
 		}
 
-		HTML += "</table><div><input type='button' value='OK' onclick='hide(\"popupbackground\"); hide(\"popupwrap\"); game.eliminatePlayer();' /></div>";
+		HTML += "</table>";
 
-		popup(HTML, false);
+		popup(HTML, game.eliminatePlayer);
 	};
 
 	this.resign = function() {
-		popup("<p>Are you sure you want to resign?</p><div><input type='button' value='Yes' onclick='hide(\"popupbackground\"); hide(\"popupwrap\"); game.bankruptcy();' /><input type='button' value='No' onclick='hide(\"popupbackground\"); hide(\"popupwrap\");' /></div>", false);
+		popup("<p>Are you sure you want to resign?</p>", game.bankruptcy, "Yes/No");
 	};
 
 	this.bankruptcy = function() {
@@ -1053,7 +1050,7 @@ function Game() {
 			return;
 		}
 
-		addalert(p.name + " is bankrupt.");
+		addAlert(p.name + " is bankrupt.");
 
 		if (p.creditor !== 0) {
 			pcredit.money += p.money;
@@ -1100,8 +1097,8 @@ function Game() {
 		if (pcount === 2 || bankruptcyUnmortgageFee === 0 || p.creditor === 0) {
 			this.eliminatePlayer();
 		} else {
-			addalert(pcredit.name + " paid $" + bankruptcyUnmortgageFee + " interest on the mortgaged properties received from " + p.name + ".");
-			popup("<p>" + pcredit.name + ", you must pay $" + bankruptcyUnmortgageFee + " interest on the mortgaged properties you received from " + p.name + ".</p><div><input type='button' value='OK' onclick='hide(\"popupbackground\"); hide(\"popupwrap\"); player[" + pcredit.index + "].pay(" + bankruptcyUnmortgageFee + ", 0); game.bankruptcyUnmortgage();' /></div>", false);
+			addAlert(pcredit.name + " paid $" + bankruptcyUnmortgageFee + " interest on the mortgaged properties received from " + p.name + ".");
+			popup("<p>" + pcredit.name + ", you must pay $" + bankruptcyUnmortgageFee + " interest on the mortgaged properties you received from " + p.name + ".</p>", function() {player[pcredit.index].pay(bankruptcyUnmortgageFee, 0); game.bankruptcyUnmortgage();});
 		}
 	};
 
@@ -1127,9 +1124,9 @@ function Player(name, color) {
 	this.pay = function (amount, creditor) {
 		if (amount <= this.money) {
 			this.money -= amount;
-			
+
 			updateMoney();
-			
+
 			return true;
 		} else {
 			this.money -= amount;
@@ -1178,26 +1175,8 @@ function Trade(initiator, recipient, money, property, communityChestJailCard, ch
 }
 
 var player = [];
-
 var pcount;
 var turn = 0, doublecount = 0;
-
-
-// var tokenArray = [];
-
-// for (var i = 1; i <= 8; i++) {
-// tokenArray[i] = new Image();
-// }
-
-// tokenArray[1].src = "Images/monopoly_token_barrow.png";
-// tokenArray[2].src = "Images/monopoly_token_boot.png";
-// tokenArray[3].src = "Images/monopoly_token_car.png";
-// tokenArray[4].src = "Images/monopoly_token_dog.png";
-// tokenArray[5].src = "Images/monopoly_token_hat.png";
-// tokenArray[6].src = "Images/monopoly_token_iron.png";
-// tokenArray[7].src = "Images/monopoly_token_ship.png";
-// tokenArray[8].src = "Images/monopoly_token_thimble.png";
-
 // Overwrite an array with numbers from one to the array's length in a random order.
 Array.prototype.randomize = function(length) {
 	length = (length || this.length);
@@ -1217,52 +1196,72 @@ Array.prototype.randomize = function(length) {
 	}
 }
 
-function show(element) {
-	// Element may be an HTML element or the id of one passed as a string.
-	if (element.constructor == String) {
-		element = document.getElementById(element);
-	}
+// function show(element) {
+	// // Element may be an HTML element or the id of one passed as a string.
+	// if (element.constructor == String) {
+		// element = document.getElementById(element);
+	// }
 
-	if (element.tagName == "INPUT" || element.tagName == "SPAN" || element.tagName == "LABEL") {
-		element.style.display = "inline";
-	} else {
-		element.style.display = "block";
-	}
+	// if (element.tagName == "INPUT" || element.tagName == "SPAN" || element.tagName == "LABEL") {
+		// element.style.display = "inline";
+	// } else {
+		// element.style.display = "block";
+	// }
+// }
+
+// function hide(element) {
+	// // Element may be an HTML element or the id of one passed as a string.
+	// if (element.constructor == String) {
+		// document.getElementById(element).style.display = "none";
+	// } else {
+		// element.style.display = "none";
+	// }
+// }
+
+function addAlert(alertText) {
+	$alert = $("#alert");
+
+	$(document.createElement("div")).text(alertText).appendTo($alert);
+
+	// Animate scrolling down alert element.
+	$alert.animate({"scrollTop": $alert.prop("scrollHeight")}, 1000);
 }
 
-function hide(element) {
-	// Element may be an HTML element or the id of one passed as a string.
-	if (element.constructor == String) {
-		document.getElementById(element).style.display = "none";
-	} else {
-		element.style.display = "none";
-	}
-}
-
-function addalert(alertText) {
-	var oldalerts = document.getElementById("alert").innerHTML;
-	oldalerts = "<div>" + alertText + "</div>" + oldalerts;
-	document.getElementById("alert").innerHTML = oldalerts;
-
-	if (!player[turn].human) {
-		player[turn].AI.alertList += "<div>" + alertText + "</div>";
-	}
-}
-
-function popup(HTML, showClose) {
+function popup(HTML, action, option) {
 	document.getElementById("popuptext").innerHTML = HTML;
 	document.getElementById("popup").style.width = "300px";
 	document.getElementById("popup").style.top = "0px";
 	document.getElementById("popup").style.left = "0px";
-	show("popupbackground");
-	show("popupwrap");
+	option = option ? option.toLowerCase() : "";
 
-	if (showClose === false) {
-		hide("popupclose");
-	} else {
-		show("popupclose");
+	// Yes/No
+	if (option === "yes/no") {
+		document.getElementById("popuptext").innerHTML += "<div><input type=\"button\" value=\"Yes\" id=\"popupyes\" /><input type=\"button\" value=\"No\" id=\"popupno\" /></div>";
+
+		$("#popupyes, #popupno").on("click", function() {
+			$("#popupwrap").hide();
+			$("#popupbackground").fadeOut(400);
+		});
+
+		$("#popupyes").on("click", action);
+
+	// Ok
+	} else if (option !== "blank") {
+		document.getElementById("popuptext").innerHTML += "<div><input type='button' value='OK' id='popupclose' /></div>";
+
+		$("#popupclose").on("click", function() {
+			$("#popupwrap").hide();
+			$("#popupbackground").fadeOut(400);
+		}).on("click", action);
 	}
+
+	// Show using animation.
+	$("#popupbackground").fadeIn(400, function() {
+		$("#popupwrap").show();
+	});
+
 }
+
 
 function updatePosition() {
 	// Reset borders
@@ -1350,70 +1349,83 @@ function updateMoney() {
 	var p = player[turn];
 
 	document.getElementById("pmoney").innerHTML = "$" + p.money;
-	for (var i = 1; i <= 9; i++) {
-		hide("moneybarrow" + i);
-	}
+	$(".money-bar-row").hide();
 
 	for (var i = 1; i <= pcount; i++) {
 		p_i = player[i];
 
-		show("moneybarrow" + i);
+		$("#moneybarrow" + i).show();
 		document.getElementById("p" + parseInt(i) + "moneybar").style.border = "2px solid " + p_i.color;
 		document.getElementById("p" + parseInt(i) + "money").innerHTML = p_i.money;
 		document.getElementById("p" + parseInt(i) + "moneyname").innerHTML = p_i.name;
 	}
-	show("moneybarrow9"); // Don't remove this line or make the first for-loop stop when i <= 8, because this affects how the table is displayed.
+	// show("moneybarrow9"); // Don't remove this line or make the first for-loop stop when i <= 8, because this affects how the table is displayed.
 
-	if (document.getElementById("landed").innerHTML == "")
-		hide("landed");
+	if (document.getElementById("landed").innerHTML == "") {
+		$("#landed").hide();
+	}
 
 	document.getElementById("quickstats").style.borderColor = p.color;
 
 	if (p.money < 0) {
 		// document.getElementById("nextbutton").disabled = true;
-		show("resignbutton");
-		hide("nextbutton");
+		$("#resignbutton").show();
+		$("#nextbutton").hide();
 	} else {
 		// document.getElementById("nextbutton").disabled = false;
-		hide("resignbutton");
-		show("nextbutton");
+		$("#resignbutton").hide();
+		$("#nextbutton").show();
 	}
 }
 
 function updateDice() {
-	var die1 = game.getDie(1);
-	var die2 = game.getDie(2);
+	var die0 = game.getDie(1);
+	var die1 = game.getDie(2);
 
-	show("die1");
-	show("die2");
+	$("#die0").show();
+	$("#die1").show();
 
 	if (document.images) {
-		document.getElementById("die1").innerHTML = '<img src="Images/Die_' + die1 + '.png" alt="' + die1 + '" style="width: 30px; height: 30px;" />';
-		document.getElementById("die2").innerHTML = '<img src="Images/Die_' + die2 + '.png" alt="' + die2 + '" style="width: 30px; height: 30px;" />';
+		var element0 = document.getElementById("die0");
+		var element1 = document.getElementById("die1");
 
-		document.getElementById("die1").className = "";
-		document.getElementById("die2").className = "";
+		element0.classList.remove("die-no-img");
+		element1.classList.remove("die-no-img");
 
-		document.getElementById("die1").title = "Die (" + die1 + " spots)";
-		document.getElementById("die2").title = "Die (" + die2 + " spots)";
+		element0.title = "Die (" + die0 + " spots)";
+		element1.title = "Die (" + die1 + " spots)";
 
+		if (element0.firstChild) {
+			element0 = element0.firstChild;
+		} else {
+			element0 = element0.appendChild(document.createElement("img"));
+		}
+
+		element0.src = "images/Die_" + die0 + ".png";
+		element0.alt = die0;
+
+		if (element1.firstChild) {
+			element1 = element1.firstChild;
+		} else {
+			element1 = element1.appendChild(document.createElement("img"));
+		}
+
+		element1.src = "images/Die_" + die1 + ".png";
+		element1.alt = die0;
 	} else {
-		document.getElementById("die1").innerHTML = die1;
-		document.getElementById("die2").innerHTML = die2;
+		document.getElementById("die0").textContent = die0;
+		document.getElementById("die1").textContent = die1;
 
-		document.getElementById("die1").className = "die";
-		document.getElementById("die2").className = "die";
-
+		document.getElementById("die0").title = "Die";
 		document.getElementById("die1").title = "Die";
-		document.getElementById("die2").title = "Die";
 	}
 }
 
 function updateOwned() {
 	var p = player[turn];
-	var checkedproperty = getcheckedproperty();
-	show("option");
-	show("owned");
+	var checkedproperty = getCheckedProperty();
+	$("#option").show();
+	$("#owned").show();
 
 	var HTML = "",
 	firstproperty = -1;
@@ -1425,7 +1437,7 @@ function updateOwned() {
 	for (var i = 0; i < 40; i++) {
 		sq = square[i];
 		if (sq.groupNumber && sq.owner === 0) {
-			document.getElementById("cell" + i + "owner").style.display = "none";
+			$("#cell" + i + "owner").hide();
 		} else if (sq.groupNumber && sq.owner > 0) {
 			with (document.getElementById("cell" + i + "owner")) {
 				style.display = "block";
@@ -1447,10 +1459,10 @@ function updateOwned() {
 			housetext = "";
 			if (sq.house >= 1 && sq.house <= 4) {
 				for (var x = 1; x <= sq.house; x++) {
-					housetext += "<img src='Images/house.png' alt='' title='House' class='house' />";
+					housetext += "<img src='images/house.png' alt='' title='House' class='house' />";
 				}
 			} else if (sq.hotel) {
-				housetext += "<img src='Images/hotel.png' alt='' title='Hotel' class='hotel' />";
+				housetext += "<img src='images/hotel.png' alt='' title='Hotel' class='hotel' />";
 			}
 
 			if (HTML == "") {
@@ -1458,7 +1470,7 @@ function updateOwned() {
 				firstproperty = i;
 			}
 
-			HTML += "<tr onclick='propertycell_onclick(this, " + i + ");'><td class='propertycellcheckbox'><input type='checkbox' id='propertycheckbox" + i + "' /></td><td class='propertycellcolor' style='background: " + sq.color + ";";
+			HTML += "<tr class='property-cell-row'><td class='propertycellcheckbox'><input type='checkbox' id='propertycheckbox" + i + "' /></td><td class='propertycellcolor' style='background: " + sq.color + ";";
 
 			if (sq.groupNumber == 1 || sq.groupNumber == 2) {
 				HTML += " border: 1px solid grey; width: 18px;";
@@ -1473,7 +1485,7 @@ function updateOwned() {
 			firstproperty = 40;
 			HTML += "<table>";
 		}
-		HTML += "<tr onclick='propertycell_onclick(this, 40);'><td class='propertycellcheckbox'><input type='checkbox' id='propertycheckbox40' /></td><td class='propertycellcolor' style='background: white;'></td><td class='propertycellname'>Get Out of Jail Free Card</td></tr>";
+		HTML += "<tr class='property-cell-row'><td class='propertycellcheckbox'><input type='checkbox' id='propertycheckbox40' /></td><td class='propertycellcolor' style='background: white;'></td><td class='propertycellname'>Get Out of Jail Free Card</td></tr>";
 
 	}
 	if (p.chanceJailCard) {
@@ -1481,12 +1493,12 @@ function updateOwned() {
 			firstproperty = 41;
 			HTML += "<table>";
 		}
-		HTML += "<tr onclick='propertycell_onclick(this, 41);'><td class='propertycellcheckbox'><input type='checkbox' id='propertycheckbox41' /></td><td class='propertycellcolor' style='background: white;'></td><td class='propertycellname'>Get Out of Jail Free Card</td></tr>";
+		HTML += "<tr class='property-cell-row'><td class='propertycellcheckbox'><input type='checkbox' id='propertycheckbox41' /></td><td class='propertycellcolor' style='background: white;'></td><td class='propertycellname'>Get Out of Jail Free Card</td></tr>";
 	}
 
 	if (HTML == "") {
 		HTML = p.name + ", you don't have any properties.";
-		hide("option");
+		$("#option").hide();
 	} else {
 		HTML += "</table>";
 	}
@@ -1494,25 +1506,43 @@ function updateOwned() {
 	document.getElementById("owned").innerHTML = HTML;
 
 	// Select previously selected property.
-	if (checkedproperty > -1 && document.getElementById("propertycheckbox" + checkedproperty))
+	if (checkedproperty > -1 && document.getElementById("propertycheckbox" + checkedproperty)) {
 		document.getElementById("propertycheckbox" + checkedproperty).checked = true;
-	else if (firstproperty > -1)
+	} else if (firstproperty > -1) {
 		document.getElementById("propertycheckbox" + firstproperty).checked = true;
+	}
+	$(".property-cell-row").click(function() {
+		var row = this;
 
+		// Toggle check the current checkbox.
+		$(this).find(".propertycellcheckbox > input").prop("checked", function(index, val) {
+			return !val;
+		});
+
+		// Set all other checkboxes to false.
+		$(".propertycellcheckbox > input").prop("checked", function(index, val) {
+			if (!$.contains(row, this)) {
+				return false;
+			}
+		});
+
+		updateOption();
+	});
 	updateOption();
 }
 
 function updateOption() {
-	show("option");
+	$("#option").show();
 
 	var allGroupUninproved = true;
 	var allGroupUnmortgaged = true;
-	var checkedproperty = getcheckedproperty();
+	var checkedproperty = getCheckedProperty();
 
 	if (checkedproperty < 0 || checkedproperty >= 40) {
-		hide("buyhousebutton");
-		hide("sellhousebutton");
-		hide("mortgagebutton");
+		$("#buyhousebutton").hide();
+		$("#sellhousebutton").hide();
+		$("#mortgagebutton").hide();
+		
 
 		var housesum = 32;
 		var hotelsum = 12;
@@ -1525,26 +1555,26 @@ function updateOption() {
 				housesum -= s.house;
 		}
 
-		show("buildings");
-		document.getElementById("buildings").innerHTML = "<img src='Images/house.png' alt='' title='House' class='house' />:&nbsp;" + housesum + "&nbsp;&nbsp;<img src='Images/hotel.png' alt='' title='Hotel' class='hotel' />:&nbsp;" + hotelsum;
+		$("#buildings").show();
+		document.getElementById("buildings").innerHTML = "<img src='images/house.png' alt='' title='House' class='house' />:&nbsp;" + housesum + "&nbsp;&nbsp;<img src='images/hotel.png' alt='' title='Hotel' class='hotel' />:&nbsp;" + hotelsum;
 
 		return;
 	}
 
-	hide("buildings");
+	$("#buildings").hide();
 	var sq = square[checkedproperty];
 
 	buyhousebutton = document.getElementById("buyhousebutton");
 	sellhousebutton = document.getElementById("sellhousebutton");
 
-	show("mortgagebutton");
+	$("#mortgagebutton").show();
 	document.getElementById("mortgagebutton").disabled = false;
 
 	if (sq.mortgage) {
 		document.getElementById("mortgagebutton").value = "Unmortgage ($" + Math.round(sq.price * 0.6) + ")";
 		document.getElementById("mortgagebutton").title = "Unmortgage " + sq.name + " for $" + Math.round(sq.price * 0.6) + ".";
-		hide("buyhousebutton");
-		hide("sellhousebutton");
+		$("#buyhousebutton").hide();
+		$("#sellhousebutton").hide();
 
 		allGroupUnmortgaged = false;
 	} else {
@@ -1552,8 +1582,8 @@ function updateOption() {
 		document.getElementById("mortgagebutton").title = "Mortgage " + sq.name + " for $" + (sq.price * 0.5) + ".";
 
 		if (sq.groupNumber >= 3) {
-			show("buyhousebutton");
-			show("sellhousebutton");
+			$("#buyhousebutton").show();
+			$("#sellhousebutton").show();
 			buyhousebutton.disabled = false;
 			sellhousebutton.disabled = false;
 
@@ -1567,14 +1597,14 @@ function updateOption() {
 				buyhousebutton.title = "Buy a hotel for $" + sq.houseprice;
 			}
 			if (sq.hotel == 1) {
-				hide("buyhousebutton");
+				$("#buyhousebutton").hide();
 				sellhousebutton.value = "Sell hotel ($" + (sq.houseprice * 0.5) + ")";
 				sellhousebutton.title = "Sell a hotel for $" + (sq.houseprice * 0.5);
 			}
 
 			var maxhouse = 0;
 			var minhouse = 5;
-			
+
 			for (var j = 0; j < max; j++) {
 
 				if (square[currentSquare.group[j]].house > 0) {
@@ -1582,7 +1612,7 @@ function updateOption() {
 					break;
 				}
 			}
-			
+
 			var max = sq.group.length;
 			for (var i = 0; i < max; i++) {
 				s = square[sq.group[i]];
@@ -1596,15 +1626,15 @@ function updateOption() {
 					if (s.house > maxhouse) {
 						maxhouse = s.house;
 					}
-					
+
 					if (s.house < minhouse) {
 						minhouse = s.house;
 					}
-					
+
 					if (s.house > 0) {
 						allGroupUninproved = false;
 					}
-					
+
 					if (s.mortgage) {
 						allGroupUnmortgaged = false;
 					}
@@ -1639,9 +1669,11 @@ function updateOption() {
 			}
 
 			if (sq.house === 0 && sq.hotel === 0) {
-				hide("sellhousebutton");
+				$("#sellhousebutton").hide();
+
 			} else {
-				hide("mortgagebutton");
+				$("#mortgagebutton").hide();
+
 			}
 
 			// Before a property can be mortgaged or sold, all the properties of its color-group must unimproved.
@@ -1651,13 +1683,11 @@ function updateOption() {
 			}
 
 		} else {
-			hide("buyhousebutton");
-			hide("sellhousebutton");
+			$("#buyhousebutton").hide();
+			$("#sellhousebutton").hide();
 		}
 	}
 }
-
-
 
 function chanceCommunityChest() {
 	var p = player[turn];
@@ -1671,7 +1701,9 @@ function chanceCommunityChest() {
 			communityChestCards.deck.splice(communityChestCards.index, 1);
 		}
 
-		popup("<img src='Images/community_chest_icon.png' style='height: 50px; width: 53px; float: left; margin: 8px 8px 8px 0px;' /><div style='font-weight: bold; font-size: 16px; '>Community Chest:</div><div style='text-align: justify;'>" + communityChestCards[communityChestIndex].text + "</div><div><input type='button' value='OK' onclick='cchestaction(" + communityChestIndex + ");' /></div>", false);
+		popup("<img src='images/community_chest_icon.png' style='height: 50px; width: 53px; float: left; margin: 8px 8px 8px 0px;' /><div style='font-weight: bold; font-size: 16px; '>Community Chest:</div><div style='text-align: justify;'>" + communityChestCards[communityChestIndex].text + "</div>", function() {
+			communityChestAction(communityChestIndex);
+		});
 
 		communityChestCards.index++;
 
@@ -1688,7 +1720,9 @@ function chanceCommunityChest() {
 			chanceCards.deck.splice(chanceCards.index, 1);
 		}
 
-		popup("<img src='Images/chance_icon.png' style='height: 50px; width: 26px; float: left; margin: 8px 8px 8px 0px;' /><div style='font-weight: bold; font-size: 16px; '>Chance:</div><div style='text-align: justify;'>" + chanceCards[chanceIndex].text + "</div><div><input type='button' value='OK' onclick='chanceaction(" + chanceIndex + ");' /></div>", false);
+		popup("<img src='images/chance_icon.png' style='height: 50px; width: 26px; float: left; margin: 8px 8px 8px 0px;' /><div style='font-weight: bold; font-size: 16px; '>Chance:</div><div style='text-align: justify;'>" + chanceCards[chanceIndex].text + "</div>", function() {
+			chanceAction(chanceIndex);
+		});
 
 		chanceCards.index++;
 
@@ -1706,12 +1740,12 @@ function chanceCommunityChest() {
 	}
 }
 
-function chanceaction(chanceIndex) {
+function chanceAction(chanceIndex) {
 	var p = player[turn]; // This is needed for reference in action() method.
 
-	hide('popupbackground');
-	hide('popupwrap');
-	chanceCards[chanceIndex].action();
+	// $('#popupbackground').hide();
+	// $('#popupwrap').hide();
+	chanceCards[chanceIndex].action(p);
 
 	updateMoney();
 
@@ -1721,12 +1755,12 @@ function chanceaction(chanceIndex) {
 	}
 }
 
-function cchestaction(communityChestIndex) {
+function communityChestAction(communityChestIndex) {
 	var p = player[turn]; // This is needed for reference in action() method.
 
-	hide('popupbackground');
-	hide('popupwrap');
-	communityChestCards[communityChestIndex].action();
+	// $('#popupbackground').hide();
+	// $('#popupwrap').hide();
+	communityChestCards[communityChestIndex].action(p);
 
 	updateMoney();
 
@@ -1741,7 +1775,7 @@ function addamount(amount, cause) {
 
 	p.money += amount;
 
-	addalert(p.name + " received $" + amount + " from " + cause + ".");
+	addAlert(p.name + " received $" + amount + " from " + cause + ".");
 }
 
 function subtractamount(amount, cause) {
@@ -1749,12 +1783,12 @@ function subtractamount(amount, cause) {
 
 	p.pay(amount, 0);
 
-	addalert(p.name + " lost $" + amount + " from " + cause + ".");
+	addAlert(p.name + " lost $" + amount + " from " + cause + ".");
 }
 
 function gotojail() {
 	var p = player[turn];
-	addalert(p.name + " was sent directly to jail.");
+	addAlert(p.name + " was sent directly to jail.");
 	document.getElementById("landed").innerHTML = "You are in jail.";
 
 	p.jail = true;
@@ -1768,7 +1802,7 @@ function gotojail() {
 	updateOwned();
 
 	if (!p.human) {
-		popup(p.AI.alertList + "<div><input type='button' value='OK' onclick='hide(\"popupbackground\"); hide(\"popupwrap\"); game.next();' /></div>", false);
+		popup(p.AI.alertList, game.next);
 		p.AI.alertList = "";
 	}
 }
@@ -1795,7 +1829,7 @@ function payeachplayer(amount, cause) {
 		}
 	}
 
-	addalert(p.name + " lost $" + total + " from " + cause + ".");
+	addAlert(p.name + " lost $" + total + " from " + cause + ".");
 }
 
 function collectfromeachplayer(amount, cause) {
@@ -1817,7 +1851,7 @@ function collectfromeachplayer(amount, cause) {
 		}
 	}
 
-	addalert(p.name + " received $" + total + " from " + cause + ".");
+	addAlert(p.name + " received $" + total + " from " + cause + ".");
 }
 
 function advance(destination, pass) {
@@ -1829,7 +1863,7 @@ function advance(destination, pass) {
 		} else {
 			p.position = pass;
 			p.money += 200;
-			addalert(p.name + " collected a $200 salary for passing GO.");
+			addAlert(p.name + " collected a $200 salary for passing GO.");
 		}
 	}
 	if (p.position < destination) {
@@ -1837,7 +1871,7 @@ function advance(destination, pass) {
 	} else {
 		p.position = destination;
 		p.money += 200;
-		addalert(p.name + " collected a $200 salary for passing GO.");
+		addAlert(p.name + " collected a $200 salary for passing GO.");
 	}
 
 	land();
@@ -1853,7 +1887,7 @@ function advanceToNearestUtility() {
 	} else if (p.position >= 28) {
 		p.position = 12;
 		p.money += 200;
-		addalert(p.name + " collected a $200 salary for passing GO.");
+		addAlert(p.name + " collected a $200 salary for passing GO.");
 	}
 
 	land(true);
@@ -1871,7 +1905,7 @@ function advanceToNearestRailroad() {
 	} else if (p.position >= 35) {
 		p.position = 5;
 		p.money += 200;
-		addalert(p.name + " collected a $200 salary for passing GO.");
+		addAlert(p.name + " collected a $200 salary for passing GO.");
 	}
 
 	land(true);
@@ -1896,9 +1930,9 @@ function streetrepairs(houseprice, hotelprice) {
 
 		// If function was called by Community Chest.
 		if (houseprice === 40) {
-			addalert(p.name + " lost $" + cost + " to Community Chest.");
+			addAlert(p.name + " lost $" + cost + " to Community Chest.");
 		} else {
-			addalert(p.name + " lost $" + cost + " to Chance.");
+			addAlert(p.name + " lost $" + cost + " to Chance.");
 		}
 	}
 
@@ -1910,7 +1944,7 @@ function payfifty() {
 	document.getElementById("jail").style.border = '1px solid black';
 	document.getElementById("cell11").style.border = '2px solid ' + p.color;
 
-	hide("landed");
+	$("#landed").hide();
 	doublecount = 0;
 
 	p.jail = false;
@@ -1918,7 +1952,7 @@ function payfifty() {
 	p.position = 10;
 	p.pay(50, 0);
 
-	addalert(p.name + " paid the $50 fine to get out of jail.");
+	addAlert(p.name + " paid the $50 fine to get out of jail.");
 	updateMoney();
 	updatePosition();
 }
@@ -1929,7 +1963,7 @@ function useJailCard() {
 	document.getElementById("jail").style.border = '1px solid black';
 	document.getElementById("cell11").style.border = '2px solid ' + p.color;
 
-	hide("landed");
+	$("#landed").hide();
 	p.jail = false;
 	p.jailroll = 0;
 
@@ -1961,7 +1995,7 @@ function useJailCard() {
 		}
 	}
 
-	addalert(p.name + " used a \"Get Out of Jail Free\" card.");
+	addAlert(p.name + " used a \"Get Out of Jail Free\" card.");
 	updateOwned();
 	updatePosition();
 }
@@ -1994,7 +2028,7 @@ function buyHouse(index) {
 
 			} else {
 				sq.house++;
-				addalert(p.name + " placed a house on " + sq.name + ".");
+				addAlert(p.name + " placed a house on " + sq.name + ".");
 			}
 
 		} else {
@@ -2004,7 +2038,7 @@ function buyHouse(index) {
 			} else {
 				sq.house = 5;
 				sq.hotel = 1;
-				addalert(p.name + " placed a hotel on " + sq.name + ".");
+				addAlert(p.name + " placed a hotel on " + sq.name + ".");
 			}
 		}
 
@@ -2022,10 +2056,10 @@ function sellHouse(index) {
 	if (sq.hotel === 1) {
 		sq.hotel = 0;
 		sq.house = 4;
-		addalert(p.name + " sold the hotel on " + sq.name + ".");
+		addAlert(p.name + " sold the hotel on " + sq.name + ".");
 	} else {
 		sq.house--;
-		addalert(p.name + " sold a house on " + sq.name + ".");
+		addAlert(p.name + " sold a house on " + sq.name + ".");
 	}
 
 	p.money += sq.houseprice * 0.5;
@@ -2033,10 +2067,8 @@ function sellHouse(index) {
 	updateMoney();
 }
 
-function showstats() {
-	var HTML,
-	sq,
-	p;
+function showStats() {
+	var HTML, sq, p;
 	var mortgagetext,
 	housetext;
 	var write;
@@ -2067,9 +2099,9 @@ function showstats() {
 				}
 
 				if (sq.house == 5) {
-					housetext += "<span style='float: right; font-weight: bold;'>1&nbsp;x&nbsp;<img src='Images/hotel.png' alt='' title='Hotel' class='hotel' style='float: none;' /></span>";
+					housetext += "<span style='float: right; font-weight: bold;'>1&nbsp;x&nbsp;<img src='images/hotel.png' alt='' title='Hotel' class='hotel' style='float: none;' /></span>";
 				} else if (sq.house > 0 && sq.house < 5) {
-					housetext += "<span style='float: right; font-weight: bold;'>" + sq.house + "&nbsp;x&nbsp;<img src='Images/house.png' alt='' title='House' class='house' style='float: none;' /></span>";
+					housetext += "<span style='float: right; font-weight: bold;'>" + sq.house + "&nbsp;x&nbsp;<img src='images/house.png' alt='' title='House' class='house' style='float: none;' /></span>";
 				}
 
 				HTML += "<tr><td class='statscellcolor' style='background: " + sq.color + ";";
@@ -2110,26 +2142,29 @@ function showstats() {
 	HTML += "</tr></table><div id='titledeed'></div>";
 
 	document.getElementById("statstext").innerHTML = HTML;
-	show("statsbackground");
-	show("statswrap");
+	// Show using animation.
+	$("#statsbackground").fadeIn(400, function() {
+		$("#statswrap").show();
+	});
 }
 
 function showdeed(property) {
 	var sq = square[property];
-	show("deed");
-	hide("deed-normal");
-	hide("deed-mortgaged");
-	hide("deed-special");
+	$("#deed").show();
+
+	$("#deed-normal").hide();
+	$("#deed-mortgaged").hide();
+	$("#deed-special").hide();
 
 	if (sq.mortgage) {
-		show("deed-mortgaged");
+		$("#deed-mortgaged").show();
 		document.getElementById("deed-mortgaged-name").textContent = sq.name;
 		document.getElementById("deed-mortgaged-mortgage").textContent = (sq.price / 2);
 
 	} else {
 
 		if (sq.groupNumber >= 3) {
-			show("deed-normal");
+			$("#deed-normal").show();
 			document.getElementById("deed-header").style.backgroundColor = sq.color;
 			document.getElementById("deed-name").textContent = sq.name;
 			document.getElementById("deed-baserent").textContent = sq.baserent;
@@ -2143,13 +2178,13 @@ function showdeed(property) {
 			document.getElementById("deed-hotelprice").textContent = sq.houseprice;
 
 		} else if (sq.groupNumber == 2) {
-			show("deed-special");
+			$("#deed-special").show();
 			document.getElementById("deed-special-name").textContent = sq.name;
 			document.getElementById("deed-special-text").innerHTML = utiltext();
 			document.getElementById("deed-special-mortgage").textContent = (sq.price / 2);
 
 		} else if (sq.groupNumber == 1) {
-			show("deed-special");
+			$("#deed-special").show();
 			document.getElementById("deed-special-name").textContent = sq.name;
 			document.getElementById("deed-special-text").innerHTML = transtext();
 			document.getElementById("deed-special-mortgage").textContent = (sq.price / 2);
@@ -2158,7 +2193,7 @@ function showdeed(property) {
 }
 
 function hidedeed() {
-	hide("deed");
+	$("#deed").hide();
 }
 
 function buy() {
@@ -2171,14 +2206,14 @@ function buy() {
 
 		property.owner = turn;
 		updateMoney();
-		addalert(p.name + " bought " + property.name + " for " + property.pricetext + ".");
+		addAlert(p.name + " bought " + property.name + " for " + property.pricetext + ".");
 
 		updateOwned();
 
-		hide("landed");
+		$("#landed").hide();
 
 	} else {
-		popup("<p>" + p.name + ", you need $" + (property.price - p.money) + " more to buy " + property.name + ".</p><div><input type='button' value='OK' onclick='hide(\"popupbackground\"); hide(\"popupwrap\");' /></div>", false);
+		popup("<p>" + p.name + ", you need $" + (property.price - p.money) + " more to buy " + property.name + ".</p>");
 	}
 }
 
@@ -2199,7 +2234,7 @@ function mortgage(index) {
 	document.getElementById("mortgagebutton").value = "Unmortgage for $" + unmortgagePrice;
 	document.getElementById("mortgagebutton").title = "Unmortgage " + sq.name + " for $" + unmortgagePrice + ".";
 
-	addalert(p.name + " mortgaged " + sq.name + " for $" + mortgagePrice + ".");
+	addAlert(p.name + " mortgaged " + sq.name + " for $" + mortgagePrice + ".");
 	updateOwned();
 	updateMoney();
 
@@ -2221,7 +2256,7 @@ function unmortgage(index) {
 	document.getElementById("mortgagebutton").value = "Mortgage for $" + mortgagePrice;
 	document.getElementById("mortgagebutton").title = "Mortgage " + sq.name + " for $" + mortgagePrice + ".";
 
-	addalert(p.name + " unmortgaged " + sq.name + " for $" + unmortgagePrice + ".");
+	addAlert(p.name + " unmortgaged " + sq.name + " for $" + unmortgagePrice + ".");
 	updateOwned();
 	return true;
 }
@@ -2236,10 +2271,10 @@ function land(increasedRent) {
 	var die1 = game.getDie(1);
 	var die2 = game.getDie(2);
 
-	show("landed");
+	$("#landed").show();
 	document.getElementById("landed").innerHTML = "You landed on " + s.name + ".";
 	s.landcount++;
-	addalert(p.name + " landed on " + s.name + ".");
+	addAlert(p.name + " landed on " + s.name + ".");
 
 	// Allow player to buy the property on which he landed.
 	if (s.price !== 0 && s.owner === 0) {
@@ -2317,7 +2352,7 @@ function land(increasedRent) {
 			}
 		}
 
-		addalert(p.name + " paid $" + rent + " rent to " + player[s.owner].name + ".");
+		addAlert(p.name + " paid $" + rent + " rent to " + player[s.owner].name + ".");
 		p.pay(rent, s.owner);
 		player[s.owner].money += rent;
 
@@ -2337,7 +2372,7 @@ function land(increasedRent) {
 		updatePosition();
 
 		if (p.human) {
-			popup("<div>Go to jail. Go directly to Jail. Do not pass GO. Do not collect $200.</div><div><input type='button' value='OK' onclick=" + '"' + "hide('popupbackground'); hide('popupwrap'); gotojail();" + '"' + " /></div>", false);
+			popup("<div>Go to jail. Go directly to Jail. Do not pass GO. Do not collect $200.</div>", goToJail);
 		} else {
 			gotojail();
 		}
@@ -2355,7 +2390,7 @@ function land(increasedRent) {
 	updateOwned();
 
 	if (!p.human) {
-		popup(p.AI.alertList + "<div><input type='button' value='OK' onclick='hide(\"popupbackground\"); hide(\"popupwrap\"); chanceCommunityChest();' /></div>", false);
+		popup(p.AI.alertList, chanceCommunityChest);
 		p.AI.alertList = "";
 	} else {
 		chanceCommunityChest();
@@ -2365,9 +2400,9 @@ function land(increasedRent) {
 function roll() {
 	var p = player[turn];
 
-	hide("option");
-	show("buy");
-	hide("manage");
+	$("#option").hide();
+	$("#buy").show();
+	$("#manage").hide();
 
 	document.getElementById("nextbutton").focus();
 	document.getElementById("nextbutton").value = "End turn";
@@ -2380,9 +2415,9 @@ function roll() {
 	doublecount++;
 
 	if (die1 == die2) {
-		addalert(p.name + " rolled " + (die1 + die2) + " - doubles.");
+		addAlert(p.name + " rolled " + (die1 + die2) + " - doubles.");
 	} else {
-		addalert(p.name + " rolled " + (die1 + die2) + ".");
+		addAlert(p.name + " rolled " + (die1 + die2) + ".");
 	}
 
 	if (die1 == die2 && !p.jail) {
@@ -2396,13 +2431,12 @@ function roll() {
 		} else if (doublecount === 3) {
 			p.jail = true;
 			doublecount = 0;
-			addalert(p.name + " rolled doubles three times in a row.");
+			addAlert(p.name + " rolled doubles three times in a row.");
 			updateMoney();
 
 
 			if (p.human) {
-				buttonAonclick = 'hide("popupbackground"); hide("popupwrap"); gotojail();';
-				popup("You rolled doubles three times in a row. Go to jail.<div><input type='button' value='OK' onclick='" + buttonAonclick + "' /></div>", false);
+				popup("You rolled doubles three times in a row. Go to jail.", goToJail);
 			} else {
 				gotojail();
 			}
@@ -2426,29 +2460,33 @@ function roll() {
 		if (die1 == die2) {
 			document.getElementById("jail").style.border = "1px solid black";
 			document.getElementById("cell11").style.border = "2px solid " + p.color;
-			hide("landed");
+			$("#landed").hide();
 
 			p.jail = false;
 			p.jailroll = 0;
 			p.position = 10 + die1 + die2;
 			doublecount = 0;
 
-			addalert(p.name + " rolled doubles to get out of jail.");
+			addAlert(p.name + " rolled doubles to get out of jail.");
 
 			land();
 		} else {
 			if (p.jailroll === 3) {
 
 				if (p.human) {
-					buttonAonclick = 'hide("popupbackground"); hide("popupwrap"); payfifty(); player[turn].position=10+' + (die1 + die2) + '; land();';
-					popup("You must pay the $50 fine.<div><input type='button' value='OK' onclick='" + buttonAonclick + "' /></div>", false);
+					popup("<p>You must pay the $50 fine.</p>", function() {
+						payFifty();
+						payfifty();
+						player[turn].position=10 + die1 + die2;
+						land();
+					});
 				} else {
 					payfifty();
 					p.position = 10 + die1 + die2;
 					land();
 				}
 			} else {
-				show("landed");
+				$("#landed").show();
 				document.getElementById("landed").innerHTML = "You are in jail.";
 
 				if (!p.human) {
@@ -2469,7 +2507,7 @@ function roll() {
 		if (p.position >= 40) {
 			p.position -= 40;
 			p.money += 200;
-			addalert(p.name + " collected a $200 salary for passing GO.");
+			addAlert(p.name + " collected a $200 salary for passing GO.");
 		}
 
 		land();
@@ -2491,29 +2529,24 @@ function play() {
 
 	document.getElementById("pname").innerHTML = p.name;
 
-	addalert("It is " + p.name + "'s turn.");
+	addAlert("It is " + p.name + "'s turn.");
 
 	// Check for bankruptcy.
 	p.pay(0, p.creditor);
 
-	hide("landed");
-	hide("option");
-	show("control");
-	show("board");
-	show("viewstats");
-	show("buy");
-	hide("manage");
+	$("#landed, #option, #manage").hide();
+	$("#board, #control, #moneybar, #viewstats, #buy").show();
 
 	doublecount = 0;
 	document.getElementById("nextbutton").focus();
 	document.getElementById("nextbutton").value = "Roll Dice";
 	document.getElementById("nextbutton").title = "Roll the dice and move your token accordingly.";
 
-	hide("die1");
-	hide("die2");
-
+	$("#die0").hide();
+	$("#die1").hide();
+	
 	if (p.jail) {
-		show("landed");
+		$("#landed").show();
 		document.getElementById("landed").innerHTML = "You are in jail.<input type='button' title='Pay $50 fine to get out of jail immediately.' value='Pay $50 fine' onclick='payfifty();' />";
 
 		if (p.communityChestJailCard || p.chanceJailCard) {
@@ -2523,12 +2556,12 @@ function play() {
 		document.getElementById("nextbutton").title = "Roll the dice. If you throw doubles, you will get out of jail.";
 
 		if (p.jailroll === 0)
-			addalert("This is " + p.name + "'s first turn in jail.");
+			addAlert("This is " + p.name + "'s first turn in jail.");
 		else if (p.jailroll === 1)
-			addalert("This is " + p.name + "'s second turn in jail.");
+			addAlert("This is " + p.name + "'s second turn in jail.");
 		else if (p.jailroll === 2) {
 			document.getElementById("landed").innerHTML += "<div>NOTE: If you do not throw doubles after this roll, you <i>must</i> pay the $50 fine.</div>";
-			addalert("This is " + p.name + "'s third turn in jail.");
+			addAlert("This is " + p.name + "'s third turn in jail.");
 		}
 
 		if (!p.human && p.AI.postBail()) {
@@ -2544,11 +2577,8 @@ function play() {
 	updatePosition();
 	updateOwned();
 
-	for (var i = 1; i <= pcount; i++) {
-		hide("p" + i + "arrow");
-	}
-
-	show("p" + turn + "arrow");
+	$(".money-bar-arrow").hide();
+	$("#p" + turn + "arrow").show();
 
 	if (!p.human) {
 		if (!p.AI.beforeTurn()) {
@@ -2568,9 +2598,9 @@ function setup() {
 	for (var i = 1; i <= pcount; i++) {
 		p = player[playerArray[i - 1]];
 
-		
+
 		p.color = document.getElementById("player" + i + "color").value.toLowerCase();
-		
+
 		if (document.getElementById("player" + i + "ai").value === "0") {
 			p.name = document.getElementById("player" + i + "name").value;
 			p.human = true;
@@ -2580,36 +2610,35 @@ function setup() {
 		}
 	}
 
-	show("board");
-	hide("setup");
-	show("moneybar");
+	$("#board, #moneybar").show();
+	$("#setup").hide();
 
 	if (pcount === 2) {
 		document.getElementById("stats").style.width = "454px";
 	} else if (pcount === 3) {
 		document.getElementById("stats").style.width = "686px";
 	}
-	
+
 	document.getElementById("stats").style.top = "0px";
 	document.getElementById("stats").style.left = "0px";
 
 	play();
 }
 
-function togglecheck(elementid) {
-	element = document.getElementById(elementid);
+// function togglecheck(elementid) {
+	// element = document.getElementById(elementid);
 
-	if (window.event.srcElement.id == elementid)
-		return;
+	// if (window.event.srcElement.id == elementid)
+		// return;
 
-	if (element.checked) {
-		element.checked = false;
-	} else {
-		element.checked = true;
-	}
-}
+	// if (element.checked) {
+		// element.checked = false;
+	// } else {
+		// element.checked = true;
+	// }
+// }
 
-function getcheckedproperty() {
+function getCheckedProperty() {
 	for (var i = 0; i < 42; i++) {
 		if (document.getElementById("propertycheckbox" + i) != null && document.getElementById("propertycheckbox" + i).checked == true) {
 			return i;
@@ -2618,30 +2647,28 @@ function getcheckedproperty() {
 	return -1; // No property is checked.
 }
 
-function propertycell_onclick(element, num) {
-	togglecheck("propertycheckbox" + num);
-	if (document.getElementById("propertycheckbox" + num).checked) {
+// function propertycell_onclick(element, num) {
+	// togglecheck("propertycheckbox" + num);
+	// if (document.getElementById("propertycheckbox" + num).checked) {
 
-		// Uncheck all other boxes.
-		for (var i = 0; i < 40; i++) {
-			if (i !== num && document.getElementById("propertycheckbox" + i)) {
-				document.getElementById("propertycheckbox" + i).checked = false;
-			}
-		}
-	}
+		// // Uncheck all other boxes.
+		// for (var i = 0; i < 40; i++) {
+			// if (i !== num && document.getElementById("propertycheckbox" + i)) {
+				// document.getElementById("propertycheckbox" + i).checked = false;
+			// }
+		// }
+	// }
 
-	updateOption();
-}
+	// updateOption();
+// }
 
 function playernumber_onchange() {
 	pcount = parseInt(document.getElementById("playernumber").value);
 
-	for (var i = 1; i <= 8; i++) {
-		hide("player" + parseInt(i) + "input");
-	}
-
+	$(".player-input").hide();
+	
 	for (var i = 1; i <= pcount; i++) {
-		show("player" + parseInt(i) + "input");
+		$("#player" + i + "input").show();
 	}
 }
 
@@ -2662,34 +2689,34 @@ window.onload = function() {
 		player[i] = new Player("", "");
 		player[i].index = i;
 	}
-	
+
 	var groupPropertyArray = [];
 	var groupNumber;
-	
+
 	for (var i = 0; i < 40; i++) {
 		groupNumber = square[i].groupNumber;
-		
+
 		if (groupNumber > 0) {
 			if (!groupPropertyArray[groupNumber]) {
 				groupPropertyArray[groupNumber] = [];
 			}
-			
+
 			groupPropertyArray[groupNumber].push(i);
 		}
 	}
-	
+
 	for (var i = 0; i < 40; i++) {
 		groupNumber = square[i].groupNumber;
-		
+
 		if (groupNumber > 0) {
 			square[i].group = groupPropertyArray[groupNumber];
 		}
-		
+
 		square[i].index = i;
 	}
 
 	AITest.count = 0;
-	
+
 	player[1].human = true;
 	player[0].name = "the bank";
 
@@ -2708,14 +2735,12 @@ window.onload = function() {
 	chanceCards.deck.sort(function() {return Math.random() - 0.5;});
 	communityChestCards.deck.sort(function() {return Math.random() - 0.5;});
 
-	document.getElementById("playernumber").onchange = playernumber_onchange;
+	$("#playernumber").on("change", playernumber_onchange);
 	playernumber_onchange();
 
-	document.getElementById("nextbutton").onclick = game.next;
-
-	show("setup");
-	show("noF5");
-	hide("noscript");
+	$("#nextbutton").click(game.next);
+	$("#noscript").hide();
+	$("#setup, #noF5").show();
 
 	var enlargeWrap = document.body.appendChild(document.createElement("div"));
 
@@ -2765,64 +2790,96 @@ window.onload = function() {
 		document.getElementById("enlarge" + i + "color").style.backgroundColor = s.color;
 		document.getElementById("enlarge" + i + "name").textContent = s.name;
 		document.getElementById("enlarge" + i + "price").textContent = s.pricetext;
-
-		currentCellPositionHolder.onmouseover = function() {show("enlarge-wrap"); show(this.enlargeId);};
-		currentCellPositionHolder.onmouseout = function() {hide('enlarge-wrap'); hide(this.enlargeId);};
-		// document.getElementById("cell"+parseInt(i)).style.background='#FFFFFF url("Images/monopoly_token_boot.png") no-repeat';
 	}
+
+
+	// Add images to enlarges.
+	document.getElementById("enlarge5token").innerHTML += '<img src="images/train_icon.png" height="60" width="65" alt="" style="position: relative; bottom: 20px;" />';
+	document.getElementById("enlarge15token").innerHTML += '<img src="images/train_icon.png" height="60" width="65" alt="" style="position: relative; top: -20px;" />';
+	document.getElementById("enlarge25token").innerHTML += '<img src="images/train_icon.png" height="60" width="65" alt="" style="position: relative; top: -20px;" />';
+	document.getElementById("enlarge35token").innerHTML += '<img src="images/train_icon.png" height="60" width="65" alt="" style="position: relative; top: -20px;" />';
+	document.getElementById("enlarge12token").innerHTML += '<img src="images/electric_icon.png" height="60" width="48" alt="" style="position: relative; top: -20px;" />';
+	document.getElementById("enlarge28token").innerHTML += '<img src="images/water_icon.png" height="60" width="78" alt="" style="position: relative; top: -20px;" />';
+	document.getElementById("enlarge0token").innerHTML += '<img src="images/arrow_icon.png" height="40" width="136" alt="" />';
+	document.getElementById("enlarge20price").innerHTML += "<img src='images/free_parking_icon.png' height='80' width='72' alt='' style='position: relative; top: -20px;' />";
+	document.getElementById("enlarge38token").innerHTML += '<img src="images/tax_icon.png" height="60" width="70" alt="" style="position: relative; top: -20px;" />';
 
 	corrections();
 
 	// Jail corrections
-	var jail = document.getElementById("jail");
-	jail.innerHTML = "Jail<div id='jailpositionholder'></div>";
-	document.getElementById("enlarge-wrap").innerHTML += "<div id='enlarge40' class='enlarge'><div id='enlarge40color' class='enlarge-color'></div><br /><div id='enlarge40name' class='enlarge-name'></div><br /><div id='enlarge40price' class='enlarge-price'><img src='Images/jake_icon.png' height='80' width='80' alt='' style='position: relative; top: -20px;' /></div><br /><div id='enlarge40token' class='enlarge-token'></div></div>";
+	$("<div>", {id: "jailpositionholder" }).appendTo("#jail");
+	$("<span>").text("Jail").appendTo("#jail");
+
+	document.getElementById("jail").enlargeId = "enlarge40";
+
+	document.getElementById("enlarge-wrap").innerHTML += "<div id='enlarge40' class='enlarge'><div id='enlarge40color' class='enlarge-color'></div><br /><div id='enlarge40name' class='enlarge-name'>Jail</div><br /><div id='enlarge40price' class='enlarge-price'><img src='images/jake_icon.png' height='80' width='80' alt='' style='position: relative; top: -20px;' /></div><br /><div id='enlarge40token' class='enlarge-token'></div></div>";
 
 	document.getElementById("enlarge40name").innerHTML = "Jail";
 
-	var nn6 = document.getElementById && !document.all;
+	// Create event handlers for hovering and draging.
+
 	var drag, dragX, dragY, dragObj, dragTop, dragLeft;
 
-	window.onmousemove = function(e) {
-		var object = nn6 ? e.target : window.event.srcElement;
+	$(".cell-position-holder, #jail").on("mouseover", function(){
+		$("#" + this.enlargeId).show();
 
-		if (object.classList.contains("cell-position") || object.classList.contains("cell-position-holder") || object.id === "jail") {
+	}).on("mouseout", function() {
+		$("#" + this.enlargeId).hide();
 
-			if (e.clientY + 20 > window.innerHeight - 204) {
-				enlargeWrap.style.top = (window.innerHeight - 204) + "px";
-			} else {
-				enlargeWrap.style.top = (e.clientY + 20) + "px";
-			}
+	}).on("mousemove", function(e) {
+		var element = document.getElementById(this.enlargeId);
 
-			enlargeWrap.style.left = (e.clientX + 10) + "px";
+		if (e.clientY + 20 > window.innerHeight - 204) {
+			element.style.top = (window.innerHeight - 204) + "px";
+		} else {
+			element.style.top = (e.clientY + 20) + "px";
+		}
 
-		} else if (object.classList.contains("propertycellcolor") || object.classList.contains("statscellcolor")) {
+		element.style.left = (e.clientX + 10) + "px";
+	});
+
+
+	$("body").on("mousemove", function(e) {
+		var object;
+
+		if (e.target) {
+			object = e.target;
+		} else if (window.event && window.event.srcElement) {
+			object = window.event.srcElement;
+		}
+
+
+		if (object.classList.contains("propertycellcolor") || object.classList.contains("statscellcolor")) {
 			if (e.clientY + 20 > window.innerHeight - 279) {
 				document.getElementById("deed").style.top = (window.innerHeight - 279) + "px";
 			} else {
 				document.getElementById("deed").style.top = (e.clientY + 20) + "px";
 			}
 			document.getElementById("deed").style.left = (e.clientX + 10) + "px";
-		}
 
-		if (drag) {
 
-			if (window.event) {
-				dragObj.style.left = (dragLeft + window.event.clientX - dragX) + "px";
-				dragObj.style.top = (dragTop + window.event.clientY - dragY) + "px";
-			} else if (e) {
+		} else if (drag) {
+			if (e) {
 				dragObj.style.left = (dragLeft + e.clientX - dragX) + "px";
 				dragObj.style.top = (dragTop + e.clientY - dragY) + "px";
+
+			} else if (window.event) {
+				dragObj.style.left = (dragLeft + window.event.clientX - dragX) + "px";
+				dragObj.style.top = (dragTop + window.event.clientY - dragY) + "px";
+
+
+
 			}
 
-			return false;
+
 		}
-	}
+	});
 
-	window.onmouseup = function mouseup() {
+
+	$("body").on("mouseup", function() {
+
 		drag = false;
-	}
-
+	});
 	document.getElementById("statsdrag").onmousedown = function(e) {
 		dragObj = document.getElementById("stats");
 		dragObj.style.position = "relative";
@@ -2859,25 +2916,29 @@ window.onload = function() {
 		drag = true;
 	}
 
-	document.getElementById("mortgagebutton").onclick = function() {
-		var checkedProperty = getcheckedproperty()
+	$("#mortgagebutton").click(function() {
+		var checkedProperty = getCheckedProperty()
 		var s = square[checkedProperty];
 
 		if (s.mortgage) {
 			if (player[s.owner].money < Math.round(s.price * 0.6)) {
-				popup("<p>You need $" + (Math.round(s.price * 0.6) - player[s.owner].money) + " more to unmortgage " + s.name + ".</p><div><input type='button' value='OK' onclick='hide(\"popupbackground\"); hide(\"popupwrap\");' /></div>", false);
+				popup("<p>You need $" + (Math.round(s.price * 0.6) - player[s.owner].money) + " more to unmortgage " + s.name + ".</p>");
 
 			} else {
-				popup("<p>" + player[s.owner].name + ", are you sure you want to unmortgage " + s.name + " for $" + Math.round(s.price * 0.6) + "?</p><div><input type='button' value='Yes' onclick='hide(\"popupbackground\"); hide(\"popupwrap\"); unmortgage(" + checkedProperty + ");' /><input type='button' value='No' onclick='hide(\"popupbackground\"); hide(\"popupwrap\");' /></div>", false);
+				popup("<p>" + player[s.owner].name + ", are you sure you want to unmortgage " + s.name + " for $" + Math.round(s.price * 0.6) + "?</p>", function() {
+					unmortgage(checkedProperty);
+				}, "Yes/No");
 			}
 		} else {
-			popup("<p>" + player[s.owner].name + ", are you sure you want to mortgage " + s.name + " for $" + Math.round(s.price * 0.5) + "?</p><div><input type='button' value='Yes' onclick='hide(\"popupbackground\"); hide(\"popupwrap\"); mortgage(" + checkedProperty + ");' /><input type='button' value='No' onclick='hide(\"popupbackground\"); hide(\"popupwrap\");' /></div>", false);
+			popup("<p>" + player[s.owner].name + ", are you sure you want to mortgage " + s.name + " for $" + Math.round(s.price * 0.5) + "?</p>", function() {
+				mortgage(checkedProperty);
+			}, "Yes/No");
 		}
 
-	};
+	});
 
-	document.getElementById("buyhousebutton").onclick = function() {
-		var checkedProperty = getcheckedproperty();
+	$("#buyhousebutton").on("click", function() {
+		var checkedProperty = getCheckedProperty();
 		var s = square[checkedProperty];
 		var p = player[s.owner];
 		var houseSum = 0;
@@ -2885,10 +2946,10 @@ window.onload = function() {
 
 		if (p.money < s.houseprice) {
 			if (s.house === 4) {
-				popup("<p>You need $" + (s.houseprice - player[s.owner].money) + " more to buy a hotel for " + s.name + ".</p><div><input type='button' value='OK' onclick='hide(\"popupbackground\"); hide(\"popupwrap\");' /></div>", false);
+				popup("<p>You need $" + (s.houseprice - player[s.owner].money) + " more to buy a hotel for " + s.name + ".</p>");
 				return;
 			} else {
-				popup("<p>You need $" + (s.houseprice - player[s.owner].money) + " more to buy a house for " + s.name + ".</p><div><input type='button' value='OK' onclick='hide(\"popupbackground\"); hide(\"popupwrap\");' /></div>", false);
+				popup("<p>You need $" + (s.houseprice - player[s.owner].money) + " more to buy a house for " + s.name + ".</p>");
 				return;
 			}
 		}
@@ -2902,21 +2963,43 @@ window.onload = function() {
 		}
 
 		if (s.house < 4 && houseSum >= 32) {
-			popup("<p>All 32 houses are owned. You must wait until one becomes available.</p><div><input type='button' value='OK' onclick='hide(\"popupbackground\"); hide(\"popupwrap\");' /></div>", false);
+			popup("<p>All 32 houses are owned. You must wait until one becomes available.</p>");
 			return;
 		} else if (s.house === 4 && hotelSum >= 12) {
-			popup("<p>All 12 hotels are owned. You must wait until one becomes available.</p><div><input type='button' value='OK' onclick='hide(\"popupbackground\"); hide(\"popupwrap\");' /></div>", false);
+			popup("<p>All 12 hotels are owned. You must wait until one becomes available.</p>");
 			return;
 		}
 
 		buyHouse(checkedProperty);
 
-	};
+	});
 
-	document.getElementById("sellhousebutton").onclick = function() { sellHouse(getcheckedproperty()); };
+	$("#sellhousebutton").click(function() { sellHouse(getCheckedProperty()); });
 
-	// Add images to enlarges.
-	document.getElementById("enlarge0token").innerHTML += '<img src="Images/arrow_icon.png" height="40" width="136" alt="" />';
-	document.getElementById("enlarge20price").innerHTML += "<img src='Images/free_parking_icon.png' height='80' width='72' alt='' style='position: relative; top: -20px;' />";
-	document.getElementById("enlarge38token").innerHTML += '<img src="Images/tax_icon.png" height="60" width="70" alt="" style="position: relative; top: -20px;" />';
+	$("#viewstats").on("click", showStats);
+	$("#statsclose, #statsbackground").on("click", function() {
+		$("#statswrap").hide();
+		$("#statsbackground").fadeOut(400);
+	});
+
+	$("#buy-menu-item").click(function() {
+		$("#buy").show();
+		$("#manage").hide();
+
+		// Scroll alerts to bottom.
+		$("#alert").scrollTop($("#alert").prop("scrollHeight"));
+	});
+
+
+	$("#manage-menu-item").click(function() {
+		$("#manage").show();
+		$("#buy").hide();
+	});
+
+
+	$("#trade-menu-item").click(game.trade);
+
+
+
+
 };

@@ -4,12 +4,13 @@
 	<title>Monopoly</title>
 	<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
 	
-	<script type="text/javascript" src="Classic%20Edition.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script type="text/javascript" src="classicedition.js"></script>
 	<!-- Comment out the previous line and uncomment the next one to enable the New York City Edition -->
-	<!-- <script type="text/javascript" src="New%20York%20City%20Edition.js"></script> -->
-	<script type="text/javascript" src="AI.js"></script>
-	<script type="text/javascript" src="Monopoly.js"></script>
-	<link rel="stylesheet" type="text/css" href="Monopoly.css" />
+	<!-- <script type="text/javascript" src="newyorkcityedition.js"></script> -->
+	<script type="text/javascript" src="ai.js"></script>
+	<script type="text/javascript" src="monopoly.js"></script>
+	<link rel="stylesheet" type="text/css" href="styles.css" />
 </head>
 
 <body>
@@ -17,18 +18,18 @@
 	<div id="popupwrap">
 		<div id="popup">
 			<div style="position: relative;">
-				<img id="popupclose" src="Images/close.png" title="Close" alt="x" onclick="hide('popupbackground'); hide('popupwrap');" />
+				<!-- <img id="popupclose" src="Images/close.png" title="Close" alt="x" onclick="hide('popupbackground'); hide('popupwrap');" /> -->
 				<div id="popuptext"></div>
 				<div id="popupdrag"></div>
 			</div>
 		</div>
 	</div>
 
-	<div id="statsbackground" onclick="hide('statsbackground'); hide('statswrap');"></div>
+	<div id="statsbackground"></div>
 	<div id="statswrap">
 		<div id="stats">
 			<div style="position: relative;">
-				<img id="statsclose" src="Images/close.png" title="Close" alt="x" onclick="hide('statsbackground'); hide('statswrap');" />
+				<img id="statsclose" src="images/close.png" title="Close" alt="x" />
 				<div id="statstext"></div>
 				<div id="statsdrag"></div>
 			</div>
@@ -43,8 +44,7 @@
 		Refresh this page to start a new game.
 	</div>
 
-	<div id="enlarge">
-	</div>
+	<!-- <div id="enlarge"></div> -->
 	
 	<div id="deed">
 		<div id="deed-normal" style="display: none;">
@@ -103,7 +103,9 @@
 				<span style="float: right;">$<span id="deed-special-mortgage">100</span>.</span>
 			</div>
 		</div>
-	</div><table id="board">
+	</div>
+	
+	<table id="board">
 		<tr>
 			<td class="cell board-corner" id="cell20"></td>
 			<td class="cell board-top" id="cell21"></td>
@@ -151,7 +153,7 @@
 		</tr><tr>
 			<td class="cell board-left" id="cell11"></td>
 			<td colspan="9" class="board-center">
-				<div id="jail" onmouseover="show('enlarge-wrap'); show('enlarge40');" onmouseout="hide('enlarge-wrap'); hide('enlarge40');"></div>
+				<div id="jail"></div>
 			</td>
 			<td class="cell board-right" id="cell39"></td>
 		</tr><tr>
@@ -172,66 +174,67 @@
 	<div id="moneybarwrap">
 		<div id="moneybar">
 			<table>
-				<tr id="moneybarrow1">
-					<td class="moneybararrowcell"><img src="Images/arrow.png" id="p1arrow" width="30" height="30" alt=">"/></td>
+				<tr id="moneybarrow0" class="money-bar-row">
+
+					<td class="moneybararrowcell"><img src="images/arrow.png" id="p0arrow" class="money-bar-arrow" alt=">" /></td>
+					<td id="p0moneybar" class="moneybarcell">
+						<div><span id="p0moneyname" >Player 0</span>:</div>
+						<div>$<span id="p0money">1500</span></div>
+					</td>
+				</tr>
+				<tr id="moneybarrow1" class="money-bar-row">
+					<td class="moneybararrowcell"><img src="images/arrow.png" id="p1arrow" class="money-bar-arrow" alt=">"/></td>
 					<td id="p1moneybar" class="moneybarcell">
 						<div><span id="p1moneyname" >Player 1</span>:</div>
 						<div>$<span id="p1money">1500</span></div>
 					</td>
 				</tr>
-				<tr id="moneybarrow2">
-					<td class="moneybararrowcell"><img src="Images/arrow.png" id="p2arrow" width="30" height="30" alt=">" /></td>
+				<tr id="moneybarrow2" class="money-bar-row">
+					<td class="moneybararrowcell"><img src="images/arrow.png" id="p2arrow" class="money-bar-arrow" alt=">" /></td>
 					<td id="p2moneybar" class="moneybarcell">
 						<div><span id="p2moneyname" >Player 2</span>:</div>
 						<div>$<span id="p2money">1500</span></div>
 					</td>
 				</tr>
-				<tr id="moneybarrow3">
-					<td class="moneybararrowcell"><img src="Images/arrow.png" id="p3arrow" width="30" height="30" alt=">" /></td>
+				<tr id="moneybarrow3" class="money-bar-row">
+					<td class="moneybararrowcell"><img src="images/arrow.png" id="p3arrow" class="money-bar-arrow" alt=">" /></td>
 					<td id="p3moneybar" class="moneybarcell">
 						<div><span id="p3moneyname" >Player 3</span>:</div>
 						<div>$<span id="p3money">1500</span></div>
 					</td>
 				</tr>
-				<tr id="moneybarrow4">
-					<td class="moneybararrowcell"><img src="Images/arrow.png" id="p4arrow" width="30" height="30" alt=">" /></td>
+				<tr id="moneybarrow4" class="money-bar-row">
+					<td class="moneybararrowcell"><img src="images/arrow.png" id="p4arrow" class="money-bar-arrow" alt=">" /></td>
 					<td id="p4moneybar" class="moneybarcell">
 						<div><span id="p4moneyname" >Player 4</span>:</div>
 						<div>$<span id="p4money">1500</span></div>
 					</td>
 				</tr>
-				<tr id="moneybarrow5">
-					<td class="moneybararrowcell"><img src="Images/arrow.png" id="p5arrow" width="30" height="30" alt=">" /></td>
+				<tr id="moneybarrow5" class="money-bar-row">
+					<td class="moneybararrowcell"><img src="images/arrow.png" id="p5arrow" class="money-bar-arrow" alt=">" /></td>
 					<td id="p5moneybar" class="moneybarcell">
 						<div><span id="p5moneyname" >Player 5</span>:</div>
 						<div>$<span id="p5money">1500</span></div>
 					</td>
 				</tr>
-				<tr id="moneybarrow6">
-					<td class="moneybararrowcell"><img src="Images/arrow.png" id="p6arrow" width="30" height="30" alt=">" /></td>
+				<tr id="moneybarrow6" class="money-bar-row">
+					<td class="moneybararrowcell"><img src="images/arrow.png" id="p6arrow" class="money-bar-arrow" alt=">" /></td>
 					<td id="p6moneybar" class="moneybarcell">
 						<div><span id="p6moneyname" >Player 6</span>:</div>
 						<div>$<span id="p6money">1500</span></div>
 					</td>
 				</tr>
-				<tr id="moneybarrow7">
-					<td class="moneybararrowcell"><img src="Images/arrow.png" id="p7arrow" width="30" height="30" alt=">" /></td>
+				<tr id="moneybarrow7" class="money-bar-row">
+					<td class="moneybararrowcell"><img src="images/arrow.png" id="p7arrow" class="money-bar-arrow" alt=">" /></td>
 					<td id="p7moneybar" class="moneybarcell">
 						<div><span id="p7moneyname" >Player 7</span>:</div>
 						<div>$<span id="p7money">1500</span></div>
 					</td>
 				</tr>
 				<tr id="moneybarrow8">
-					<td class="moneybararrowcell"><img src="Images/arrow.png" id="p8arrow" width="30" height="30" alt=">" /></td>
-					<td id="p8moneybar" class="moneybarcell">
-						<div><span id="p8moneyname" >Player 8</span>:</div>
-						<div>$<span id="p8money">1500</span></div>
-					</td>
-				</tr>
-				<tr id="moneybarrow9">
 					<td style="border: none;" class="moneybararrowcell">&nbsp;</td>
 					<td style="border: none;">
-						<input type="button" id="viewstats" value="View stats" onclick="showstats();" title="View a pop-up window that shows a list of each player's properties." />
+						<input type="button" id="viewstats" value="View stats" title="View a pop-up window that shows a list of each player's properties." />
 					</td>
 				</tr>
 			</table>
@@ -252,7 +255,7 @@
 			</select>
 		</div>
 
-		<div id="player1input">
+		<div id="player1input" class="player-input">
 			Player 1: <input type="text" id="player1name" title="Player name" maxlength="16" value="Player 1" />
 			<select id="player1color" title="Player color">
 				<option style="color: aqua;">Aqua</option>
@@ -278,7 +281,7 @@
 			</select>
 		</div>
 
-		<div id="player2input">
+		<div id="player2input" class="player-input">
 			Player 2: <input type="text" id="player2name" title="Player name" maxlength="16" value="Player 2" />
 			<select id="player2color" title="Player color">
 				<option style="color: aqua;">Aqua</option>
@@ -304,7 +307,7 @@
 			</select>
 		</div>
 
-		<div id="player3input">
+		<div id="player3input" class="player-input">
 			Player 3: <input type="text" id="player3name" title="Player name" maxlength="16" value="Player 3" />
 			<select id="player3color" title="Player color">
 				<option style="color: aqua;">Aqua</option>
@@ -330,7 +333,7 @@
 			</select>
 		</div>
 
-		<div id="player4input">
+		<div id="player4input" class="player-input">
 			Player 4: <input type="text" id="player4name" title="Player name" maxlength="16" value="Player 4" />
 			<select id="player4color" title="Player color">
 				<option style="color: aqua;">Aqua</option>
@@ -356,7 +359,7 @@
 			</select>
 		</div>
 
-		<div id="player5input">
+		<div id="player5input" class="player-input">
 			Player 5: <input type="text" id="player5name" title="Player name" maxlength="16" value="Player 5" />
 			<select id="player5color" title="Player color">
 				<option style="color: aqua;">Aqua</option>
@@ -382,7 +385,7 @@
 			</select>
 		</div>
 
-		<div id="player6input">
+		<div id="player6input" class="player-input">
 			Player 6: <input type="text" id="player6name" title="Player name" maxlength="16" value="Player 6" />
 			<select id="player6color" title="Player color">
 				<option selected="selected" style="color: aqua;">Aqua</option>
@@ -408,7 +411,7 @@
 			</select>
 		</div>
 
-		<div id="player7input">
+		<div id="player7input" class="player-input">
 			Player 7: <input type="text" id="player7name" title="Player name" maxlength="16" value="Player 7" />
 			<select id="player7color" title="Player color">
 				<option style="color: aqua;">Aqua</option>
@@ -434,7 +437,7 @@
 			</select>
 		</div>
 
-		<div id="player8input">
+		<div id="player8input" class="player-input">
 			Player 8: <input type="text" id="player8name" title="Player name" maxlength="16" value="Player 8" />
 			<select id="player8color" title="Player color">
 				<option style="color: aqua;">Aqua</option>
@@ -474,14 +477,17 @@
 					<div id="menu">
 						<table id="menutable" cellspacing="0">
 							<tr>
-								<td class="menuitem" id="menuitem1" onmouseover="menuitem_onmouseover(this);" onmouseout="menuitem_onmouseout(this);">
-									<a href="javascript:void(0);" title="View alerts and buy the property you landed on." onclick="show('buy'); hide('manage');">Buy</a>
+								<td class="menu-item" id="buy-menu-item">
+
+									<a href="javascript:void(0);" title="View alerts and buy the property you landed on.">Buy</a>
 								</td>
-								<td class="menuitem" id="menuitem2" onmouseover="menuitem_onmouseover(this);" onmouseout="menuitem_onmouseout(this);">
-									<a href="javascript:void(0);" title="View, mortgage, and improve your property. " onclick="hide('buy'); show('manage');">Manage</a>
+								<td class="menu-item" id="manage-menu-item">
+
+									<a href="javascript:void(0);" title="View, mortgage, and improve your property. ">Manage</a>
 								</td>
-								<td class="menuitem" id="menuitem3" onmouseover="menuitem_onmouseover(this);" onmouseout="menuitem_onmouseout(this);">
-									<a href="javascript:void(0);" title="Exchange property with other players." onclick="game.trade();">Trade</a>
+								<td class="menu-item" id="trade-menu-item">
+
+									<a href="javascript:void(0);" title="Exchange property with other players.">Trade</a>
 								</td>
 							</tr>
 						</table>
@@ -507,16 +513,16 @@
 							<div><span id="pname" >Player 1</span>:</div>
 							<div><span id="pmoney">$1500</span></div>
 					</div>
-					<div style="width: 74px; height: 33px;">
-						<div id="die1" title="Die" class="die">&nbsp;&nbsp;</div>
-						<div id="die2" title="Die" class="die">&nbsp;&nbsp;</div>
+					<div>
+						<div id="die0" title="Die" class="die die-no-img"></div>
+						<div id="die1" title="Die" class="die die-no-img"></div>
 					</div>
 
 				</td>
 			</tr><tr>
 				<td colspan="2" style="border: none">
 					<div style="padding-top: 8px;">
-						<input type="button" id="nextbutton" title="End turn and advance to the next player." value="End turn"/>
+						<input type="button" id="nextbutton" title="Roll the dice and move your token accordingly." value="Roll Dice"/>
 						<input type="button" id="resignbutton" title="If you cannot pay your debt then you must resign from the game." value="Resign" onclick="game.resign();" />
 					</div>
 				</td>
