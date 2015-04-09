@@ -516,12 +516,8 @@ td {
 }
 
 #enlarge-wrap {
-	width: 150px;
-	height: 200px;
 	border: none;
-	display: none;
-	position: fixed;
-	z-index: 15;
+	z-index: 0;
 }
 
 .menu-item:hover {
@@ -630,10 +626,6 @@ td {
 	z-index: 15;
 }
 
-#enlarge-wrap {
-	border: none;
-	z-index: 0;
-}
 .enlarge-color {
 	background: white;
 	width: 100%;
