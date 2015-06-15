@@ -65,8 +65,7 @@ function luxurytax() {
 	addalert(player[turn].name + " paid $75 for landing on Luxury Tax.");
 	player[turn].pay(75, 0);
 
-	show("landed");
-	document.getElementById("landed").innerHTML = "You landed on Luxury Tax. Pay $75.";
+	$("landed").show().text("You landed on Luxury Tax. Pay $75.");
 }
 
 var square = [];
