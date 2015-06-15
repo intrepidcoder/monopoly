@@ -100,7 +100,7 @@ function Game() {
 			currentbidder -= pcount;
 		}
 
-		popup("<div style='font-weight: bold; font-size: 16px; margin-bottom: 10px;'>Auction <span id='propertyname'></span></div><div>Highest Bid = $<span id='highestbid'></span> (<span id='highestbidder'></span>)</div><div><span id='currentbidder'></span>, it is your turn to bid.</div<div><input id='bid' title='Enter an amount to bid on " + s.name + ".' style='width: 291px;' /></div><div><input type='button' value='Bid' onclick='game.auctionBid();' title='Place your bid.' /><input type='button' value='Pass' title='Skip bidding this time.' onclick='game.auctionPass();' /><input type='button' value='Exit Auction' title='Stop bidding on " + s.name + " altogether.' onclick='if (confirm(\"Are you sure you want to stop bidding on this property altogether?\")) game.auctionExit();' /></div>", void 0, "blank");
+		popup("<div style='font-weight: bold; font-size: 16px; margin-bottom: 10px;'>Auction <span id='propertyname'></span></div><div>Highest Bid = $<span id='highestbid'></span> (<span id='highestbidder'></span>)</div><div><span id='currentbidder'></span>, it is your turn to bid.</div<div><input id='bid' title='Enter an amount to bid on " + s.name + ".' style='width: 291px;' /></div><div><input type='button' value='Bid' onclick='game.auctionBid();' title='Place your bid.' /><input type='button' value='Pass' title='Skip bidding this time.' onclick='game.auctionPass();' /><input type='button' value='Exit Auction' title='Stop bidding on " + s.name + " altogether.' onclick='if (confirm(\"Are you sure you want to stop bidding on this property altogether?\")) game.auctionExit();' /></div>", "blank");
 
 		document.getElementById("propertyname").innerHTML = "<a href='javascript:void(0);' onmouseover='showdeed(" + auctionproperty + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>";
 		document.getElementById("highestbid").innerHTML = "0";
@@ -113,7 +113,7 @@ function Game() {
 
 			if (window.event) {
 				key = window.event.keyCode;
-				isCtrl = window.event.ctrlKey
+				isCtrl = window.event.ctrlKey;
 				isShift = window.event.shiftKey;
 			} else if (e) {
 				key = e.keyCode;
@@ -148,7 +148,7 @@ function Game() {
 			if (isNaN(this.value)) {
 				this.value = "";
 			}
-		}
+		};
 
 		updateMoney();
 
@@ -209,7 +209,7 @@ function Game() {
 	};
 
 	this.auctionBid = function(bid) {
-		bid = bid || parseInt(document.getElementById("bid").value);
+		bid = bid || parseInt(document.getElementById("bid").value, 10);
 
 		if (bid === "" || bid === null) {
 			document.getElementById("bid").value = "Please enter a bid.";
@@ -224,7 +224,7 @@ function Game() {
 				document.getElementById("bid").style.color = "red";
 			} else if (bid > highestbid) {
 				highestbid = bid;
-				document.getElementById("highestbid").innerHTML = parseInt(bid);
+				document.getElementById("highestbid").innerHTML = parseInt(bid, 10);
 				highestbidder = currentbidder;
 				document.getElementById("highestbidder").innerHTML = player[highestbidder].name;
 
@@ -263,7 +263,7 @@ function Game() {
 
 		if (window.event) {
 			key = window.event.keyCode;
-			isCtrl = window.event.ctrlKey
+			isCtrl = window.event.ctrlKey;
 			isShift = window.event.shiftKey;
 		} else if (e) {
 			key = e.keyCode;
@@ -297,7 +297,7 @@ function Game() {
 		if (isNaN(this.value) || this.value === "0") {
 			this.value = "";
 		}
-	}
+	};
 
 	var tradeMoneyOnChange = function(e) {
 		$("#proposetradebutton").show();
@@ -313,7 +313,7 @@ function Game() {
 			return false;
 		}
 
-		amount = amount == "" ? 0 : Math.round(amount);
+		amount = Math.round(amount) || 0;
 		this.value = amount;
 
 		if (amount < 0) {
@@ -589,7 +589,7 @@ function Game() {
 			}
 
 			nameSelect.onchange = function() {
-				resetTrade(currentInitiator, player[parseInt(this.value)], true);
+				resetTrade(currentInitiator, player[parseInt(this.value, 10)], true);
 			};
 
 			nameSelect.title = "Select a player to trade with.";
@@ -637,8 +637,8 @@ function Game() {
 			chanceJailCard = 0;
 		}
 
-		money = parseInt(document.getElementById("trade-leftp-money").value) || 0;
-		money -= parseInt(document.getElementById("trade-rightp-money").value) || 0;
+		money = parseInt(document.getElementById("trade-leftp-money").value, 10) || 0;
+		money -= parseInt(document.getElementById("trade-rightp-money").value, 10) || 0;
 
 		var trade = new Trade(initiator, recipient, money, property, communityChestJailCard, chanceJailCard);
 
@@ -937,7 +937,7 @@ function Game() {
 			} else if (tradeResponse instanceof Trade) {
 				popup("<p>" + recipient.name + " has proposed a counteroffer.</p>");
 				writeTrade(tradeResponse);
-				
+
 				$("#proposetradebutton, #canceltradebutton").hide();
 				$("#accepttradebutton").show();
 				$("#rejecttradebutton").show();
@@ -1063,7 +1063,7 @@ function Game() {
 				if (!sq.mortgage) {
 					sq.owner = p.creditor;
 				} else {
-					bankruptcyUnmortgageFee += Math.round(sq.price * 0.1);;
+					bankruptcyUnmortgageFee += Math.round(sq.price * 0.1);
 				}
 
 				if (sq.house > 0) {
@@ -1136,7 +1136,7 @@ function Player(name, color) {
 
 			return false;
 		}
-	}
+	};
 }
 
 // paramaters:
@@ -1181,7 +1181,7 @@ var turn = 0, doublecount = 0;
 Array.prototype.randomize = function(length) {
 	length = (length || this.length);
 	var num;
-	var indexArray = new Array;
+	var indexArray = [];
 
 	for (var i = 0; i < length; i++) {
 		indexArray[i] = i;
@@ -1194,7 +1194,7 @@ Array.prototype.randomize = function(length) {
 
 		indexArray.splice(num, 1);
 	}
-}
+};
 
 // function show(element) {
 	// // Element may be an HTML element or the id of one passed as a string.
@@ -1224,7 +1224,11 @@ function addAlert(alertText) {
 	$(document.createElement("div")).text(alertText).appendTo($alert);
 
 	// Animate scrolling down alert element.
-	$alert.animate({"scrollTop": $alert.prop("scrollHeight")}, 1000);
+	$alert.stop().animate({"scrollTop": $alert.prop("scrollHeight")}, 1000);
+
+	if (!player[turn].human) {
+		player[turn].AI.alertList += "<div>" + alertText + "</div>";
+	}
 }
 
 function popup(HTML, action, option) {
@@ -1232,7 +1236,16 @@ function popup(HTML, action, option) {
 	document.getElementById("popup").style.width = "300px";
 	document.getElementById("popup").style.top = "0px";
 	document.getElementById("popup").style.left = "0px";
+
+	if (!option && typeof action === "string") {
+		option = action;
+	}
+
 	option = option ? option.toLowerCase() : "";
+
+	if (typeof action !== "function") {
+		action = null;
+	}
 
 	// Yes/No
 	if (option === "yes/no") {
@@ -1247,12 +1260,14 @@ function popup(HTML, action, option) {
 
 	// Ok
 	} else if (option !== "blank") {
-		document.getElementById("popuptext").innerHTML += "<div><input type='button' value='OK' id='popupclose' /></div>";
+		$("#popuptext").append("<div><input type='button' value='OK' id='popupclose' /></div>");
+		$("#popupclose").focus();
 
 		$("#popupclose").on("click", function() {
 			$("#popupwrap").hide();
 			$("#popupbackground").fadeOut(400);
 		}).on("click", action);
+
 	}
 
 	// Show using animation.
@@ -1324,7 +1339,7 @@ function updatePosition() {
 	for (var i = 1; i < turn; i++) {
 		if (player[i].jail) {
 			document.getElementById("jailpositionholder").innerHTML += "<div class='cell-position' title='" + player[i].name + "' style='background-color: " + player[i].color + "; left: " + left + "px; top: " + top + "px;'></div>";
-			if (left == 36) {
+			if (left === 36) {
 				left = 0;
 				top = 41;
 			} else
@@ -1355,13 +1370,13 @@ function updateMoney() {
 		p_i = player[i];
 
 		$("#moneybarrow" + i).show();
-		document.getElementById("p" + parseInt(i) + "moneybar").style.border = "2px solid " + p_i.color;
-		document.getElementById("p" + parseInt(i) + "money").innerHTML = p_i.money;
-		document.getElementById("p" + parseInt(i) + "moneyname").innerHTML = p_i.name;
+		document.getElementById("p" + i + "moneybar").style.border = "2px solid " + p_i.color;
+		document.getElementById("p" + i + "money").innerHTML = p_i.money;
+		document.getElementById("p" + i + "moneyname").innerHTML = p_i.name;
 	}
 	// show("moneybarrow9"); // Don't remove this line or make the first for-loop stop when i <= 8, because this affects how the table is displayed.
 
-	if (document.getElementById("landed").innerHTML == "") {
+	if (document.getElementById("landed").innerHTML === "") {
 		$("#landed").hide();
 	}
 
@@ -1439,11 +1454,11 @@ function updateOwned() {
 		if (sq.groupNumber && sq.owner === 0) {
 			$("#cell" + i + "owner").hide();
 		} else if (sq.groupNumber && sq.owner > 0) {
-			with (document.getElementById("cell" + i + "owner")) {
-				style.display = "block";
-				style.backgroundColor = player[sq.owner].color;
-				title = player[sq.owner].name;
-			}
+			var currentCellOwner = document.getElementById("cell" + i + "owner");
+
+			currentCellOwner.style.display = "block";
+			currentCellOwner.style.backgroundColor = player[sq.owner].color;
+			currentCellOwner.title = player[sq.owner].name;
 		}
 	}
 
@@ -1465,7 +1480,7 @@ function updateOwned() {
 				housetext += "<img src='images/hotel.png' alt='' title='Hotel' class='hotel' />";
 			}
 
-			if (HTML == "") {
+			if (HTML === "") {
 				HTML += "<table>";
 				firstproperty = i;
 			}
@@ -1481,7 +1496,7 @@ function updateOwned() {
 	}
 
 	if (p.communityChestJailCard) {
-		if (HTML == "") {
+		if (HTML === "") {
 			firstproperty = 40;
 			HTML += "<table>";
 		}
@@ -1489,14 +1504,14 @@ function updateOwned() {
 
 	}
 	if (p.chanceJailCard) {
-		if (HTML == "") {
+		if (HTML === "") {
 			firstproperty = 41;
 			HTML += "<table>";
 		}
 		HTML += "<tr class='property-cell-row'><td class='propertycellcheckbox'><input type='checkbox' id='propertycheckbox41' /></td><td class='propertycellcolor' style='background: white;'></td><td class='propertycellname'>Get Out of Jail Free Card</td></tr>";
 	}
 
-	if (HTML == "") {
+	if (HTML === "") {
 		HTML = p.name + ", you don't have any properties.";
 		$("#option").hide();
 	} else {
@@ -1542,7 +1557,7 @@ function updateOption() {
 		$("#buyhousebutton").hide();
 		$("#sellhousebutton").hide();
 		$("#mortgagebutton").hide();
-		
+
 
 		var housesum = 32;
 		var hotelsum = 12;
@@ -1796,7 +1811,10 @@ function gotojail() {
 
 	document.getElementById("nextbutton").value = "End turn";
 	document.getElementById("nextbutton").title = "End turn and advance to the next player.";
-	document.getElementById("nextbutton").focus();
+
+	if (p.human) {
+		document.getElementById("nextbutton").focus();
+	}
 
 	updatePosition();
 	updateOwned();
@@ -2198,7 +2216,7 @@ function hidedeed() {
 
 function buy() {
 	var p = player[turn];
-	var property = square[p.position]
+	var property = square[p.position];
 	var cost = property.price;
 
 	if (p.money >= cost) {
@@ -2404,7 +2422,9 @@ function roll() {
 	$("#buy").show();
 	$("#manage").hide();
 
-	document.getElementById("nextbutton").focus();
+	if (p.human) {
+		document.getElementById("nextbutton").focus();
+	}
 	document.getElementById("nextbutton").value = "End turn";
 	document.getElementById("nextbutton").title = "End turn and advance to the next player.";
 
@@ -2490,7 +2510,7 @@ function roll() {
 				document.getElementById("landed").innerHTML = "You are in jail.";
 
 				if (!p.human) {
-					popup(p.AI.alertList + "<div><input type='button' value='OK' onclick='hide(\"popupbackground\"); hide(\"popupwrap\"); game.next();' /></div>", false);
+					popup(p.AI.alertList, game.next);
 					p.AI.alertList = "";
 				}
 			}
@@ -2538,13 +2558,15 @@ function play() {
 	$("#board, #control, #moneybar, #viewstats, #buy").show();
 
 	doublecount = 0;
-	document.getElementById("nextbutton").focus();
+	if (p.human) {
+		document.getElementById("nextbutton").focus();
+	}
 	document.getElementById("nextbutton").value = "Roll Dice";
 	document.getElementById("nextbutton").title = "Roll the dice and move your token accordingly.";
 
 	$("#die0").hide();
 	$("#die1").hide();
-	
+
 	if (p.jail) {
 		$("#landed").show();
 		document.getElementById("landed").innerHTML = "You are in jail.<input type='button' title='Pay $50 fine to get out of jail immediately.' value='Pay $50 fine' onclick='payfifty();' />";
@@ -2588,7 +2610,7 @@ function play() {
 }
 
 function setup() {
-	pcount = parseInt(document.getElementById("playernumber").value);
+	pcount = parseInt(document.getElementById("playernumber").value, 10);
 
 	var playerArray = new Array(pcount);
 	var p;
@@ -2640,7 +2662,7 @@ function setup() {
 
 function getCheckedProperty() {
 	for (var i = 0; i < 42; i++) {
-		if (document.getElementById("propertycheckbox" + i) != null && document.getElementById("propertycheckbox" + i).checked == true) {
+		if (document.getElementById("propertycheckbox" + i) && document.getElementById("propertycheckbox" + i).checked) {
 			return i;
 		}
 	}
@@ -2663,10 +2685,10 @@ function getCheckedProperty() {
 // }
 
 function playernumber_onchange() {
-	pcount = parseInt(document.getElementById("playernumber").value);
+	pcount = parseInt(document.getElementById("playernumber").value, 10);
 
 	$(".player-input").hide();
-	
+
 	for (var i = 1; i <= pcount; i++) {
 		$("#player" + i + "input").show();
 	}
@@ -2748,10 +2770,10 @@ window.onload = function() {
 
 	var HTML = "";
 	for (var i = 0; i < 40; i++) {
-		HTML += "<div id='enlarge" + parseInt(i) + "' class='enlarge'>";
-		HTML += "<div id='enlarge" + parseInt(i) + "color' class='enlarge-color'></div><br /><div id='enlarge" + parseInt(i) + "name' class='enlarge-name'></div>";
-		HTML += "<br /><div id='enlarge" + parseInt(i) + "price' class='enlarge-price'></div>";
-		HTML += "<br /><div id='enlarge" + parseInt(i) + "token' class='enlarge-token'></div></div>";
+		HTML += "<div id='enlarge" + i + "' class='enlarge'>";
+		HTML += "<div id='enlarge" + i + "color' class='enlarge-color'></div><br /><div id='enlarge" + i + "name' class='enlarge-name'></div>";
+		HTML += "<br /><div id='enlarge" + i + "price' class='enlarge-price'></div>";
+		HTML += "<br /><div id='enlarge" + i + "token' class='enlarge-token'></div></div>";
 	}
 
 	enlargeWrap.innerHTML = HTML;
@@ -2860,12 +2882,7 @@ window.onload = function() {
 			} else if (window.event) {
 				dragObj.style.left = (dragLeft + window.event.clientX - dragX) + "px";
 				dragObj.style.top = (dragTop + window.event.clientY - dragY) + "px";
-
-
-
 			}
-
-
 		}
 	});
 
@@ -2878,8 +2895,8 @@ window.onload = function() {
 		dragObj = document.getElementById("stats");
 		dragObj.style.position = "relative";
 
-		dragTop = parseInt(dragObj.style.top) || 0;
-		dragLeft = parseInt(dragObj.style.left) || 0;
+		dragTop = parseInt(dragObj.style.top, 10) || 0;
+		dragLeft = parseInt(dragObj.style.left, 10) || 0;
 
 		if (window.event) {
 			dragX = window.event.clientX;
@@ -2890,14 +2907,14 @@ window.onload = function() {
 		}
 
 		drag = true;
-	}
+	};
 
 	document.getElementById("popupdrag").onmousedown = function(e) {
 		dragObj = document.getElementById("popup");
 		dragObj.style.position = "relative";
 
-		dragTop = parseInt(dragObj.style.top) || 0;
-		dragLeft = parseInt(dragObj.style.left) || 0;
+		dragTop = parseInt(dragObj.style.top, 10) || 0;
+		dragLeft = parseInt(dragObj.style.left, 10) || 0;
 
 		if (window.event) {
 			dragX = window.event.clientX;
@@ -2908,10 +2925,10 @@ window.onload = function() {
 		}
 
 		drag = true;
-	}
+	};
 
 	$("#mortgagebutton").click(function() {
-		var checkedProperty = getCheckedProperty()
+		var checkedProperty = getCheckedProperty();
 		var s = square[checkedProperty];
 
 		if (s.mortgage) {
@@ -2992,8 +3009,6 @@ window.onload = function() {
 
 
 	$("#trade-menu-item").click(game.trade);
-
-
 
 
 };
