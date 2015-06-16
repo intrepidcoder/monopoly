@@ -1,3 +1,5 @@
+var turnCount = 0;
+
 function Game() {
 	var die1;
 	var die2;
@@ -17,6 +19,11 @@ function Game() {
 
 	this.resetDice = function() {
 		areDiceRolled = false;
+	};
+
+	this.setDice = function(val0, val1) {
+		die0 = val0;
+		die1 = val1;
 	};
 
 	this.next = function() {
@@ -1260,13 +1267,14 @@ function popup(HTML, action, option) {
 
 	// Ok
 	} else if (option !== "blank") {
-		$("#popuptext").append("<div><input type='button' value='OK' id='popupclose' /></div>");
-		$("#popupclose").focus();
+		// $("#popuptext").append("<div><input type='button' value='OK' id='popupclose' /></div>");
+		// $("#popupclose").focus();
 
-		$("#popupclose").on("click", function() {
-			$("#popupwrap").hide();
-			$("#popupbackground").fadeOut(400);
-		}).on("click", action);
+		// $("#popupclose").on("click", function() {
+			// $("#popupwrap").hide();
+			// $("#popupbackground").fadeOut(400);
+		// }).on("click", action);
+		action();
 
 	}
 
@@ -2540,6 +2548,11 @@ function play() {
 	}
 
 	turn++;
+
+	if (++turnCount > 1000) {
+		throw("Too many turns.");
+	}
+
 	if (turn > pcount) {
 		turn -= pcount;
 	}
@@ -2610,28 +2623,6 @@ function play() {
 }
 
 function setup() {
-	pcount = parseInt(document.getElementById("playernumber").value, 10);
-
-	var playerArray = new Array(pcount);
-	var p;
-
-	playerArray.randomize();
-
-	for (var i = 1; i <= pcount; i++) {
-		p = player[playerArray[i - 1]];
-
-
-		p.color = document.getElementById("player" + i + "color").value.toLowerCase();
-
-		if (document.getElementById("player" + i + "ai").value === "0") {
-			p.name = document.getElementById("player" + i + "name").value;
-			p.human = true;
-		} else if (document.getElementById("player" + i + "ai").value === "1") {
-			p.human = false;
-			p.AI = new AITest(p);
-		}
-	}
-
 	$("#board, #moneybar").show();
 	$("#setup").hide();
 
@@ -2647,19 +2638,6 @@ function setup() {
 	play();
 }
 
-// function togglecheck(elementid) {
-	// element = document.getElementById(elementid);
-
-	// if (window.event.srcElement.id == elementid)
-		// return;
-
-	// if (element.checked) {
-		// element.checked = false;
-	// } else {
-		// element.checked = true;
-	// }
-// }
-
 function getCheckedProperty() {
 	for (var i = 0; i < 42; i++) {
 		if (document.getElementById("propertycheckbox" + i) && document.getElementById("propertycheckbox" + i).checked) {
@@ -2668,21 +2646,6 @@ function getCheckedProperty() {
 	}
 	return -1; // No property is checked.
 }
-
-// function propertycell_onclick(element, num) {
-	// togglecheck("propertycheckbox" + num);
-	// if (document.getElementById("propertycheckbox" + num).checked) {
-
-		// // Uncheck all other boxes.
-		// for (var i = 0; i < 40; i++) {
-			// if (i !== num && document.getElementById("propertycheckbox" + i)) {
-				// document.getElementById("propertycheckbox" + i).checked = false;
-			// }
-		// }
-	// }
-
-	// updateOption();
-// }
 
 function playernumber_onchange() {
 	pcount = parseInt(document.getElementById("playernumber").value, 10);
@@ -2704,7 +2667,60 @@ function menuitem_onmouseout(element) {
 	return;
 }
 
-window.onload = function() {
+function loadState(data) {
+	$(document).ready(function() {
+		pcount = data.player.length;
+		var p;
+
+		for (var i = 0; i < data.player.length; i++) {
+			p = new Player(data.player[i].name, data.player[i].color);
+			player[i + 1] = p;
+			p.money = data.player[i].money;
+			p.position = data.player[i].position;
+			p.human = false;
+			p.AI = new AITest(p);
+			p.name = data.player[i].name;
+			p.index = i + 1;
+		}
+
+
+		for (var i = 0; i < 40; i++) {
+			square[i].owner = data.square[i].owner + 1;
+			square[i].mortgage = data.square[i].mortgage;
+			square[i].house = data.square[i].house;
+			square[i].hotel = data.square[i].hotel;
+		}
+
+		turn = data.turn + 1;
+		game.doubleCount = data.doubleCount;
+		game.setDice(data.die0, data.die1);
+		game.resetDice(data.areDiceRolled); // Sets areDiceRolled.
+		game.waiveInterest = data.waiveInterest;
+
+		var length = data.alertList.length;
+		var $alert = $("#alert");
+
+		// Populate alert box.
+		for (var i = 0; i < length; i++) {
+			$alert.append($(document.createElement("div")).text(data.alertList[i]));
+		}
+
+		// Scroll alert element to bottom.
+		$alert.scrollTop($alert.prop("scrollHeight"));
+
+		if (player.length === 2) {
+			document.getElementById("stats").style.width = "454px";
+		} else if (player.length === 3) {
+			document.getElementById("stats").style.width = "686px";
+		}
+		document.getElementById("stats").style.top = "0px";
+		document.getElementById("stats").style.left = "0px";
+
+
+	});
+}
+
+$(document).ready(function() {
 	game = new Game();
 
 	for (var i = 0; i <= 8; i++) {
@@ -3011,4 +3027,8 @@ window.onload = function() {
 	$("#trade-menu-item").click(game.trade);
 
 
-};
+});
+
+
+// Call loadState with hardcoded data.
+loadState({"player":[{"name":"Player 0","color":"#aaaa00","position":21,"money":582,"creditor":1,"jail":false,"jailRoll":0,"communityChestJailCard":false,"chanceJailCard":true,"bidding":true},{"name":"Player 1","color":"#0000ff","position":38,"money":4449,"creditor":-1,"jail":false,"jailRoll":0,"communityChestJailCard":false,"chanceJailCard":false,"bidding":true}],"square":[{"name":"GO","price":0,"priceText":"COLLECT $200 SALARY AS YOU PASS.","color":"#FFFFFF","owner":-1,"mortgage":false,"house":0,"hotel":0,"housePrice":0,"groupNumber":0,"rent":[0,0,0,0,0,0]},{"name":"Mediterranean Avenue","price":60,"priceText":"$60","color":"#8B4513","owner":0,"mortgage":false,"house":0,"hotel":0,"housePrice":50,"groupNumber":3,"rent":[2,10,30,90,160,250]},{"name":"Community Chest","price":0,"priceText":"FOLLOW INSTRUCTIONS ON TOP CARD","color":"#FFFFFF","owner":-1,"mortgage":false,"house":0,"hotel":0,"housePrice":0,"groupNumber":0,"rent":[0,0,0,0,0,0]},{"name":"Baltic Avenue","price":60,"priceText":"$60","color":"#8B4513","owner":-1,"mortgage":false,"house":0,"hotel":0,"housePrice":50,"groupNumber":3,"rent":[4,20,60,180,320,450]},{"name":"City Tax","price":0,"priceText":"Pay $200","color":"#FFFFFF","owner":-1,"mortgage":false,"house":0,"hotel":0,"housePrice":0,"groupNumber":0,"rent":[0,0,0,0,0,0]},{"name":"Reading Railroad","price":200,"priceText":"$200","color":"#FFFFFF","owner":0,"mortgage":false,"house":0,"hotel":0,"housePrice":0,"groupNumber":1,"rent":[0,0,0,0,0,0]},{"name":"Oriental Avenue","price":100,"priceText":"$100","color":"#87CEEB","owner":1,"mortgage":false,"house":5,"hotel":1,"housePrice":50,"groupNumber":4,"rent":[6,30,90,270,400,550]},{"name":"Chance","price":0,"priceText":"FOLLOW INSTRUCTIONS ON TOP CARD","color":"#FFFFFF","owner":-1,"mortgage":false,"house":0,"hotel":0,"housePrice":0,"groupNumber":0,"rent":[0,0,0,0,0,0]},{"name":"Vermont Avenue","price":100,"priceText":"$100","color":"#87CEEB","owner":1,"mortgage":false,"house":5,"hotel":1,"housePrice":50,"groupNumber":4,"rent":[6,30,90,270,400,550]},{"name":"Connecticut Avenue","price":120,"priceText":"$120","color":"#87CEEB","owner":1,"mortgage":false,"house":5,"hotel":1,"housePrice":50,"groupNumber":4,"rent":[8,40,100,300,450,600]},{"name":"Just Visiting","price":0,"priceText":"","color":"#FFFFFF","owner":-1,"mortgage":false,"house":0,"hotel":0,"housePrice":0,"groupNumber":0,"rent":[0,0,0,0,0,0]},{"name":"St. Charles Place","price":140,"priceText":"$140","color":"#FF0080","owner":0,"mortgage":false,"house":1,"hotel":0,"housePrice":100,"groupNumber":5,"rent":[10,50,150,450,625,750]},{"name":"Electric Company","price":150,"priceText":"$150","color":"#FFFFFF","owner":1,"mortgage":false,"house":0,"hotel":0,"housePrice":0,"groupNumber":2,"rent":[0,0,0,0,0,0]},{"name":"States Avenue","price":140,"priceText":"$140","color":"#FF0080","owner":0,"mortgage":false,"house":1,"hotel":0,"housePrice":100,"groupNumber":5,"rent":[10,50,150,450,625,750]},{"name":"Virginia Avenue","price":160,"priceText":"$160","color":"#FF0080","owner":0,"mortgage":false,"house":2,"hotel":0,"housePrice":100,"groupNumber":5,"rent":[12,60,180,500,700,900]},{"name":"Pennsylvania Railroad","price":200,"priceText":"$200","color":"#FFFFFF","owner":1,"mortgage":false,"house":0,"hotel":0,"housePrice":0,"groupNumber":1,"rent":[0,0,0,0,0,0]},{"name":"St. James Place","price":180,"priceText":"$180","color":"#FFA500","owner":1,"mortgage":false,"house":0,"hotel":0,"housePrice":100,"groupNumber":6,"rent":[14,70,200,550,750,950]},{"name":"Community Chest","price":0,"priceText":"FOLLOW INSTRUCTIONS ON TOP CARD","color":"#FFFFFF","owner":-1,"mortgage":false,"house":0,"hotel":0,"housePrice":0,"groupNumber":0,"rent":[0,0,0,0,0,0]},{"name":"Tennessee Avenue","price":180,"priceText":"$180","color":"#FFA500","owner":1,"mortgage":false,"house":0,"hotel":0,"housePrice":100,"groupNumber":6,"rent":[14,70,200,550,750,950]},{"name":"New York Avenue","price":200,"priceText":"$200","color":"#FFA500","owner":0,"mortgage":false,"house":0,"hotel":0,"housePrice":100,"groupNumber":6,"rent":[16,80,220,600,800,1000]},{"name":"Free Parking","price":0,"priceText":"","color":"#FFFFFF","owner":-1,"mortgage":false,"house":0,"hotel":0,"housePrice":0,"groupNumber":0,"rent":[0,0,0,0,0,0]},{"name":"Kentucky Avenue","price":220,"priceText":"$220","color":"#FF0000","owner":1,"mortgage":false,"house":0,"hotel":0,"housePrice":150,"groupNumber":7,"rent":[18,90,250,700,875,1050]},{"name":"Chance","price":0,"priceText":"FOLLOW INSTRUCTIONS ON TOP CARD","color":"#FFFFFF","owner":-1,"mortgage":false,"house":0,"hotel":0,"housePrice":0,"groupNumber":0,"rent":[0,0,0,0,0,0]},{"name":"Indiana Avenue","price":220,"priceText":"$220","color":"#FF0000","owner":0,"mortgage":false,"house":0,"hotel":0,"housePrice":150,"groupNumber":7,"rent":[18,90,250,700,875,1050]},{"name":"Illinois Avenue","price":240,"priceText":"$240","color":"#FF0000","owner":1,"mortgage":false,"house":0,"hotel":0,"housePrice":150,"groupNumber":7,"rent":[20,100,300,750,925,1100]},{"name":"B&O Railroad","price":200,"priceText":"$200","color":"#FFFFFF","owner":0,"mortgage":false,"house":0,"hotel":0,"housePrice":0,"groupNumber":1,"rent":[0,0,0,0,0,0]},{"name":"Atlantic Avenue","price":260,"priceText":"$260","color":"#FFFF00","owner":1,"mortgage":false,"house":0,"hotel":0,"housePrice":150,"groupNumber":8,"rent":[22,110,330,800,975,1150]},{"name":"Ventnor Avenue","price":260,"priceText":"$260","color":"#FFFF00","owner":1,"mortgage":false,"house":0,"hotel":0,"housePrice":150,"groupNumber":8,"rent":[22,110,330,800,975,1150]},{"name":"Water Works","price":150,"priceText":"$150","color":"#FFFFFF","owner":1,"mortgage":false,"house":0,"hotel":0,"housePrice":0,"groupNumber":2,"rent":[0,0,0,0,0,0]},{"name":"Marvin Gardens","price":280,"priceText":"$280","color":"#FFFF00","owner":0,"mortgage":false,"house":0,"hotel":0,"housePrice":150,"groupNumber":8,"rent":[24,120,360,850,1025,1200]},{"name":"Go to Jail","price":0,"priceText":"Go directly to Jail. Do not pass GO. Do not collect $200.","color":"#FFFFFF","owner":-1,"mortgage":false,"house":0,"hotel":0,"housePrice":0,"groupNumber":0,"rent":[0,0,0,0,0,0]},{"name":"Pacific Avenue","price":300,"priceText":"$300","color":"#008000","owner":0,"mortgage":false,"house":0,"hotel":0,"housePrice":200,"groupNumber":9,"rent":[26,130,390,900,110,1275]},{"name":"North Carolina Avenue","price":300,"priceText":"$300","color":"#008000","owner":0,"mortgage":false,"house":0,"hotel":0,"housePrice":200,"groupNumber":9,"rent":[26,130,390,900,110,1275]},{"name":"Community Chest","price":0,"priceText":"FOLLOW INSTRUCTIONS ON TOP CARD","color":"#FFFFFF","owner":-1,"mortgage":false,"house":0,"hotel":0,"housePrice":0,"groupNumber":0,"rent":[0,0,0,0,0,0]},{"name":"Pennsylvania Avenue","price":320,"priceText":"$320","color":"#008000","owner":1,"mortgage":false,"house":0,"hotel":0,"housePrice":200,"groupNumber":9,"rent":[28,150,450,1000,1200,1400]},{"name":"Short Line","price":200,"priceText":"$200","color":"#FFFFFF","owner":1,"mortgage":false,"house":0,"hotel":0,"housePrice":0,"groupNumber":1,"rent":[0,0,0,0,0,0]},{"name":"Chance","price":0,"priceText":"FOLLOW INSTRUCTIONS ON TOP CARD","color":"#FFFFFF","owner":-1,"mortgage":false,"house":0,"hotel":0,"housePrice":0,"groupNumber":0,"rent":[0,0,0,0,0,0]},{"name":"Park Place","price":350,"priceText":"$350","color":"#0000FF","owner":1,"mortgage":false,"house":0,"hotel":0,"housePrice":200,"groupNumber":10,"rent":[35,175,500,1100,1300,1500]},{"name":"LUXURY TAX","price":0,"priceText":"Pay $100","color":"#FFFFFF","owner":-1,"mortgage":false,"house":0,"hotel":0,"housePrice":0,"groupNumber":0,"rent":[0,0,0,0,0,0]},{"name":"Boardwalk","price":400,"priceText":"$400","color":"#0000FF","owner":0,"mortgage":true,"house":0,"hotel":0,"housePrice":200,"groupNumber":10,"rent":[50,200,600,1400,1700,2000]}],"die0":2,"die1":2,"doubleCount":0,"turn":0,"areDiceRolled":false,"userCanPlay":false,"waiveInterest":[],"description":"Monopoly Game #1","bankruptPlayers":[{"name":"James","color":"#FF0000","position":8,"money":-307,"creditor":1,"jail":false,"jailRoll":0,"communityChestJailCard":false,"chanceJailCard":false,"bidding":true},{"name":"David","color":"#008000","position":14,"money":-113,"creditor":0,"jail":false,"jailRoll":0,"communityChestJailCard":false,"chanceJailCard":false,"bidding":true}],"communityChestJailCard":false,"chanceJailCard":true,"alertList":[]});
