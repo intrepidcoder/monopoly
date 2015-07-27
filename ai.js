@@ -150,7 +150,7 @@ function AITest(p) {
 			property[requestedRailroad] = -1;
 			property[offeredUtility] = 1;
 
-			proposedTrade = new Trade(p, player[4], 0, property, 0, 0)
+			proposedTrade = new Trade(p, player[square[requestedRailroad].owner], 0, property, 0, 0)
 
 			game.trade(proposedTrade);
 			return true;
