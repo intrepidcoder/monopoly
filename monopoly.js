@@ -1234,6 +1234,7 @@ function addAlert(alertText) {
 function popup(HTML, action, option) {
 	document.getElementById("popuptext").innerHTML = HTML;
 	document.getElementById("popup").style.width = "300px";
+	document.getElementById("popup").style.height = "300px";
 	document.getElementById("popup").style.top = "0px";
 	document.getElementById("popup").style.left = "0px";
 
@@ -1260,7 +1261,7 @@ function popup(HTML, action, option) {
 
 	// Ok
 	} else if (option !== "blank") {
-		$("#popuptext").append("<div><input type='button' value='OK' id='popupclose' /></div>");
+		$("#popuptext").prepend("<div><input type='button' value='OK' id='popupclose' /></div>");
 		$("#popupclose").focus();
 
 		$("#popupclose").on("click", function() {
