@@ -2613,20 +2613,22 @@ function setup() {
 	pcount = parseInt(document.getElementById("playernumber").value, 10);
 
 	var playerArray = new Array(pcount);
-	var p;
+	var p, wrap, intel;
 
 	playerArray.randomize();
 
 	for (var i = 1; i <= pcount; i++) {
 		p = player[playerArray[i - 1]];
 
+		wrap = $("div#player"+i+"wrap");
+		intel = wrap.find("select.player-intel").val();
 
-		p.color = document.getElementById("player" + i + "color").value.toLowerCase();
+		p.color = wrap.find("select.player-color").val().toLowerCase();
 
-		if (document.getElementById("player" + i + "ai").value === "0") {
-			p.name = document.getElementById("player" + i + "name").value;
+		if (intel === "0") {
+			p.name = wrap.find("input.player-name").val();
 			p.human = true;
-		} else if (document.getElementById("player" + i + "ai").value === "1") {
+		} else {
 			p.human = false;
 			p.AI = new AITest(p);
 		}
@@ -2687,10 +2689,10 @@ function getCheckedProperty() {
 function playernumber_onchange() {
 	pcount = parseInt(document.getElementById("playernumber").value, 10);
 
-	$(".player-input").hide();
+	$(".player-wrap").hide();
 
 	for (var i = 1; i <= pcount; i++) {
-		$("#player" + i + "input").show();
+		$("#player" + i + "wrap").show();
 	}
 }
 
