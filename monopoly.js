@@ -1247,8 +1247,12 @@ function popup(HTML, action, option) {
 		action = null;
 	}
 
+	// blank
+	if (option === "blank") {
+		// do nothing
+
 	// Yes/No
-	if (option === "yes/no") {
+	} else if (option === "yes/no") {
 		document.getElementById("popuptext").innerHTML += "<div><input type=\"button\" value=\"Yes\" id=\"popupyes\" /><input type=\"button\" value=\"No\" id=\"popupno\" /></div>";
 
 		$("#popupyes, #popupno").on("click", function() {
@@ -1259,7 +1263,7 @@ function popup(HTML, action, option) {
 		$("#popupyes").on("click", action);
 
 	// Ok
-	} else if (option !== "blank") {
+	} else if (option === "") {
 		$("#popuptext").append("<div><input type='button' value='OK' id='popupclose' /></div>");
 		$("#popupclose").focus();
 
@@ -1268,6 +1272,9 @@ function popup(HTML, action, option) {
 			$("#popupbackground").fadeOut(400);
 		}).on("click", action);
 
+	// unknown
+	} else {
+		alert("unknown popup option '"+option+"'")
 	}
 
 	// Show using animation.
