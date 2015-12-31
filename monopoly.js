@@ -2609,24 +2609,133 @@ function play() {
 	}
 }
 
-function setup() {
+var game_ns = {
+	available_colors: ['blue', 'red', 'green', 'yellow', 'aqua', 'black', 'fuchsia', 'gray', 'lime', 'maroon', 'navy', 'olive', 'orange', 'purple', 'silver', 'teal',]
+}
+
+game_ns.draw_setup = function() {
+	var context = game_ns._draw_setup;
+
+	context.draw_player_wrappers(8);
+	context.bind_player_inteligence_change();
+	context.bind_and_invoke_player_color_change();
+	context.bind_and_invoke_players_count_change();
+}
+
+game_ns._draw_setup = {}
+
+game_ns._draw_setup.draw_player_wrappers = function(max) {
+	var i, color;
+
+  var content = "";
+
+	var content_intel = "";
+	content_intel += "<select class='player-intel' title='Choose whether this player is controled by a human or by the computer.'>";
+	content_intel += "	<option value='0' selected='selected'>Human</option>";
+	content_intel += "	<option value='1'>AI (Test)</option>";
+	content_intel += "</select>";
+
+  var content_colors = "<select class='player-color' title='Player color'>";
+  for (i = 0; i <= game_ns.available_colors.length - 1; i++) {
+  	color = game_ns.available_colors[i];
+  	content_colors += "<option style='color: "+color+";'>"+color+"</option>";
+  };
+  content_colors += "</select>";
+
+  for (i = 1; i <= max; i++) {
+	  content += "<div id='player"+i+"wrap' data-id='"+i+"' class='player-wrap'>";
+	  content += "Player "+i+": ";
+	  content += "<input type='text' class='player-name' title='Player name' maxlength='16' value='Player "+i+"' /> ";
+	  content += content_colors;
+	  content += " ";
+	  content += content_intel;
+	  content += "</div>";
+  };
+
+	$("#player-wrappers").append(content);
+}
+
+game_ns._draw_setup.bind_player_inteligence_change = function() {
+	$("#player-wrappers .player-intel").change(function() {
+		var val = $(this).val();
+		var boo = val !== '0';
+		var wrap = $(this).closest('.player-wrap');
+
+		wrap.find('.player-name').attr('disabled', boo);
+		wrap.nextAll().find('.player-name').attr('disabled', boo);
+		wrap.nextAll().find('.player-intel').val(val);
+	});
+}
+
+game_ns._draw_setup.bind_and_invoke_player_color_change = function() {
+	$("#player-wrappers .player-color").on("change", game_ns._draw_setup.select_on_player_color_change);
+	$("#player-wrappers .player-color").change();
+}
+
+game_ns._draw_setup.bind_and_invoke_players_count_change = function() {
+	$("#playernumber").on("change", game_ns._draw_setup.select_on_player_number_change);
+	$("#playernumber").change();
+}
+
+
+game_ns._draw_setup.select_on_player_number_change = function() {
+	pcount = parseInt(document.getElementById("playernumber").value, 10);
+
+	$(".player-wrap").hide();
+
+	for (var i = 1; i <= pcount; i++) {
+		$("#player" + i + "wrap").show();
+	}
+}
+
+game_ns._draw_setup.select_on_player_color_change = function() {
+	var colors_taken = [];
+
+	var wrap = $(this).closest('.player-wrap');
+
+	// assume current and before as static
+	colors_taken.push($(this).val());
+
+	// change any next to any other color
+	wrap.siblings().each(function(index, el) {
+		var el2 = $(el).find('.player-color');
+		var val2 = el2.val();
+		var is_already_present = colors_taken.indexOf(val2) != -1;
+		if (is_already_present) {
+			// change its color to next available
+			var colors_not_taken = arr_diff(game_ns.available_colors, colors_taken);
+			el2.val(colors_not_taken[0]);
+		}
+
+		// refresh val2
+		val2 = el2.val();
+		colors_taken.push(val2);
+
+	});
+
+}
+
+game_ns.setup = function() {
+
 	pcount = parseInt(document.getElementById("playernumber").value, 10);
 
 	var playerArray = new Array(pcount);
-	var p;
+	var p, wrap, intel;
 
 	playerArray.randomize();
 
 	for (var i = 1; i <= pcount; i++) {
 		p = player[playerArray[i - 1]];
 
+		wrap = $("div#player"+i+"wrap");
+		intel = wrap.find("select.player-intel").val();
 
-		p.color = document.getElementById("player" + i + "color").value.toLowerCase();
+		p.color = wrap.find("select.player-color").val().toLowerCase();
 
-		if (document.getElementById("player" + i + "ai").value === "0") {
-			p.name = document.getElementById("player" + i + "name").value;
+		if (intel === "0") {
+			p.name = wrap.find("input.player-name").val();
 			p.human = true;
-		} else if (document.getElementById("player" + i + "ai").value === "1") {
+		} else {
 			p.human = false;
 			p.AI = new AITest(p);
 		}
@@ -2646,6 +2755,20 @@ function setup() {
 
 	play();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // function togglecheck(elementid) {
 	// element = document.getElementById(elementid);
@@ -2684,16 +2807,6 @@ function getCheckedProperty() {
 	// updateOption();
 // }
 
-function playernumber_onchange() {
-	pcount = parseInt(document.getElementById("playernumber").value, 10);
-
-	$(".player-input").hide();
-
-	for (var i = 1; i <= pcount; i++) {
-		$("#player" + i + "input").show();
-	}
-}
-
 function menuitem_onmouseover(element) {
 	element.className = "menuitem menuitem_hover";
 	return;
@@ -2705,6 +2818,8 @@ function menuitem_onmouseout(element) {
 }
 
 window.onload = function() {
+	game_ns.draw_setup();
+
 	game = new Game();
 
 	for (var i = 0; i <= 8; i++) {
@@ -2756,9 +2871,6 @@ window.onload = function() {
 	// Shuffle Chance and Community Chest decks.
 	chanceCards.deck.sort(function() {return Math.random() - 0.5;});
 	communityChestCards.deck.sort(function() {return Math.random() - 0.5;});
-
-	$("#playernumber").on("change", playernumber_onchange);
-	playernumber_onchange();
 
 	$("#nextbutton").click(game.next);
 	$("#noscript").hide();
@@ -3011,4 +3123,28 @@ window.onload = function() {
 	$("#trade-menu-item").click(game.trade);
 
 
+};
+
+
+
+function arr_diff(a1, a2) {
+    var a = [], diff = [];
+
+    for (var i = 0; i < a1.length; i++) {
+        a[a1[i]] = true;
+    }
+
+    for (var i = 0; i < a2.length; i++) {
+        if (a[a2[i]]) {
+            delete a[a2[i]];
+        } else {
+            a[a2[i]] = true;
+        }
+    }
+
+    for (var k in a) {
+        diff.push(k);
+    }
+
+    return diff;
 };
