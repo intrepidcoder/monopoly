@@ -114,15 +114,15 @@ square[39] = new Square("Pacific Ocean", "$400", "#0000FF", 400, 10, 50, 200, 60
 var communityChestCards = [];
 var chanceCards = [];
 
-communityChestCards[0] = new Card("Get out of Jail, Free. This card may be kept until needed or sold.", function(p) { p.communityChestJailCard = true; updateOwned();});
-communityChestCards[1] = new Card("You have won second prize in a beauty contest. Collect $10.", function() { addamount(10, 'Community Chest');});
-communityChestCards[2] = new Card("From sale of stock, you get $50.", function() { addamount(50, 'Community Chest');});
-communityChestCards[3] = new Card("Life insurance matures. Collect $100.", function() { addamount(100, 'Community Chest');});
+communityChestCards[0] = new Card("It has over 2.5 million insect species and contains ⅕ of the world’s fresh water.", function(p) { p.communityChestJailCard = true; updateOwned();});
+communityChestCards[1] = new Card(" It was discovered by Jimmy Angel, an American, in 1937.", function() { addamount(10, 'Community Chest');});
+communityChestCards[2] = new Card("The desert covers a 1,000 km strip of land and is a plateau.", function() { addamount(50, 'Community Chest');});
+communityChestCards[3] = new Card("It is located on Argentina’s island. People visiting Antarctica often start and end here.", function() { addamount(100, 'Community Chest');});
 communityChestCards[4] = new Card("Income tax refund. Collect $20.", function() { addamount(20, 'Community Chest');});
-communityChestCards[5] = new Card("Holiday fund matures. Receive $100.", function() { addamount(100, 'Community Chest');});
-communityChestCards[6] = new Card("You inherit $100.", function() { addamount(100, 'Community Chest');});
-communityChestCards[7] = new Card("Receive $25 consultancy fee.", function() { addamount(25, 'Community Chest');});
-communityChestCards[8] = new Card("Pay hospital fees of $100.", function() { subtractamount(100, 'Community Chest');});
+communityChestCards[5] = new Card("Ecuador’s birth rate is 19.6/1,000 and its death rate is 5.01/1,000.", function() { addamount(100, 'Community Chest');});
+communityChestCards[6] = new Card("Brazil covers half of South America and is almost as big as the United States. Suriname is one of the ten least inhabited countries in the world. ", function() { addamount(100, 'Community Chest');});
+communityChestCards[7] = new Card("There can be up to 5,000 visitors a day and about 1 million people visit Machu Picchu annually.", function() { addamount(25, 'Community Chest');});
+communityChestCards[8] = new Card("These are 4 of the 14 countries that cross the Equator. That means these places constantly have 12 hours of daylight.", function() { subtractamount(100, 'Community Chest');});
 communityChestCards[9] = new Card("Bank error in your favor. Collect $200.", function() { addamount(200, 'Community Chest');});
 communityChestCards[10] = new Card("Pay school fees of $50.", function() { subtractamount(50, 'Community Chest');});
 communityChestCards[11] = new Card("Doctor's fee. Pay $50.", function() { subtractamount(50, 'Community Chest');});
