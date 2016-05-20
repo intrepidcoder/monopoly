@@ -38,6 +38,7 @@ function corrections() {
 	document.getElementById("cell1name").textContent = "Mediter-ranean Avenue";
 	
 	// Add images to enlarges.
+	document.getElementById("enlarge1token").innerHTML += '<img src="images/wpicons.png" height="60" width="65" alt="" style="position: relative; bottom: 20px;" />';
 	document.getElementById("enlarge5token").innerHTML += '<img src="images/wpicons.png" height="60" width="65" alt="" style="position: relative; bottom: 20px;" />';
 	document.getElementById("enlarge15token").innerHTML += '<img src="images/wpicons.png" height="60" width="65" alt="" style="position: relative; top: -20px;" />';
 	document.getElementById("enlarge25token").innerHTML += '<img src="images/wpicons.png" height="60" width="65" alt="" style="position: relative; top: -20px;" />';
