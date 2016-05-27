@@ -63,9 +63,10 @@ td {
 }
 
 #board {
+	display: none;
 	border: 2px solid black;
 	border-spacing: 3px;
-	margin: 25px;
+	margin: 20px;
 	float: left;
 	background-image url(http://raw.githubusercontent.com/IsaiahPatton/monopoly/0f2fc711e1cb52183c73d6f56e52c7157aa65379/images/monopoly.png);
 }
@@ -532,7 +533,7 @@ td {
 	border-collapse: collapse;
 	text-align: center;
 	display: table-cell;
-	background-color: transparent;
+	/*background-color: transparent;*/
 	border: none;
 	border-right: 2px solid white;
 	height: 30px;
