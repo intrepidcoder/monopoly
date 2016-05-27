@@ -533,7 +533,7 @@ td {
 	border-collapse: collapse;
 	text-align: center;
 	display: table-cell;
-	/*background-color: transparent;*/
+	background-color: transparent;
 	border: none;
 	border-right: 2px solid white;
 	height: 30px;
