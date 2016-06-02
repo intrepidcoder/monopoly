@@ -64,8 +64,9 @@ td {
 
 #board {
 	display: none;
+	visibility: hidden;
 	border: 2px solid black;
-	border-spacing: 2px;
+	border-spacing: 3px;
 	margin: 20px;
 	float: left;
 	background-image: url(https://raw.githubusercontent.com/IsaiahPatton/monopoly/gh-pages/images/monopoly.png?8);
