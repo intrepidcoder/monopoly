@@ -64,7 +64,6 @@ td {
 
 #board {
 	display: none;
-	visibility: hidden;
 	border: 2px solid black;
 	border-spacing: 3px;
 	margin: 20px;
