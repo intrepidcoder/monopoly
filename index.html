@@ -10,7 +10,13 @@
 	<script type="text/javascript" src="//isaiahpatton.github.io/monopoly/ai.js"></script>
 	<script type="text/javascript" src="//isaiahpatton.github.io/monopoly/monopoly.js"></script>
 	<link rel="stylesheet" type="text/css" href="//isaiahpatton.github.io/monopoly/styles.css">
-	<CENTER><img src="window.location.href + /images/mlogo.png"></CENTER>
+	<script>
+		if (window.location.href == "http://isaiahpatton.github.io/monopoly") {
+			document.write("<CENTER><img src="/monopoly/images/mlogo.png"></CENTER>")
+		} else {
+			document.write("<CENTER><img src="/images/mlogo.png"></CENTER>")
+		}
+	</script>
 </head>
 
 <body>
