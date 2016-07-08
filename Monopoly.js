@@ -701,6 +701,7 @@ function Game() {
 	this.trade = function(tradeObj) {
 		hide("board");
 		hide("control");
+		hide("moneybar");
 		show("trade");
 		show("proposetradebutton");
 		show("canceltradebutton");
@@ -726,6 +727,7 @@ function Game() {
 	this.cancelTrade = function() {
 		show("board");
 		show("control");
+		show("moneybar");
 		hide("trade");
 
 		if (!player[turn].human) {
@@ -847,6 +849,7 @@ function Game() {
 
 		show("board");
 		show("control");
+		show("moneybar");
 		hide("trade");
 
 		if (!player[turn].human) {
