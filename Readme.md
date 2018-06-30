@@ -1,7 +1,7 @@
 # monopoly
 
-This is a basic JavaScript/HTML/CSS Monopoly implementation. Up to eight players can play at once. If you're familiar with Monopoly, game play should be fairly self-explanatory. But if you have trouble, hovering the mouse over a control will usually display more information. Please report any issues you find.
+A JavaScript/HTML/CSS Monopoly implementation with full game play. Supports two-eight players.
 
-Play online at [https://intrepidcoder.github.io/monopoly/](https://intrepidcoder.github.io/monopoly/) or [http://www.intrepidcoder.com/projects/monopoly/](http://www.intrepidcoder.com/projects/monopoly/) (alternate version).
+Play online at [http://www.intrepidcoder.com/projects/monopoly/](http://www.intrepidcoder.com/projects/monopoly/).
 
-New: Added capability to play against an AI. A AI for demonstration purposes only is included. A future update will include a more realistic opponent.
+Includes an experimental capability to play against an AI. A test AI for demonstration purposes is included.
