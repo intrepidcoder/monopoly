@@ -15,7 +15,7 @@ function Square(name, pricetext, color, price, groupNumber, baserent, rent1, ren
 	this.rent4 = (rent4 || 0);
 	this.rent5 = (rent5 || 0);
 	this.landcount = 0;
-	
+
 	if (groupNumber === 3 || groupNumber === 4) {
 		this.houseprice = 50;
 	} else if (groupNumber === 5 || groupNumber === 6) {
@@ -48,9 +48,9 @@ function transtext() {
 
 function citytax() {
 	var p = player[turn];
-	
+
 	if (p.human) {
-	
+
 		buttonAonclick = 'hide("popupbackground"); hide("popupwrap"); var p=player[turn]; addalert(p.name+" paid $200 for landing on City Tax."); p.pay(200, 0);';
 		buttonBonclick = ' hide("popupbackground"); hide("popupwrap"); var p=player[turn]; var cost=p.money; for(var i=0; i<40; i++){sq=square[i]; if(sq.owner==turn) { if(sq.mortgage) { cost+=sq.price*0.5; } else { cost+=sq.price; } cost+=(sq.house*sq.houseprice); } } cost*=0.1; cost=Math.round(cost); addalert(p.name+" paid $"+cost+" for landing on City Tax."); p.pay(cost,0);';
 

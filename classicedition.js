@@ -15,7 +15,7 @@ function Square(name, pricetext, color, price, groupNumber, baserent, rent1, ren
 	this.rent4 = (rent4 || 0);
 	this.rent5 = (rent5 || 0);
 	this.landcount = 0;
-	
+
 	if (groupNumber === 3 || groupNumber === 4) {
 		this.houseprice = 50;
 	} else if (groupNumber === 5 || groupNumber === 6) {
@@ -36,7 +36,7 @@ function Card(text, action) {
 
 function corrections() {
 	document.getElementById("cell1name").textContent = "Mediter-ranean Avenue";
-	
+
 	// Add images to enlarges.
 	document.getElementById("enlarge5token").innerHTML += '<img src="images/train_icon.png" height="60" width="65" alt="" style="position: relative; bottom: 20px;" />';
 	document.getElementById("enlarge15token").innerHTML += '<img src="images/train_icon.png" height="60" width="65" alt="" style="position: relative; top: -20px;" />';
@@ -57,7 +57,7 @@ function transtext() {
 function luxurytax() {
 	addAlert(player[turn].name + " paid $100 for landing on Luxury Tax.");
 	player[turn].pay(100, 0);
-	
+
 	$("#landed").show().text("You landed on Luxury Tax. Pay $100.");
 }
 
