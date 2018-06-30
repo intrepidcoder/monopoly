@@ -39,7 +39,6 @@ td {
 	position: absolute;
 	min-width: 135px;
 	top: 0px;
-	left: 970px;
 	right: 0px;
 	-webkit-user-select: none;
 	user-select: none;
@@ -523,7 +522,7 @@ td {
 .menu-item:hover {
 	/* background-image: -webkit-linear-gradient(bottom,#000080,#4787ED);
 	background-image: -moz-linear-gradient(bottom,#000080,#4787ED); */
-	
+
 	background-image: url(images/menu_background_hover.png);
 }
 
