@@ -1003,7 +1003,7 @@ function Game() {
 		var p = player[turn];
 
 		if (p.creditor === 0) {
-			this.eliminatePlayer();
+			game.eliminatePlayer();
 			return;
 		}
 
@@ -1095,7 +1095,7 @@ function Game() {
 		}
 
 		if (pcount === 2 || bankruptcyUnmortgageFee === 0 || p.creditor === 0) {
-			this.eliminatePlayer();
+			game.eliminatePlayer();
 		} else {
 			addAlert(pcredit.name + " paid $" + bankruptcyUnmortgageFee + " interest on the mortgaged properties received from " + p.name + ".");
 			popup("<p>" + pcredit.name + ", you must pay $" + bankruptcyUnmortgageFee + " interest on the mortgaged properties you received from " + p.name + ".</p>", function() {player[pcredit.index].pay(bankruptcyUnmortgageFee, 0); game.bankruptcyUnmortgage();});
