@@ -2390,7 +2390,7 @@ function land(increasedRent) {
 		updatePosition();
 
 		if (p.human) {
-			popup("<div>Go to jail. Go directly to Jail. Do not pass GO. Do not collect $200.</div>", goToJail);
+			popup("<div>Go to jail. Go directly to Jail. Do not pass GO. Do not collect $200.</div>", gotojail);
 		} else {
 			gotojail();
 		}
@@ -2456,7 +2456,7 @@ function roll() {
 
 
 			if (p.human) {
-				popup("You rolled doubles three times in a row. Go to jail.", goToJail);
+				popup("You rolled doubles three times in a row. Go to jail.", gotojail);
 			} else {
 				gotojail();
 			}
