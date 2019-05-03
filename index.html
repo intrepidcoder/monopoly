@@ -11,6 +11,10 @@
 	<script type="text/javascript" src="ai.js"></script>
 	<script type="text/javascript" src="monopoly.js"></script>
 	<link rel="stylesheet" type="text/css" href="styles.css" />
+
+    <link rel="stylesheet" type="text/css" href="board.css">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet"> 
 </head>
 
 <body>
@@ -105,71 +109,323 @@
 		</div>
 	</div>
 
-	<table id="board">
-		<tr>
-			<td class="cell board-corner" id="cell20"></td>
-			<td class="cell board-top" id="cell21"></td>
-			<td class="cell board-top" id="cell22"></td>
-			<td class="cell board-top" id="cell23"></td>
-			<td class="cell board-top" id="cell24"></td>
-			<td class="cell board-top" id="cell25"></td>
-			<td class="cell board-top" id="cell26"></td>
-			<td class="cell board-top" id="cell27"></td>
-			<td class="cell board-top" id="cell28"></td>
-			<td class="cell board-top" id="cell29"></td>
-			<td class="cell board-corner" id="cell30"></td>
-		</tr><tr>
-			<td class="cell board-left" id="cell19"></td>
-			<td colspan="9" class="board-center"></td>
-			<td class="cell board-right" id="cell31"></td>
-		</tr><tr>
-			<td class="cell board-left" id="cell18"></td>
-			<td colspan="9" class="board-center"></td>
-			<td class="cell board-right" id="cell32"></td>
-		</tr><tr>
-			<td class="cell board-left" id="cell17"></td>
-			<td colspan="9" class="board-center"></td>
-			<td class="cell board-right" id="cell33"></td>
-		</tr><tr>
-			<td class="cell board-left" id="cell16"></td>
-			<td colspan="9" class="board-center"></td>
-			<td class="cell board-right" id="cell34"></td>
-		</tr><tr>
-			<td class="cell board-left" id="cell15"></td>
-			<td colspan="9" class="board-center"></td>
-			<td class="cell board-right" id="cell35"></td>
-		</tr><tr>
-			<td class="cell board-left" id="cell14"></td>
-			<td colspan="9" class="board-center"></td>
-			<td class="cell board-right" id="cell36"></td>
-		</tr><tr>
-			<td class="cell board-left" id="cell13"></td>
-			<td colspan="9" class="board-center"></td>
-			<td class="cell board-right" id="cell37"></td>
-		</tr><tr>
-			<td class="cell board-left" id="cell12"></td>
-			<td colspan="9" class="board-center"></td>
-			<td class="cell board-right" id="cell38"></td>
-		</tr><tr>
-			<td class="cell board-left" id="cell11"></td>
-			<td colspan="9" class="board-center">
-				<div id="jail"></div>
-			</td>
-			<td class="cell board-right" id="cell39"></td>
-		</tr><tr>
-			<td class="cell board-corner" id="cell10"></td>
-			<td class="cell board-bottom" id="cell9"></td>
-			<td class="cell board-bottom" id="cell8"></td>
-			<td class="cell board-bottom" id="cell7"></td>
-			<td class="cell board-bottom" id="cell6"></td>
-			<td class="cell board-bottom" id="cell5"></td>
-			<td class="cell board-bottom" id="cell4"></td>
-			<td class="cell board-bottom" id="cell3"></td>
-			<td class="cell board-bottom" id="cell2"></td>
-			<td class="cell board-bottom" id="cell1"></td>
-			<td class="cell board-corner" id="cell0"></td>
-		</tr>
-	</table>
+    <div class="table" id="board">
+        <div class="board">
+            <div class="center">
+                <div class="community-chest-deck">
+                    <h2 class="label">Community Chest</h2>
+                    <div class="deck"></div>
+                </div>
+                <h1 class="title">MONOPOLY</h1>
+                <div class="chance-deck">
+                    <h2 class="label">Chance</h2>
+                    <div class="deck"></div>
+                </div>
+            </div>
+
+            <div class="space corner go" id="cell0">
+                <div class="container">
+                    <div class="instructions">Collect $200.00 salary as you pass</div>
+                    <div class="go-word">go</div>
+                </div>
+                <div class="arrow fa fa-long-arrow-left"></div>
+            </div>
+
+            <div class="row horizontal-row bottom-row">
+                <div class="space property" id="cell9">
+                    <div class="container">
+                        <div class="color-bar light-blue"></div>
+                        <div class="name">Connecticut Avenue</div>
+                        <div class="price">PRICE $120</div>
+                    </div>
+                </div>
+                <div class="space property" id="cell8">
+                    <div class="container">
+                        <div class="color-bar light-blue"></div>
+                        <div class="name">Vermont Avenue</div>
+                        <div class="price">Price $100</div>
+                    </div>
+                </div>
+                <div class="space chance" id="cell7">
+                    <div class="container">
+                        <div class="name">Chance</div>
+                        <i class="drawing fa fa-question"></i>
+                    </div>
+                </div>
+                <div class="space property" id="cell6">
+                    <div class="container">
+                        <div class="color-bar light-blue"></div>
+                        <div class="name">Oriental Avenue</div>
+                        <div class="price">Price $100</div>
+                    </div>
+                </div>
+                <div class="space railroad" id="cell5">
+                    <div class="container">
+                        <div class="name">Reading Railroad</div>
+                        <i class="drawing fa fa-subway"></i>
+                        <div class="price">Price $200</div>
+                    </div>
+                </div>
+                <div class="space fee income-tax" id="cell4">
+                    <div class="container">
+                        <div class="name">Income Tax</div>
+                        <div class="diamond"></div>
+                        <div class="instructions">Pay 10%<br>or<br>$200</div>
+                    </div>
+                </div>
+                <div class="space property" id="cell3">
+                    <div class="container">
+                        <div class="color-bar dark-purple"></div>
+                        <div class="name">Baltic Avenue</div>
+                        <div class="price">Price $50</div>
+                    </div>
+                </div>
+                <div class="space community-chest" id="cell2">
+                    <div class="container">
+                        <div class="name">Community Chest</div>
+                        <i class="drawing fa fa-cube"></i>
+                        <div class="instructions">Follow instructions on top card</div>
+                    </div>
+                </div>
+                <div class="space property" id="cell1">
+                    <div class="container">
+                        <div class="color-bar dark-purple"></div>
+                        <div class="name three-line-name">Mediter-<br>ranean<br>Avenue</div>
+                        <div class="price">Price $50</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space corner jail" id="cell10">
+                <div class="just">Just</div>
+                <div class="drawing">
+                    <div class="container">
+                        <div class="name">In</div>
+                        <div class="window">
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <i class="person fa fa-frown-o"></i>
+                        </div>
+                        <div class="name">Jail</div>
+                    </div>
+                </div>
+                <div class="visiting">Visiting</div>
+            </div>
+
+            <div class="row vertical-row left-row">
+                <div class="space property" id="cell19">
+                    <div class="container">
+                        <div class="color-bar orange"></div>
+                        <div class="name">New York Avenue</div>
+                        <div class="price">Price $200</div>
+                    </div>
+                </div>
+                <div class="space property" id="cell18">
+                    <div class="container">
+                        <div class="color-bar orange"></div>
+                        <div class="name">Tennessee Avenue</div>
+                        <div class="price">Price $180</div>
+                    </div>
+                </div>
+                <div class="space community-chest" id="cell17">
+                    <div class="container">
+                        <div class="name">Community Chest</div>
+                        <i class="drawing fa fa-cube"></i>
+                        <div class="instructions">Follow instructions on top card</div>
+                    </div>
+                </div>
+                <div class="space property" id="cell16">
+                    <div class="container">
+                        <div class="color-bar orange"></div>
+                        <div class="name">St. James Avenue</div>
+                        <div class="price">Price $180</div>
+                    </div>
+                </div>
+                <div class="space railroad" id="cell15">
+                    <div class="container">
+                        <div class="name long-name">Pennsylvania Railroad</div>
+                        <i class="drawing fa fa-subway"></i>
+                        <div class="price">Price $200</div>
+                    </div>
+                </div>
+                <div class="space property" id="cell14">
+                    <div class="container">
+                        <div class="color-bar purple"></div>
+                        <div class="name">Virginia Avenue</div>
+                        <div class="price">Price $160</div>
+                    </div>
+                </div>
+                <div class="space property" id="cell13">
+                    <div class="container">
+                        <div class="color-bar purple"></div>
+                        <div class="name">States Avenue</div>
+                        <div class="price">Price $140</div>
+                    </div>
+                </div>
+                <div class="space utility electric-company" id="cell12">
+                    <div class="container">
+                        <div class="name">Electric Company</div>
+                        <i class="drawing fa fa-lightbulb-o"></i>
+                        <div class="price">Price $150</div>
+                    </div>
+                </div>
+                <div class="space property" id="cell11">
+                    <div class="container">
+                        <div class="color-bar purple"></div>
+                        <div class="name">St. Charles Place</div>
+                        <div class="price">Price $140</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space corner free-parking" id="cell20">
+                <div class="container">
+                    <div class="name">Free</div>
+                    <i class="drawing fa fa-car"></i>
+                    <div class="name">Parking</div>
+                </div>
+            </div>
+
+            <div class="row horizontal-row top-row" id="cell21">
+                <div class="space property">
+                    <div class="container">
+                        <div class="color-bar red"></div>
+                        <div class="name">Kentucky Avenue</div>
+                        <div class="price">Price $220</div>
+                    </div>
+                </div>
+                <div class="space chance" id="cell22">
+                    <div class="container">
+                        <div class="name">Chance</div>
+                        <i class="drawing fa fa-question blue"></i>
+                    </div>
+                </div>
+                <div class="space property" id="cell23">
+                    <div class="container">
+                        <div class="color-bar red"></div>
+                        <div class="name">Indiana Avenue</div>
+                        <div class="price">Price $220</div>
+                    </div>
+                </div>
+                <div class="space property" id="cell24">
+                    <div class="container">
+                        <div class="color-bar red"></div>
+                        <div class="name">Illinois Avenue</div>
+                        <div class="price">Price $200</div>
+                    </div>
+                </div>
+                <div class="space railroad" id="cell25">
+                    <div class="container">
+                        <div class="name">B & O Railroad</div>
+                        <i class="drawing fa fa-subway"></i>
+                        <div class="price">Price $200</div>
+                    </div>
+                </div>
+                <div class="space property" id="cell26">
+                    <div class="container">
+                        <div class="color-bar yellow"></div>
+                        <div class="name">Atlantic Avenue</div>
+                        <div class="price">Price $260</div>
+                    </div>
+                </div>
+                <div class="space property" id="cell27">
+                    <div class="container">
+                        <div class="color-bar yellow"></div>
+                        <div class="name">Ventnor Avenue</div>
+                        <div class="price">Price $260</div>
+                    </div>
+                </div>
+                <div class="space utility waterworks" id="cell28">
+                    <div class="container">
+                        <div class="name">Waterworks</div>
+                        <i class="drawing fa fa-tint"></i>
+                        <div class="price">Price $120</div>
+                    </div>
+                </div>
+                <div class="space property" id="cell29">
+                    <div class="container">
+                        <div class="color-bar yellow"></div>
+                        <div class="name">Marvin Gardens</div>
+                        <div class="price">Price $280</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space corner go-to-jail" id="cell30">
+                <div class="container">
+                    <div class="name">Go To</div>
+                    <i class="drawing fa fa-gavel"></i>
+                    <div class="name">Jail</div>
+                </div>
+            </div>
+
+            <div class="row vertical-row right-row" id="cell31">
+                <div class="space property">
+                    <div class="container">
+                        <div class="color-bar green"></div>
+                        <div class="name">Pacific Avenue</div>
+                        <div class="price">Price $300</div>
+                    </div>
+                </div>
+                <div class="space property" id="cell32">
+                    <div class="container">
+                        <div class="color-bar green"></div>
+                        <div class="name three-line-name">North Carolina Avenue</div>
+                        <div class="price">Price $300</div>
+                    </div>
+                </div>
+                <div class="space community-chest" id="cell33">
+                    <div class="container">
+                        <div class="name">Community Chest</div>
+                        <i class="drawing fa fa-cube"></i>
+                        <div class="instructions">Follow instructions on top card</div>
+                    </div>
+                </div>
+                <div class="space property" id="cell34">
+                    <div class="container">
+                        <div class="color-bar green"></div>
+                        <div class="name long-name">Pennsylvania Avenue</div>
+                        <div class="price">Price $320</div>
+                    </div>
+                </div>
+                <div class="space railroad" id="cell35">
+                    <div class="container">
+                        <div class="name">Short Line</div>
+                        <i class="drawing fa fa-subway"></i>
+                        <div class="price">Price $200</div>
+                    </div>
+                </div>
+                <div class="space chance" id="cell36">
+                    <div class="container">
+                        <div class="name">Chance</div>
+                        <i class="drawing fa fa-question"></i>
+                    </div>
+                </div>
+                <div class="space property" id="cell37">
+                    <div class="container">
+                        <div class="color-bar dark-blue"></div>
+                        <div class="name">Park Place</div>
+                        <div class="price">Price $350</div>
+                    </div>
+                </div>
+                <div class="space fee luxury-tax" id="cell38">
+                    <div class="container">
+                        <div class="name">Luxury Tax</div>
+                        <div class="drawing fa fa-diamond"></div>
+                        <div class="instructions">Pay $75.00</div>
+                    </div>
+                </div>
+                <div class="space property" id="cell39">
+                    <div class="container">
+                        <div class="color-bar dark-blue"></div>
+                        <div class="name">Boardwalk</div>
+                        <div class="price">Price $400</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 	<div id="moneybarwrap">
 		<div id="moneybar">

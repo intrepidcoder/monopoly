@@ -1280,7 +1280,7 @@ function popup(HTML, action, option) {
 
 function updatePosition() {
 	// Reset borders
-	document.getElementById("jail").style.border = "1px solid black";
+	document.getElementById("cell10").style.border = "1px solid black";
 	document.getElementById("jailpositionholder").innerHTML = "";
 	for (var i = 0; i < 40; i++) {
 		document.getElementById("cell" + i).style.border = "1px solid black";
@@ -1350,7 +1350,7 @@ function updatePosition() {
 	p = player[turn];
 
 	if (p.jail) {
-		document.getElementById("jail").style.border = "1px solid " + p.color;
+		document.getElementById("cell10").style.border = "1px solid " + p.color;
 	} else {
 		document.getElementById("cell" + p.position).style.border = "1px solid " + p.color;
 	}
@@ -1454,10 +1454,38 @@ function updateOwned() {
 		if (sq.groupNumber && sq.owner === 0) {
 			$("#cell" + i + "owner").hide();
 		} else if (sq.groupNumber && sq.owner > 0) {
-			var currentCellOwner = document.getElementById("cell" + i + "owner");
+            function rgba(red, green, blue, alpha) {
+                return "rgba(" + red + ", " + green + ", " + blue + ", " + alpha + ")"
+            }
+            alfa = 0.3
+            color_table = {
+                'aqua': rgba(0,255,255,alfa),
+                'black': rgba(0,0,0,alfa),
+                'blue': rgba(0,0,255,alfa),
+                'fuchsia': rgba(255,0,255,alfa),
+                'gray': rgba(128,128,128,alfa),
+                'green': rgba(0,128,0,alfa),
+                'lime': rgba(0,255,0,alfa),
+                'maroon': rgba(128,0,0,alfa),
+                'navy': rgba(0,0,128,alfa),
+                'olive': rgba(128,128,0,alfa),
+                'orange': rgba(255,165,0,alfa),
+                'purple': rgba(128,0,128,alfa),
+                'red': rgba(255,0,0,alfa),
+                'silver': rgba(192,192,192,alfa),
+                'teal': rgba(0,128,128,alfa),
+                'yellow': rgba(255,255,0,alfa),
+            }
+            color_code = color_table[player[sq.owner].color]
+            console.log(player[sq.owner].color)
+            console.log(color_code)
 
-			currentCellOwner.style.display = "block";
-			currentCellOwner.style.backgroundColor = player[sq.owner].color;
+            cell = $("#cell" + i).find(".container").css(
+                "background", "repeating-linear-gradient(45deg, transparent, transparent 10px, " + color_code + " 10px, " + color_code + " 20px)");
+
+			var currentCellOwner = document.getElementById("cell" + i);
+			// currentCellOwner.style.display = "block";
+            // currentCellOwner.style.backgroundColor = player[sq.owner].color;
 			currentCellOwner.title = player[sq.owner].name;
 		}
 	}
@@ -1959,7 +1987,7 @@ function streetrepairs(houseprice, hotelprice) {
 function payfifty() {
 	var p = player[turn];
 
-	document.getElementById("jail").style.border = '1px solid black';
+	document.getElementById("cell10").style.border = '1px solid black';
 	document.getElementById("cell11").style.border = '2px solid ' + p.color;
 
 	$("#landed").hide();
@@ -1978,7 +2006,7 @@ function payfifty() {
 function useJailCard() {
 	var p = player[turn];
 
-	document.getElementById("jail").style.border = '1px solid black';
+	document.getElementById("cell10").style.border = '1px solid black';
 	document.getElementById("cell11").style.border = '2px solid ' + p.color;
 
 	$("#landed").hide();
@@ -2478,7 +2506,7 @@ function roll() {
 
 		updateDice(die1, die2);
 		if (die1 == die2) {
-			document.getElementById("jail").style.border = "1px solid black";
+			document.getElementById("cell10").style.border = "1px solid black";
 			document.getElementById("cell11").style.border = "2px solid " + p.color;
 			$("#landed").hide();
 
@@ -2787,26 +2815,30 @@ window.onload = function() {
 	for (var i = 0; i < 40; i++) {
 		s = square[i];
 
-		currentCell = document.getElementById("cell" + i);
+        cell = $("#cell" + i);
+        cell.find(".name").attr('id', 'cell' + i + "name");
 
-		currentCellAnchor = currentCell.appendChild(document.createElement("div"));
-		currentCellAnchor.id = "cell" + i + "anchor";
-		currentCellAnchor.className = "cell-anchor";
+        currentCell = cell.find(".container").get(0)
 
+        currentCellAnchor = currentCell.appendChild(document.createElement("div"));
+        currentCellAnchor.id = "cell" + i + "anchor";
+        //currentCellAnchor.className = "cell-anchor";
+        
 		currentCellPositionHolder = currentCellAnchor.appendChild(document.createElement("div"));
 		currentCellPositionHolder.id = "cell" + i + "positionholder";
-		currentCellPositionHolder.className = "cell-position-holder";
+		currentCellPositionHolder.classList.add("cell-position-holder");
+		currentCellPositionHolder.classList.add("cell-position-holder");
 		currentCellPositionHolder.enlargeId = "enlarge" + i;
 
-		currentCellName = currentCellAnchor.appendChild(document.createElement("div"));
-		currentCellName.id = "cell" + i + "name";
-		currentCellName.className = "cell-name";
-		currentCellName.textContent = s.name;
+		// currentCellName = currentCellAnchor.appendChild(document.createElement("div"));
+		// currentCellName.id = "cell" + i + "name";
+        // currentCellName.className = "cell-name";
+		// currentCellName.textContent = s.name;
 
 		if (square[i].groupNumber) {
 			currentCellOwner = currentCellAnchor.appendChild(document.createElement("div"));
 			currentCellOwner.id = "cell" + i + "owner";
-			currentCellOwner.className = "cell-owner";
+            // currentCellOwner.className = "cell-owner";
 		}
 
 		document.getElementById("enlarge" + i + "color").style.backgroundColor = s.color;
@@ -2823,10 +2855,10 @@ window.onload = function() {
 	corrections();
 
 	// Jail corrections
-	$("<div>", {id: "jailpositionholder" }).appendTo("#jail");
-	$("<span>").text("Jail").appendTo("#jail");
+	$("<div>", {id: "jailpositionholder" }).appendTo("#cell10");
+	$("<span>").text("Jail").appendTo("#cell10");
 
-	document.getElementById("jail").enlargeId = "enlarge40";
+	document.getElementById("cell10").enlargeId = "enlarge40";
 
 	document.getElementById("enlarge-wrap").innerHTML += "<div id='enlarge40' class='enlarge'><div id='enlarge40color' class='enlarge-color'></div><br /><div id='enlarge40name' class='enlarge-name'>Jail</div><br /><div id='enlarge40price' class='enlarge-price'><img src='images/jake_icon.png' height='80' width='80' alt='' style='position: relative; top: -20px;' /></div><br /><div id='enlarge40token' class='enlarge-token'></div></div>";
 
@@ -2836,7 +2868,7 @@ window.onload = function() {
 
 	var drag, dragX, dragY, dragObj, dragTop, dragLeft;
 
-	$(".cell-position-holder, #jail").on("mouseover", function(){
+	$(".cell-position-holder, #cell10").on("mouseover", function(){
 		$("#" + this.enlargeId).show();
 
 	}).on("mouseout", function() {
