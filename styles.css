@@ -1,4 +1,4 @@
-body {
+#body {
 	background: #FFFFFF;
 	margin: 0px;
 	min-width: 1075px;
@@ -505,6 +505,28 @@ td {
 	margin: 20px;
 	font-size: 15px;
 }
+
+#deed-other {
+	font-family: Calibri, Arial;
+	text-align: justify;
+}
+
+#deed-other-name {
+	text-align: center;
+	font-size: 18px;
+	font-weight: bold;
+	border-style: solid;
+	border-width: 2px 0px;
+	text-transform: uppercase;
+	margin: 50px 20px 20px;
+}
+
+#deed-other-text {
+	margin: 20px;
+	font-size: 15px;
+}
+
+
 
 #deed-special-footer {
 	margin: 0px 20px;

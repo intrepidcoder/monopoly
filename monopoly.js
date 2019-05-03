@@ -1348,10 +1348,6 @@ function updatePosition() {
 	} else {
 		document.getElementById("cell" + p.position).style.border = "1px solid " + p.color;
 	}
-
-	// for (var i=1; i <= pcount; i++) {
-	// document.getElementById("enlarge"+player[i].position+"token").innerHTML+="<img src='"+tokenArray[i].src+"' height='30' width='30' />";
-	// }
 }
 
 function updateMoney() {
@@ -2193,6 +2189,7 @@ function showdeed(property) {
 	$("#deed-normal").hide();
 	$("#deed-mortgaged").hide();
 	$("#deed-special").hide();
+    $("#deed-other").hide();
 
 	if (sq.mortgage) {
 		$("#deed-mortgaged").show();
@@ -2226,7 +2223,11 @@ function showdeed(property) {
 			document.getElementById("deed-special-name").textContent = sq.name;
 			document.getElementById("deed-special-text").innerHTML = transtext();
 			document.getElementById("deed-special-mortgage").textContent = (sq.price / 2);
-		}
+		} else if (sq.groupNumber == 0) {
+            $("#deed-other").show();
+			document.getElementById("deed-other-name").textContent = sq.name;
+			document.getElementById("deed-other-text").innerHTML = "";
+        }
 	}
 }
 
@@ -2784,20 +2785,6 @@ window.onload = function() {
 	$("#noscript").hide();
 	$("#setup, #noF5").show();
 
-	var enlargeWrap = document.body.appendChild(document.createElement("div"));
-
-	enlargeWrap.id = "enlarge-wrap";
-
-	var HTML = "";
-	for (var i = 0; i < 40; i++) {
-		HTML += "<div id='enlarge" + i + "' class='enlarge'>";
-		HTML += "<div id='enlarge" + i + "color' class='enlarge-color'></div><br /><div id='enlarge" + i + "name' class='enlarge-name'></div>";
-		HTML += "<br /><div id='enlarge" + i + "price' class='enlarge-price'></div>";
-		HTML += "<br /><div id='enlarge" + i + "token' class='enlarge-token'></div></div>";
-	}
-
-	enlargeWrap.innerHTML = HTML;
-
 	var currentCell;
 	var currentCellAnchor;
 	var currentCellPositionHolder;
@@ -2828,7 +2815,6 @@ window.onload = function() {
 		currentCellPositionHolder.id = "cell" + i + "positionholder";
 		currentCellPositionHolder.classList.add("cell-position-holder");
 		currentCellPositionHolder.classList.add("cell-position-holder");
-		currentCellPositionHolder.enlargeId = "enlarge" + i;
 
 		// currentCellName = currentCellAnchor.appendChild(document.createElement("div"));
 		// currentCellName.id = "cell" + i + "name";
@@ -2841,123 +2827,14 @@ window.onload = function() {
             // currentCellOwner.className = "cell-owner";
 		}
 
-		document.getElementById("enlarge" + i + "color").style.backgroundColor = s.color;
-		document.getElementById("enlarge" + i + "name").textContent = s.name;
-		document.getElementById("enlarge" + i + "price").textContent = s.pricetext;
 	}
 
-
-	// Add images to enlarges.
-	document.getElementById("enlarge0token").innerHTML += '<img src="images/arrow_icon.png" height="40" width="136" alt="" />';
-	document.getElementById("enlarge20price").innerHTML += "<img src='images/free_parking_icon.png' height='80' width='72' alt='' style='position: relative; top: -20px;' />";
-	document.getElementById("enlarge38token").innerHTML += '<img src="images/tax_icon.png" height="60" width="70" alt="" style="position: relative; top: -20px;" />';
 
 	corrections();
 
 	// Jail corrections
 	$("<div>", {id: "jailpositionholder" }).appendTo("#cell10");
 	$("<span>").text("Jail").appendTo("#cell10");
-
-	document.getElementById("cell10").enlargeId = "enlarge40";
-
-	document.getElementById("enlarge-wrap").innerHTML += "<div id='enlarge40' class='enlarge'><div id='enlarge40color' class='enlarge-color'></div><br /><div id='enlarge40name' class='enlarge-name'>Jail</div><br /><div id='enlarge40price' class='enlarge-price'><img src='images/jake_icon.png' height='80' width='80' alt='' style='position: relative; top: -20px;' /></div><br /><div id='enlarge40token' class='enlarge-token'></div></div>";
-
-	document.getElementById("enlarge40name").innerHTML = "Jail";
-
-	// Create event handlers for hovering and draging.
-
-	var drag, dragX, dragY, dragObj, dragTop, dragLeft;
-
-	$(".cell-position-holder, #cell10").on("mouseover", function(){
-		$("#" + this.enlargeId).show();
-
-	}).on("mouseout", function() {
-		$("#" + this.enlargeId).hide();
-
-	}).on("mousemove", function(e) {
-		var element = document.getElementById(this.enlargeId);
-
-		if (e.clientY + 20 > window.innerHeight - 204) {
-			element.style.top = (window.innerHeight - 204) + "px";
-		} else {
-			element.style.top = (e.clientY + 20) + "px";
-		}
-
-		element.style.left = (e.clientX + 10) + "px";
-	});
-
-
-	$("body").on("mousemove", function(e) {
-		var object;
-
-		if (e.target) {
-			object = e.target;
-		} else if (window.event && window.event.srcElement) {
-			object = window.event.srcElement;
-		}
-
-
-		if (object.classList.contains("propertycellcolor") || object.classList.contains("statscellcolor")) {
-			if (e.clientY + 20 > window.innerHeight - 279) {
-				document.getElementById("deed").style.top = (window.innerHeight - 279) + "px";
-			} else {
-				document.getElementById("deed").style.top = (e.clientY + 20) + "px";
-			}
-			document.getElementById("deed").style.left = (e.clientX + 10) + "px";
-
-
-		} else if (drag) {
-			if (e) {
-				dragObj.style.left = (dragLeft + e.clientX - dragX) + "px";
-				dragObj.style.top = (dragTop + e.clientY - dragY) + "px";
-
-			} else if (window.event) {
-				dragObj.style.left = (dragLeft + window.event.clientX - dragX) + "px";
-				dragObj.style.top = (dragTop + window.event.clientY - dragY) + "px";
-			}
-		}
-	});
-
-
-	$("body").on("mouseup", function() {
-
-		drag = false;
-	});
-	document.getElementById("statsdrag").onmousedown = function(e) {
-		dragObj = document.getElementById("stats");
-		dragObj.style.position = "relative";
-
-		dragTop = parseInt(dragObj.style.top, 10) || 0;
-		dragLeft = parseInt(dragObj.style.left, 10) || 0;
-
-		if (window.event) {
-			dragX = window.event.clientX;
-			dragY = window.event.clientY;
-		} else if (e) {
-			dragX = e.clientX;
-			dragY = e.clientY;
-		}
-
-		drag = true;
-	};
-
-	document.getElementById("popupdrag").onmousedown = function(e) {
-		dragObj = document.getElementById("popup");
-		dragObj.style.position = "relative";
-
-		dragTop = parseInt(dragObj.style.top, 10) || 0;
-		dragLeft = parseInt(dragObj.style.left, 10) || 0;
-
-		if (window.event) {
-			dragX = window.event.clientX;
-			dragY = window.event.clientY;
-		} else if (e) {
-			dragX = e.clientX;
-			dragY = e.clientY;
-		}
-
-		drag = true;
-	};
 
 	$("#mortgagebutton").click(function() {
 		var checkedProperty = getCheckedProperty();
