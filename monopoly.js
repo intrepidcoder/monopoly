@@ -37,21 +37,15 @@ function Game() {
 
 	this.getDie = function(die) {
 		if (die === 1) {
-
 			return die1;
 		} else {
-
 			return die2;
 		}
 
 	};
 
 
-
 	// Auction functions:
-
-
-
 	var finalizeAuction = function() {
 		var p = player[highestbidder];
 		var sq = square[auctionproperty];
@@ -1484,8 +1478,6 @@ function updateOwned() {
                 "background", "repeating-linear-gradient(45deg, transparent, transparent 10px, " + color_code + " 10px, " + color_code + " 20px)");
 
 			var currentCellOwner = document.getElementById("cell" + i);
-			// currentCellOwner.style.display = "block";
-            // currentCellOwner.style.backgroundColor = player[sq.owner].color;
 			currentCellOwner.title = player[sq.owner].name;
 		}
 	}
@@ -2817,6 +2809,14 @@ window.onload = function() {
 
         cell = $("#cell" + i);
         cell.find(".name").attr('id', 'cell' + i + "name");
+        container = cell.find(".container")
+        var register_deed = (function(id) {
+            container.mouseover(function() {
+                showdeed(id)
+            }).mouseout(function() {
+                hidedeed()
+            });
+        })(i);
 
         currentCell = cell.find(".container").get(0)
 
