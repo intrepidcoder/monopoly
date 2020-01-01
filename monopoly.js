@@ -2495,7 +2495,6 @@ function roll() {
 
 				if (p.human) {
 					popup("<p>You must pay the $50 fine.</p>", function() {
-						payFifty();
 						payfifty();
 						player[turn].position=10 + die1 + die2;
 						land();
