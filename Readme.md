@@ -1,6 +1,6 @@
 # monopoly
 
-A JavaScript/HTML/CSS Monopoly implementation with full game play. Supports two-eight players.
+A JavaScript/HTML/CSS Monopoly implementation with full game play. Supports two-eight players. its test
 
 Play online at [http://www.intrepidcoder.com/projects/monopoly/](http://www.intrepidcoder.com/projects/monopoly/).
 
