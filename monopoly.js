@@ -2779,6 +2779,8 @@ window.onload = function() {
 	var currentCell;
 	var currentCellAnchor;
 	var currentCellPositionHolder;
+	let currentCellColor;
+	let currentCellToken;	
 	var currentCellName;
 	var currentCellOwner;
 
@@ -2787,6 +2789,7 @@ window.onload = function() {
 
 		currentCell = document.getElementById("cell" + i);
 
+	
 		currentCellAnchor = currentCell.appendChild(document.createElement("div"));
 		currentCellAnchor.id = "cell" + i + "anchor";
 		currentCellAnchor.className = "cell-anchor";
@@ -2796,6 +2799,15 @@ window.onload = function() {
 		currentCellPositionHolder.className = "cell-position-holder";
 		currentCellPositionHolder.enlargeId = "enlarge" + i;
 
+		currentCellColor = currentCellAnchor.appendChild(document.createElement("div"));
+		currentCellColor.id = "cell" + i + "color";
+		currentCellColor.className = "cell-color";
+		currentCellColor.style.backgroundColor = s.color;
+
+		currentCellToken = currentCellAnchor.appendChild(document.createElement("div"));
+		currentCellToken.id = "cell" + i + "token";
+		currentCellToken.className = "cell-token";		
+		
 		currentCellName = currentCellAnchor.appendChild(document.createElement("div"));
 		currentCellName.id = "cell" + i + "name";
 		currentCellName.className = "cell-name";
@@ -2810,13 +2822,42 @@ window.onload = function() {
 		document.getElementById("enlarge" + i + "color").style.backgroundColor = s.color;
 		document.getElementById("enlarge" + i + "name").textContent = s.name;
 		document.getElementById("enlarge" + i + "price").textContent = s.pricetext;
+
+		if (s.color === "#FFFFFF") {
+			document.getElementById("enlarge" + i + "color").style.height = "0px";
+			if (i === 2 || i === 17 || i === 33 || i === 7 || i === 22 || i === 36) {
+				document.getElementById("cell" + i + "token").style.top = "10px";
+			}
+		}
 	}
 
 
 	// Add images to enlarges.
 	document.getElementById("enlarge0token").innerHTML += '<img src="images/arrow_icon.png" height="40" width="136" alt="" />';
 	document.getElementById("enlarge20price").innerHTML += "<img src='images/free_parking_icon.png' height='80' width='72' alt='' style='position: relative; top: -20px;' />";
+	document.getElementById("enlarge4token").innerHTML += '<img src="images/tax_icon.png" height="60" width="70" alt="" style="position: relative; top: -20px;" />';	
 	document.getElementById("enlarge38token").innerHTML += '<img src="images/tax_icon.png" height="60" width="70" alt="" style="position: relative; top: -20px;" />';
+	
+	document.getElementById("cell20token").innerHTML += "<img src='images/free_parking_icon.png' height='80' width='72' alt='' style='position: relative; top: -20px;' />";
+	document.getElementById("cell4token").innerHTML += '<img src="images/tax_icon.png" height="60" width="70" alt="" style="position: relative; top: -20px;" />';	
+	document.getElementById("cell38token").innerHTML += '<img src="images/tax_icon.png" height="60" width="70" alt="" style="position: relative; top: -20px;" />';
+
+	document.getElementById("enlarge2token").innerHTML += '<img src="images/community_chest_icon.png" alt="" />';
+	document.getElementById("enlarge17token").innerHTML += '<img src="images/community_chest_icon.png" alt="" />';
+	document.getElementById("enlarge33token").innerHTML += '<img src="images/community_chest_icon.png" alt="" />';		
+
+	document.getElementById("cell2token").innerHTML += '<img src="images/community_chest_icon.png" alt="" />';
+	document.getElementById("cell17token").innerHTML += '<img src="images/community_chest_icon.png" alt="" />';
+	document.getElementById("cell33token").innerHTML += '<img src="images/community_chest_icon.png" alt="" />';	
+
+	document.getElementById("enlarge7token").innerHTML += '<img src="images/chance_icon.png" alt="" />';
+	document.getElementById("enlarge22token").innerHTML += '<img src="images/chance_icon.png" alt="" />';
+	document.getElementById("enlarge36token").innerHTML += '<img src="images/chance_icon.png" alt="" />';	
+
+	document.getElementById("cell7token").innerHTML += '<img src="images/chance_icon.png" alt="" />';
+	document.getElementById("cell22token").innerHTML += '<img src="images/chance_icon.png" alt="" />';
+	document.getElementById("cell36token").innerHTML += '<img src="images/chance_icon.png" alt="" />';	
+
 
 	corrections();
 
