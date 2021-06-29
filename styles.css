@@ -631,6 +631,13 @@ td {
 	height: 40px;
 }
 
+.cell-color {
+	position: absolute;
+	top: 0px;	
+	width: 100%;
+	height: 20px;
+}
+
 .enlarge-name {
 	font-weight: bold;
 	font-size: 20px;
@@ -647,6 +654,13 @@ td {
 .enlarge-token {
 	height: 45px;
 	width: 150px;
+}
+
+.cell-token {
+	position: absolute;
+	top: 20px;	
+	height: 45px;
+	width: 100%;
 }
 
 .moneybarcell {
