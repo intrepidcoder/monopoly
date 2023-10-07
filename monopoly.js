@@ -2623,6 +2623,7 @@ function setup() {
 
 		if (document.getElementById("player" + i + "ai").value === "0") {
 			p.name = document.getElementById("player" + i + "name").value;
+			p.role = document.getElementById("player" + i + "role").value;
 			p.human = true;
 		} else if (document.getElementById("player" + i + "ai").value === "1") {
 			p.human = false;
@@ -2630,6 +2631,7 @@ function setup() {
 		}
 	}
 
+	console.log(player);
 	$("#board, #moneybar").show();
 	$("#setup").hide();
 
