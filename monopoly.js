@@ -2622,7 +2622,7 @@ function setup() {
 		p.color = document.getElementById("player" + i + "color").value.toLowerCase();
 
 		if (document.getElementById("player" + i + "ai").value === "0") {
-			p.name = document.getElementById("player" + i + "name").value;
+			p.name = document.getElementById("player" + i + "name").value.split(" ").join("<br>");
 			p.human = true;
 		} else if (document.getElementById("player" + i + "ai").value === "1") {
 			p.human = false;
