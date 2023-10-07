@@ -178,56 +178,56 @@
 				<tr id="moneybarrow1" class="money-bar-row">
 					<td class="moneybararrowcell"><img src="images/arrow.png" id="p1arrow" class="money-bar-arrow" alt=">"/></td>
 					<td id="p1moneybar" class="moneybarcell">
-						<div><span id="p1moneyname" >Player 1</span>:</div>
+						<div><span id="p1moneyname" >Player 1</span><br><span id="p1role" ></span></div>
 						<div>$<span id="p1money">1500</span></div>
 					</td>
 				</tr>
 				<tr id="moneybarrow2" class="money-bar-row">
 					<td class="moneybararrowcell"><img src="images/arrow.png" id="p2arrow" class="money-bar-arrow" alt=">" /></td>
 					<td id="p2moneybar" class="moneybarcell">
-						<div><span id="p2moneyname" >Player 2</span>:</div>
+						<div><span id="p2moneyname" >Player 2</span><br><span id="p2role" ></span></div>
 						<div>$<span id="p2money">1500</span></div>
 					</td>
 				</tr>
 				<tr id="moneybarrow3" class="money-bar-row">
 					<td class="moneybararrowcell"><img src="images/arrow.png" id="p3arrow" class="money-bar-arrow" alt=">" /></td>
 					<td id="p3moneybar" class="moneybarcell">
-						<div><span id="p3moneyname" >Player 3</span>:</div>
+						<div><span id="p3moneyname" >Player 3</span><br><span id="p3role" ></span></div>
 						<div>$<span id="p3money">1500</span></div>
 					</td>
 				</tr>
 				<tr id="moneybarrow4" class="money-bar-row">
 					<td class="moneybararrowcell"><img src="images/arrow.png" id="p4arrow" class="money-bar-arrow" alt=">" /></td>
 					<td id="p4moneybar" class="moneybarcell">
-						<div><span id="p4moneyname" >Player 4</span>:</div>
+						<div><span id="p4moneyname" >Player 4</span><br><span id="p4role" ></span></div>
 						<div>$<span id="p4money">1500</span></div>
 					</td>
 				</tr>
 				<tr id="moneybarrow5" class="money-bar-row">
 					<td class="moneybararrowcell"><img src="images/arrow.png" id="p5arrow" class="money-bar-arrow" alt=">" /></td>
 					<td id="p5moneybar" class="moneybarcell">
-						<div><span id="p5moneyname" >Player 5</span>:</div>
+						<div><span id="p5moneyname" >Player 5</span><br><span id="p5role" ></span></div>
 						<div>$<span id="p5money">1500</span></div>
 					</td>
 				</tr>
 				<tr id="moneybarrow6" class="money-bar-row">
 					<td class="moneybararrowcell"><img src="images/arrow.png" id="p6arrow" class="money-bar-arrow" alt=">" /></td>
 					<td id="p6moneybar" class="moneybarcell">
-						<div><span id="p6moneyname" >Player 6</span>:</div>
+						<div><span id="p6moneyname" >Player 6</span><br><span id="p6role" ></span></div>
 						<div>$<span id="p6money">1500</span></div>
 					</td>
 				</tr>
 				<tr id="moneybarrow7" class="money-bar-row">
 					<td class="moneybararrowcell"><img src="images/arrow.png" id="p7arrow" class="money-bar-arrow" alt=">" /></td>
 					<td id="p7moneybar" class="moneybarcell">
-						<div><span id="p7moneyname" >Player 7</span>:</div>
+						<div><span id="p7moneyname" >Player 7</span><br><span id="p7role" ></span></div>
 						<div>$<span id="p7money">1500</span></div>
 					</td>
 				</tr>
 				<tr id="moneybarrow8" class="money-bar-row">
 					<td class="moneybararrowcell"><img src="images/arrow.png" id="p8arrow" class="money-bar-arrow" alt=">" /></td>
 					<td id="p8moneybar" class="moneybarcell">
-						<div><span id="p8moneyname" >Player 8</span>:</div>
+						<div><span id="p8moneyname" >Player 8</span><br><span id="p8role" ></span></div>
 						<div>$<span id="p8money">1500</span></div>
 					</td>
 				</tr>
@@ -256,7 +256,12 @@
 		</div>
 
 		<div id="player1input" class="player-input">
-			Player 1: <input type="text" id="player1name" title="Player name" maxlength="16" value="Aya (Pioneer)" />
+			Player 1: <input type="text" id="player1name" title="Player name" maxlength="16" value="Aya" />
+			<select id="player1role" title="Player role">
+				<option value="Pioneer" selected="selected">Pioneer</option>
+				<option value="Transporter">Transporter</option>
+				<option value="Collector">Collector</option>
+			</select>
 			<select id="player1color" title="Player color">
 				<option style="color: aqua;">Aqua</option>
 				<option style="color: black;">Black</option>
@@ -282,7 +287,12 @@
 		</div>
 
 		<div id="player2input" class="player-input">
-			Player 2: <input type="text" id="player2name" title="Player name" maxlength="16" value="Sophia (Transporter)" />
+			Player 2: <input type="text" id="player2name" title="Player name" maxlength="16" value="Sophia" />
+			<select id="player2role" title="Player role">
+				<option value="Pioneer">Pioneer</option>
+				<option value="Transporter" selected="selected">Transporter</option>
+				<option value="Collector">Collector</option>
+			</select>
 			<select id="player2color" title="Player color">
 				<option style="color: aqua;">Aqua</option>
 				<option style="color: black;">Black</option>
@@ -308,7 +318,12 @@
 		</div>
 
 		<div id="player3input" class="player-input">
-			Player 3: <input type="text" id="player3name" title="Player name" maxlength="16" value="Maria (Collector)" />
+			Player 3: <input type="text" id="player3name" title="Player name" maxlength="16" value="Maria" />
+			<select id="player3role" title="Player role">
+				<option value="Pioneer">Pioneer</option>
+				<option value="Transporter">Transporter</option>
+				<option value="Collector" selected="selected">Collector</option>
+			</select>
 			<select id="player3color" title="Player color">
 				<option style="color: aqua;">Aqua</option>
 				<option style="color: black;">Black</option>
