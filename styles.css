@@ -749,6 +749,8 @@ td {
 	left: 0px;
 	text-align: center;
 	width: 100%;
+	color: #fff; /* 白色文字 */
+	background-color: #000; /* 黑色背景 */
 }
 
 .cell-position-holder {
